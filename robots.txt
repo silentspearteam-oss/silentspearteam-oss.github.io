@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://silentspearteam-oss.github.io/kr8-063-nanodrone/sitemap.xml

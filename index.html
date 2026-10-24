@@ -1,79 +1,1719 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Silent Spear Team</title>
-<meta name="description" content="Silent Spear Team: engineering students at the Higher Colleges of Technology building the KR8.063 Nanodrone, an intelligent indoor reconnaissance platform.">
-<meta name="theme-color" content="#070B12">
-<link rel="canonical" href="https://silentspearteam-oss.github.io/">
-
-<!-- Icons: copy these files to the ROOT of the repository -->
-<link rel="icon" href="/favicon.ico" sizes="48x48">
-<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="manifest" href="/site.webmanifest">
-
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Silent Spear Team">
-<meta property="og:title" content="Silent Spear Team">
-<meta property="og:description" content="Engineering students at the Higher Colleges of Technology building the KR8.063 Nanodrone.">
-<meta property="og:url" content="https://silentspearteam-oss.github.io/">
-<meta property="og:image" content="https://silentspearteam-oss.github.io/icon-512.png">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Silent Spear Team">
-<meta name="twitter:image" content="https://silentspearteam-oss.github.io/icon-512.png">
-
 <meta name="google-site-verification" content="vNxw7gq47skxNy9MuAv16bcoHOBVcG-lqnfyoXe0hng" />
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebSite",
-      "@id": "https://silentspearteam-oss.github.io/#website",
-      "name": "Silent Spear Team",
-      "alternateName": ["SST"],
-      "url": "https://silentspearteam-oss.github.io/",
-      "publisher": { "@id": "https://silentspearteam-oss.github.io/#org" }
-    },
-    {
-      "@type": "Organization",
-      "@id": "https://silentspearteam-oss.github.io/#org",
-      "name": "Silent Spear Team",
-      "url": "https://silentspearteam-oss.github.io/",
-      "logo": "https://silentspearteam-oss.github.io/icon-512.png",
-      "email": "silentspear.team@gmail.com"
-    }
-  ]
-}
-</script>
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070B12">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="canonical" href="https://silentspearteam-oss.github.io/kr8-063-nanodrone/">
+<meta name="keywords" content="Silent Spear Team, KR8.063 Nanodrone, nanodrone, indoor drone, UAV, HCT, Higher Colleges of Technology, Kre8+, person detection, capstone">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Silent Spear Team · KR8.063 Nanodrone">
+<meta property="og:description" content="Intelligent Indoor Reconnaissance Platform by Silent Spear Team, Higher Colleges of Technology. SO THAT HUMANS ARE NEVER THE FIRST TO ENTER.">
+<meta property="og:url" content="https://silentspearteam-oss.github.io/kr8-063-nanodrone/">
+<meta property="og:image" content="https://silentspearteam-oss.github.io/kr8-063-nanodrone/img/drone.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Silent Spear Team","url":"https://silentspearteam-oss.github.io/kr8-063-nanodrone/","email":"silentspear.team@gmail.com","logo":"https://silentspearteam-oss.github.io/kr8-063-nanodrone/icon-512.png","description":"Engineering students at the Higher Colleges of Technology developing the KR8.063 Nanodrone, an intelligent indoor reconnaissance platform."}</script>
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
+<title>Silent Spear Team · KR8.063 Nanodrone</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="KR8.063 Nanodrone by Silent Spear Team: an intelligent indoor reconnaissance platform developed at the Higher Colleges of Technology with Kre8+.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Barlow:wght@400;500&family=Roboto+Mono:wght@400;500;700&display=swap">
 <style>
-  :root{color-scheme:dark;--bg:#070B12;--panel:#101A28;--border:#304259;--text:#E6EDF5;--muted:#AAB8C5;--blue:#2391EB;--cyan:#00BCEB}
-  *{box-sizing:border-box}
-  body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-  main{max-width:560px;text-align:center}
-  img{width:128px;height:128px;border-radius:24px}
-  h1{margin:16px 0 4px;font-size:clamp(28px,6vw,40px);letter-spacing:.02em}
-  p{color:var(--muted);margin:8px 0}
-  .card{display:block;margin-top:28px;padding:20px;background:var(--panel);border:1px solid var(--border);border-radius:14px;color:var(--text);text-decoration:none;text-align:left;transition:border-color .2s}
-  .card:hover,.card:focus-visible{border-color:var(--cyan);outline:none}
-  .card strong{display:block;font-size:18px;color:var(--cyan)}
-  .card span{color:var(--muted);font-size:14px}
+
+/* Layout: light logo bar → title + tabs → one of two independent sections (THE DRONE / LIVE DEMO).
+   Each section = main frame (left) + analytics panel (right); stacks to one column on phones.
+   One spacing scale (--s*) is used everywhere so edges and gaps line up. Single dark theme by design. */
+:root{
+  --bar:#F7F5F4;
+  --ink:#0B111B; --panel:#101A28; --panel2:#162234; --panel3:#19283D; --track:#223247;
+  --border:#304259; --label:#7C8898; --text:#E6EDF5; --silver:#AAB8C5;
+  --blue:#2391EB; --blue2:#1E75BD; --cyan:#00BCEB; --glow:rgba(0,188,235,.45);
+  --ok:#68D75C; --warn:#EB7846; --idle:#6E7D90;
+  --f-ui:"Rajdhani",Bahnschrift,"Barlow Semi Condensed","Arial Narrow",sans-serif;
+  --f-body:"Barlow",Aptos,"Segoe UI",system-ui,sans-serif;
+  --f-num:"Roboto Mono",ui-monospace,Menlo,Consolas,monospace;
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;
+  --pad:20px;
+  color-scheme:dark;
+}
+@media (max-width:600px){:root{--pad:16px}}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{background:var(--ink)}
+body{background:var(--ink);color:var(--text);font-family:var(--f-body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bar)}
+.gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.in{max-width:1400px;margin:0 auto}
+.nt{text-transform:none!important}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--idle);flex:none}
+.dot.ok{background:var(--ok);box-shadow:0 0 8px rgba(104,215,92,.55)}.dot.warn{background:var(--warn)}.dot.cy{background:var(--cyan);box-shadow:0 0 8px var(--glow)}
+.dot.blink{animation:blink 1.2s infinite}@keyframes blink{50%{opacity:.35}}
+.lbl{font-family:var(--f-ui);font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--silver);line-height:1.3}
+
+/* ---------- logo bar ---------- */
+.topbar{background:var(--bar);border-bottom:3px solid var(--blue)}
+.tb{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:var(--s4);padding-block:var(--s3)}
+.tb img{display:block;height:auto}
+.lg-hct{width:clamp(150px,20vw,280px);justify-self:start}
+.lg-ss{width:clamp(220px,28vw,400px);justify-self:center}
+.tb .right{justify-self:end;display:flex;align-items:center;gap:var(--s5)}
+.lg-k{width:clamp(120px,12vw,180px)}
+.sys{display:flex;align-items:center;gap:var(--s2);font-family:var(--f-ui);font-weight:600;font-size:14px;letter-spacing:.06em;color:#3c4652;text-transform:uppercase;white-space:nowrap}
+@media (max-width:900px){.sys{display:none}}
+@media (max-width:640px){
+  .tb{grid-template-columns:1fr 1fr;grid-template-areas:"ss ss" "hct k";row-gap:var(--s3);column-gap:var(--s4)}
+  .lg-ss{grid-area:ss;width:min(80vw,330px)}
+  .lg-hct{grid-area:hct;width:100%;max-width:220px}
+  .tb .right{grid-area:k}.lg-k{width:100%;max-width:130px}
+}
+
+/* ---------- title + tabs ---------- */
+.head{padding-block:var(--s5) 0}
+.head h1{font-family:var(--f-ui);font-weight:700;font-size:clamp(30px,6.4vw,42px);line-height:1;margin:0;letter-spacing:.02em}
+.head h1 span{color:var(--cyan);text-shadow:0 0 16px var(--glow)}
+.head p{margin:var(--s2) 0 0;color:var(--label);font-family:var(--f-ui);font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:13px;line-height:1.4}
+.tabs{display:grid;grid-template-columns:repeat(2,minmax(0,220px));border-bottom:1px solid var(--border);margin-top:var(--s5)}
+@media (max-width:600px){.tabs{grid-template-columns:1fr 1fr}}
+.tab{font-family:var(--f-ui);font-weight:700;font-size:16px;letter-spacing:.1em;text-transform:uppercase;color:var(--label);background:transparent;border:0;border-bottom:3px solid transparent;margin-bottom:-1px;padding:var(--s3) var(--s2);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:var(--s2)}
+.tab small{font-family:var(--f-num);font-size:10.5px;color:var(--idle);font-weight:500}
+.tab[aria-selected="true"]{color:var(--text);border-bottom-color:var(--blue);background:linear-gradient(180deg,transparent,rgba(35,145,235,.08))}
+.tab[aria-selected="true"] small{color:var(--cyan)}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+
+/* ---------- section layout ---------- */
+section.view{padding-block:var(--s5) 0}
+.grid{display:grid;grid-template-columns:1fr;gap:var(--s5)}
+@media (min-width:980px){.grid{grid-template-columns:minmax(0,1.7fr) minmax(340px,1fr);align-items:start}}
+.col{display:flex;flex-direction:column;gap:var(--s3);min-width:0}
+.feedtag{align-self:flex-start;display:inline-flex;align-items:center;gap:var(--s2);font-family:var(--f-ui);font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:0 var(--s1) var(--s2);border-bottom:3px solid var(--blue2);margin-bottom:calc(var(--s3) * -1)}
+.frame{position:relative;border:1px solid var(--border);background:#000;overflow:hidden}
+.br{position:absolute;width:18px;height:18px;border:solid var(--cyan);pointer-events:none;filter:drop-shadow(0 0 4px var(--glow));z-index:5}
+.br.a{top:var(--s2);left:var(--s2);border-width:2px 0 0 2px}.br.b{top:var(--s2);right:var(--s2);border-width:2px 2px 0 0}.br.c{bottom:var(--s2);left:var(--s2);border-width:0 0 2px 2px}.br.d{bottom:var(--s2);right:var(--s2);border-width:0 2px 2px 0}
+.hud{position:absolute;z-index:4;font-family:var(--f-num);font-size:11px;letter-spacing:.08em;color:var(--silver);pointer-events:none;text-transform:uppercase;line-height:1.6}
+.hud .v{color:var(--text)}
+.hud.tl{top:var(--s4);left:var(--s4)}.hud.tr{top:var(--s4);right:var(--s4);text-align:right}.hud.bl{bottom:var(--s4);left:var(--s4)}.hud.brr{bottom:var(--s4);right:var(--s4);text-align:right}
+@media (max-width:600px){.hud .wide{display:none}.srow{font-size:14.5px}.hs{width:24px;height:24px;font-size:10px}.chip{font-size:14px}}
+.stamp{display:inline-block;background:rgba(0,0,0,.78);color:var(--text);font-family:var(--f-ui);font-weight:600;font-size:14px;letter-spacing:.06em;padding:var(--s1) var(--s3);border-left:3px solid var(--cyan)}
+.hud.brr .v,.hud.brr{background:transparent}
+.zchip{background:rgba(0,0,0,.6);padding:2px var(--s2)}
+.controls{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:var(--s2)}
+@media (max-width:600px){.controls{grid-template-columns:1fr 1fr}.btn{padding:0 var(--s2);font-size:13px;letter-spacing:.08em}}
+.btn{white-space:nowrap;font-family:var(--f-ui);font-weight:700;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--text);background:var(--panel2);border:1px solid var(--border);padding:0 var(--s4);min-height:44px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:var(--s2)}
+.btn:hover{border-color:var(--blue)}
+.btn.pri{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.note{display:grid;grid-template-columns:10px 1fr;gap:var(--s3);align-items:start;padding:var(--s3) var(--s4);border:1px solid var(--border);background:var(--panel);font-size:14px;color:var(--silver);line-height:1.5}
+.note .dot{margin-top:6px}
+.note b{color:var(--text);font-weight:500}
+
+/* analytics panel (same build in both sections) */
+.ana{position:relative;border:1px solid var(--border);background:var(--panel);padding:var(--pad);display:flex;flex-direction:column;gap:var(--s4);min-width:0}
+.ana::before{content:"";position:absolute;top:-1px;left:-1px;width:42%;height:3px;background:var(--blue2)}
+.ana-h h2{font-family:var(--f-ui);font-weight:600;font-size:22px;letter-spacing:.04em;text-transform:uppercase;margin:0;line-height:1.1}
+.ana-h p{margin:var(--s1) 0 0;font-family:var(--f-ui);font-weight:500;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--label)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+.tile{border:1px solid var(--border);background:var(--panel2);padding:var(--s4);min-height:112px;display:flex;flex-direction:column;justify-content:space-between;gap:var(--s2);min-width:0}
+.tile .big{font-family:var(--f-num);font-weight:700;font-size:clamp(34px,7vw,44px);line-height:1}
+.tile .mid{display:flex;align-items:center;gap:var(--s2);font-family:var(--f-ui);font-weight:700;font-size:clamp(18px,4.6vw,21px);letter-spacing:.04em;text-transform:uppercase;line-height:1.1;min-width:0}
+.tile .mid span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pos{border:1px solid var(--border);border-left:4px solid var(--blue);background:var(--panel3);padding:var(--s4);min-height:148px;display:flex;flex-direction:column;gap:var(--s3)}
+.pos .val{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:var(--s2)}
+.pos .t{font-family:var(--f-ui);font-weight:700;font-size:clamp(24px,5.6vw,32px);letter-spacing:.04em;text-transform:uppercase;color:var(--label);line-height:1.1;text-wrap:balance}
+.pos .t.on{color:#3A9BF0;text-shadow:0 0 18px rgba(35,145,235,.35)}
+.pos .t.big.on{font-size:clamp(34px,8vw,46px)}
+.pos .desc{margin:0;color:var(--silver);font-size:15px;line-height:1.5;max-width:42ch}
+.pos .tag{font-family:var(--f-num);font-size:11px;letter-spacing:.08em;color:var(--label);text-transform:uppercase}
+.pos .tag:empty{display:none}
+.conf .row{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s3)}
+.conf .num{font-family:var(--f-num);font-size:16px;font-weight:700}
+.bar{height:12px;background:var(--track);margin-top:var(--s2);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--cyan));transition:width .2s}
+.rows{border-top:1px solid var(--border);padding-top:var(--s2);display:flex;flex-direction:column}
+.srow{display:grid;grid-template-columns:10px minmax(0,1fr) auto;align-items:center;column-gap:var(--s3);padding-block:var(--s2);font-family:var(--f-ui);font-weight:600;font-size:16px;letter-spacing:.04em;text-transform:uppercase;line-height:1.25}
+.srow .sv{font-family:var(--f-num);font-size:11px;color:var(--label);letter-spacing:.06em;text-align:right;white-space:nowrap}
+
+/* ---------- THE DRONE: photo explorer ---------- */
+.pv{aspect-ratio:1513/1039;cursor:zoom-in;touch-action:manipulation}
+.pv.zoomed{cursor:zoom-out}
+.pz{position:absolute;inset:0;transform-origin:0 0;transition:transform .65s cubic-bezier(.2,.7,.2,1);will-change:transform}
+.pz img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;user-select:none;-webkit-user-drag:none}
+.pv::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 50% 50%,transparent 55%,rgba(5,7,11,.5));z-index:2}
+.hs{position:absolute;width:30px;height:30px;margin:0;padding:0;border-radius:50%;border:2px solid #fff;background:var(--blue);color:#fff;font-family:var(--f-num);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;transform:translate(-50%,-50%) scale(calc(1 / var(--z,1)));transition:transform .65s cubic-bezier(.2,.7,.2,1),background .2s;box-shadow:0 0 0 4px rgba(35,145,235,.35),0 2px 8px rgba(0,0,0,.4);z-index:3}
+.hs::before{content:"";position:absolute;inset:-8px;border-radius:50%;border:2px solid rgba(0,188,235,.7);animation:ping 2s infinite}
+.hs[aria-pressed="true"]{background:var(--cyan);color:#05070B}
+@keyframes ping{0%{transform:scale(.7);opacity:1}100%{transform:scale(1.5);opacity:0}}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2)}
+.chip{display:grid;grid-template-columns:22px minmax(0,1fr);align-items:center;gap:var(--s2);text-align:left;font-family:var(--f-ui);font-weight:600;font-size:15px;letter-spacing:.02em;line-height:1.2;color:var(--text);background:var(--panel2);border:1px solid var(--border);padding:var(--s2) var(--s3);min-height:48px;cursor:pointer}
+.chip .n{font-family:var(--f-num);font-size:11px;color:var(--label)}
+.chip:hover{border-color:var(--blue)}
+.chip[aria-pressed="true"]{border-color:var(--cyan);background:rgba(0,188,235,.1)}
+.chip[aria-pressed="true"] .n{color:var(--cyan)}
+.caption{font-size:13.5px;color:var(--label);line-height:1.5;margin:0}
+
+/* ---------- LIVE DEMO ---------- */
+.banner{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s1) var(--s4);border:1px solid var(--cyan);background:rgba(0,188,235,.07);padding:var(--s3) var(--s4);margin-bottom:var(--s5)}
+.banner b{font-family:var(--f-ui);font-weight:700;font-size:16px;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);line-height:1.3}
+.banner span{font-family:var(--f-num);font-size:11px;color:var(--silver);letter-spacing:.06em;text-transform:uppercase;line-height:1.5}
+.feedbox{position:relative;margin:0 auto;width:100%;aspect-ratio:4/3;background:#000}
+.feedbox.idle{aspect-ratio:auto!important;width:100%!important;min-height:300px}
+.feedbox.idle .ov{position:relative;inset:auto;min-height:300px}
+.feedbox video,.feedbox canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.feedbox video{object-fit:contain;background:#000}
+.feedbox video.mirror{transform:scaleX(-1)}
+.ov{position:absolute;inset:0;z-index:4;display:flex;align-items:center;justify-content:center;padding:var(--s6) var(--s5);background:radial-gradient(70% 70% at 50% 40%,rgba(16,40,59,.92),rgba(5,7,11,.97));overflow:auto}
+.ovc{max-width:440px;margin:auto;display:flex;flex-direction:column;align-items:stretch;gap:var(--s4);text-align:left}
+.ovc .eye{font-family:var(--f-num);font-size:11px;letter-spacing:.14em;color:var(--cyan);text-transform:uppercase}
+.ovc h3{font-family:var(--f-ui);font-weight:700;font-size:clamp(21px,5.4vw,26px);letter-spacing:.04em;text-transform:uppercase;margin:0;line-height:1.15}
+.ovc p{margin:0;color:var(--silver);font-size:15px;line-height:1.55}
+.ovc ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:var(--s2);font-size:14px;color:var(--silver);line-height:1.5}
+.ovc li{display:grid;grid-template-columns:6px 1fr;gap:var(--s3);align-items:start}
+.ovc li::before{content:"";width:6px;height:6px;margin-top:8px;background:var(--cyan)}
+.ovc li b{color:var(--text);font-weight:500}
+.ovc .btn{align-self:flex-start;margin-top:var(--s1)}
+.ovc.c{align-items:center;text-align:center}.ovc.c .btn{align-self:center}
+.spin{width:34px;height:34px;border:2px solid var(--track);border-top-color:var(--cyan);border-radius:50%;animation:rot 1s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+
+/* ---------- mission + footer ---------- */
+.techline{font-family:var(--f-ui);font-weight:600;font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;color:#8a95a3;margin-top:var(--s4);line-height:1.5}
+.mission{text-align:center;padding-block:var(--s7) var(--s2)}
+.mission p{font-family:var(--f-ui);font-weight:700;font-size:clamp(18px,4.6vw,26px);letter-spacing:.14em;margin:0;line-height:1.35;text-wrap:balance}
+.mission p span{color:var(--cyan);text-shadow:0 0 14px var(--glow)}
+.mission i{display:block;width:72px;height:2px;background:var(--blue);margin:var(--s4) auto 0}
+footer .in{border-top:1px solid var(--border);margin-top:var(--s6);padding-block:var(--s4) var(--s5);display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--s2) var(--s5);font-family:var(--f-ui);font-weight:600;font-size:12.5px;letter-spacing:.05em;color:#8a95a3;text-transform:uppercase;line-height:1.6}
+footer b{color:var(--text);font-weight:600}
+
+/* ---------- site navigation ---------- */
+.pnav{position:sticky;top:env(safe-area-inset-top,0px);z-index:8;background:rgba(11,17,27,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--border);margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.pnav-in{display:flex;gap:var(--s1);overflow-x:auto;scrollbar-width:none;max-width:1400px;margin:0 auto}
+.pnav-in::-webkit-scrollbar{display:none}
+.pl{flex:none;font-family:var(--f-ui);font-weight:700;font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--label);background:none;border:0;border-bottom:3px solid transparent;padding:var(--s4) var(--s3) calc(var(--s4) - 3px);cursor:pointer;white-space:nowrap}
+.pl:hover{color:var(--text)}
+.pl[aria-current="page"]{color:var(--text);border-bottom-color:var(--blue)}
+.page{padding-block:var(--s6) 0}
+
+/* ---------- shared page type ---------- */
+.kicker{font-family:var(--f-num);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:var(--s2)}
+.h1{font-family:var(--f-ui);font-weight:700;font-size:clamp(30px,6vw,44px);line-height:1.05;letter-spacing:.02em;margin:0;text-wrap:balance}
+.h2{font-family:var(--f-ui);font-weight:700;font-size:clamp(24px,4.6vw,32px);line-height:1.1;letter-spacing:.02em;margin:0;text-wrap:balance}
+.pagehead{max-width:760px;margin-bottom:var(--s6)}
+.pagehead p{color:var(--silver);font-size:16px;line-height:1.6;margin:var(--s3) 0 0}
+.prose p,.prose-p{color:var(--silver);font-size:16px;line-height:1.65;margin:0;max-width:62ch}
+.prose{display:flex;flex-direction:column;gap:var(--s3)}
+.block{margin-top:var(--s7)}
+.block>.h2{margin-bottom:var(--s5)}
+.split{display:grid;grid-template-columns:1fr;gap:var(--s4)}
+@media (min-width:900px){.split{grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:var(--s6);align-items:start}}
+
+/* ---------- home hero ---------- */
+.hero{position:relative;min-height:clamp(440px,62vh,620px);border:1px solid var(--border);overflow:hidden;display:flex;align-items:flex-end}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:68% 45%}
+.hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,12,20,.94) 0%,rgba(7,12,20,.78) 38%,rgba(7,12,20,.15) 75%),linear-gradient(0deg,rgba(7,12,20,.85),transparent 55%)}
+@media (max-width:760px){.hero-shade{background:linear-gradient(0deg,rgba(7,12,20,.97) 0%,rgba(7,12,20,.85) 48%,rgba(7,12,20,.2) 100%)}.hero-img{object-position:72% 30%}}
+.hero-txt{position:relative;z-index:2;padding:var(--s6) var(--pad);max-width:640px;display:flex;flex-direction:column;gap:var(--s3)}
+.eyebrow{font-family:var(--f-num);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
+.hero h1{font-family:var(--f-ui);font-weight:700;font-size:clamp(40px,9vw,72px);line-height:.95;margin:0;letter-spacing:.01em}
+.hero h1 span{color:var(--cyan);text-shadow:0 0 22px var(--glow)}
+.hero-sub{margin:0;font-family:var(--f-ui);font-weight:600;font-size:clamp(14px,3.4vw,17px);letter-spacing:.12em;text-transform:uppercase;color:var(--silver)}
+.hero-mission{margin:var(--s2) 0 0;font-family:var(--f-ui);font-weight:700;font-size:clamp(15px,3.6vw,19px);letter-spacing:.14em;color:var(--text);border-left:3px solid var(--cyan);padding-left:var(--s3)}
+.hero-mission span{color:var(--cyan)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s3)}
+@media (max-width:600px){.hero-cta{display:grid;grid-template-columns:1fr}}
+.statusbar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--border);border-top:0;background:var(--panel)}
+.st{display:grid;grid-template-columns:10px 1fr;gap:var(--s3);align-items:start;padding:var(--s4) var(--pad);border-left:1px solid var(--border)}
+.st:first-child{border-left:0}
+.st .dot{margin-top:4px}
+.st b{display:block;font-family:var(--f-ui);font-weight:700;font-size:17px;letter-spacing:.04em;text-transform:uppercase;margin-top:2px}
+.st b.nt{text-transform:none}
+@media (max-width:900px){.statusbar{grid-template-columns:1fr 1fr}.st:nth-child(3){border-left:0}.st:nth-child(n+3){border-top:1px solid var(--border)}}
+
+/* ---------- cards ---------- */
+.cards4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s3)}
+.cards3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3)}
+@media (max-width:1000px){.cards4{grid-template-columns:1fr 1fr}}
+@media (max-width:760px){.cards3{grid-template-columns:1fr}}
+@media (max-width:520px){.cards4{grid-template-columns:1fr}}
+.card{position:relative;text-align:left;font:inherit;color:inherit;border:1px solid var(--border);background:var(--panel);padding:var(--pad);display:flex;flex-direction:column;gap:var(--s2)}
+.card::before{content:"";position:absolute;top:-1px;left:-1px;width:40px;height:3px;background:var(--blue)}
+.card svg{width:28px;height:28px;fill:none;stroke:var(--cyan);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;margin-bottom:var(--s2)}
+.card h3{font-family:var(--f-ui);font-weight:700;font-size:20px;letter-spacing:.03em;text-transform:uppercase;margin:0;line-height:1.15}
+.card p{margin:0;color:var(--silver);font-size:15px;line-height:1.55}
+.card.link{cursor:pointer}.card.link:hover{border-color:var(--blue)}
+.contact{display:grid;grid-template-columns:1fr;gap:var(--s5);border:1px solid var(--border);background:linear-gradient(135deg,var(--panel2),var(--panel));padding:var(--s6) var(--pad)}
+@media (min-width:900px){.contact{grid-template-columns:1fr auto;align-items:center}}
+.contact .prose-p{margin-top:var(--s3)}
+.mailbox{display:flex;flex-direction:column;gap:var(--s2);min-width:0}
+.mail{font-family:var(--f-num);font-size:clamp(15px,3.8vw,18px);color:var(--text);user-select:all;word-break:break-all}
+.mail-actions{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2);margin-top:var(--s1)}
+a.btn{text-decoration:none}
+
+/* ---------- team ---------- */
+.tgroup{display:grid;grid-template-columns:1fr;gap:var(--s4);padding-block:var(--s5);border-top:1px solid var(--border)}
+@media (min-width:900px){.tgroup{grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:var(--s6)}}
+.tg-h h2{font-family:var(--f-ui);font-weight:700;font-size:22px;letter-spacing:.04em;text-transform:uppercase;margin:0;line-height:1.15}
+.tg-h p{margin:var(--s2) 0 0;color:var(--silver);font-size:14.5px;line-height:1.55}
+.tg-h p.lbl{color:var(--cyan);font-size:12px}
+.people{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--s3);align-content:start}
+.person{display:grid;grid-template-columns:48px minmax(0,1fr);gap:var(--s3);align-items:center;border:1px solid var(--border);background:var(--panel);padding:var(--s3) var(--s4);text-align:left;font:inherit;color:inherit;min-height:76px}
+.person b{display:block;font-family:var(--f-ui);font-weight:700;font-size:17px;letter-spacing:.02em;line-height:1.2}
+.person span:not(.av){display:block;font-size:13.5px;color:var(--label);margin-top:2px;line-height:1.35}
+.av{width:48px;height:48px;display:flex;align-items:center;justify-content:center;border:1px solid var(--blue);background:rgba(35,145,235,.1);font-family:var(--f-num);font-weight:700;font-size:14px;color:var(--cyan);letter-spacing:.04em}
+.person.lead{border-color:var(--cyan);background:linear-gradient(135deg,rgba(0,188,235,.1),var(--panel))}
+.person.ref{cursor:pointer;border-style:dashed}.person.ref .av{border-style:dashed}
+
+/* ---------- posters ---------- */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:var(--s3)}
+@media (max-width:520px){.pgrid{grid-template-columns:1fr 1fr;gap:var(--s2)}}
+.poster{position:relative;padding:0;border:1px solid var(--border);background:var(--panel);cursor:zoom-in;aspect-ratio:3/4;overflow:hidden}
+.poster img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.poster:hover img{transform:scale(1.03)}
+.poster .pn{position:absolute;left:var(--s2);bottom:var(--s2);background:rgba(0,0,0,.75);font-family:var(--f-num);font-size:11px;color:var(--text);padding:2px var(--s2)}
+.poster.err{display:flex;align-items:center;justify-content:center;color:var(--label);font-family:var(--f-num);font-size:12px}
+.lightbox{position:fixed;inset:0;z-index:50;background:rgba(5,8,12,.95);display:flex;align-items:center;justify-content:center;padding:calc(64px + env(safe-area-inset-top,0px)) 56px calc(48px + env(safe-area-inset-bottom,0px))}
+.lightbox img{max-width:100%;max-height:100%;object-fit:contain}
+.lb-x{position:absolute;top:calc(var(--s4) + env(safe-area-inset-top,0px));right:max(var(--s4),env(safe-area-inset-right,0px))}
+.lb-n{position:absolute;top:50%;transform:translateY(-50%);left:max(var(--s2),env(safe-area-inset-left,0px));width:44px;padding:0;font-size:24px}
+.lightbox[data-single="1"] .lb-n{display:none}
+.lb-n.r{left:auto;right:max(var(--s2),env(safe-area-inset-right,0px))}
+.lb-c{position:absolute;bottom:calc(var(--s4) + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;color:var(--silver);font-size:12px}
+
+/* ---------- film ---------- */
+.film{aspect-ratio:16/9}
+.filmbox{position:absolute;inset:0}
+.filmbox iframe,.filmbox video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+.soon{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:var(--s5);background:linear-gradient(rgba(7,12,20,.82),rgba(7,12,20,.82)),var(--soon-bg) center/cover}
+.soon h3{font-family:var(--f-ui);font-weight:700;font-size:clamp(22px,5vw,32px);letter-spacing:.06em;text-transform:uppercase;margin:var(--s2) 0 0}
+.soon p{color:var(--silver);margin:var(--s2) 0 0}
+
+/* ---------- highlights ---------- */
+.zoomable{display:block;width:100%;padding:0;border:0;background:#000;cursor:zoom-in;overflow:hidden}
+.zoomable img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.zoomable:hover img{transform:scale(1.03)}
+.feat{display:grid;grid-template-columns:1fr;border:1px solid var(--border);background:var(--panel)}
+@media (min-width:900px){.feat{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}}
+.feat-img{aspect-ratio:3/2}
+.feat-txt{padding:var(--s6) var(--pad);display:flex;flex-direction:column;justify-content:center;gap:var(--s3);border-top:3px solid var(--blue)}
+@media (min-width:900px){.feat-txt{border-top:0;border-left:3px solid var(--blue)}}
+.vip{display:flex;flex-direction:column;gap:var(--s3);margin-top:var(--s2)}
+.vip b{display:block;font-family:var(--f-ui);font-weight:700;font-size:18px;letter-spacing:.02em;line-height:1.25}
+.vip span{display:block;color:var(--silver);font-size:14.5px;line-height:1.5;margin-top:2px}
+.duo{display:grid;grid-template-columns:1fr;gap:var(--s3);margin-top:var(--s3)}
+@media (min-width:900px){.duo{grid-template-columns:1fr 1fr}}
+.vcard{display:flex;flex-direction:column;border:1px solid var(--border);background:var(--panel)}
+.vimg{aspect-ratio:3/2}
+.vbody{padding:var(--pad);border-top:3px solid var(--blue2);flex:1}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--s3)}
+.gal figure{margin:0;border:1px solid var(--border);background:var(--panel);display:flex;flex-direction:column}
+.gal .zoomable{aspect-ratio:4/3}
+.gal figcaption{padding:var(--s3) var(--s4);display:flex;flex-direction:column;gap:2px}
+.gal figcaption b{font-family:var(--f-ui);font-weight:700;font-size:16px;letter-spacing:.03em;text-transform:uppercase}
+.gal figcaption span{color:var(--silver);font-size:13.5px;line-height:1.45}
+
+/* ---------- home: recognition + drone tracks ---------- */
+.recog{display:grid;grid-template-columns:1fr;border:1px solid var(--border);background:var(--panel)}
+@media (min-width:900px){.recog{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}}
+.recog .zoomable{aspect-ratio:16/10;cursor:pointer}
+.recog-txt{padding:var(--s6) var(--pad);display:flex;flex-direction:column;justify-content:center;gap:var(--s3)}
+.recog-txt .btn{align-self:flex-start;margin-top:var(--s2)}
+.tracks{display:grid;grid-template-columns:1fr;gap:var(--s3);margin-top:var(--s5)}
+@media (min-width:900px){.tracks{grid-template-columns:1fr 1fr}}
+.track{border:1px solid var(--border);background:var(--panel);padding:var(--pad);display:grid;grid-template-columns:auto 1fr;gap:var(--s2) var(--s4);align-items:start}
+.track .num{font-family:var(--f-num);font-weight:700;font-size:28px;color:var(--cyan);line-height:1}
+.track h3{font-family:var(--f-ui);font-weight:700;font-size:19px;letter-spacing:.04em;text-transform:uppercase;margin:0;line-height:1.2}
+.track p{grid-column:2;margin:0;color:var(--silver);font-size:15px;line-height:1.55}
+.rtag{position:absolute;z-index:3;left:var(--s4);bottom:var(--s4);font-family:var(--f-num);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--silver);background:rgba(0,0,0,.6);padding:2px var(--s2)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+
+/* =================== ONE-PAGE LAYOUT (Kre8+-style, Silent Spear identity) =================== */
+html{scroll-behavior:smooth;scroll-padding-top:calc(72px + env(safe-area-inset-top,0px))}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body::before{background:#070B12}
+.in{max-width:1240px}
+
+/* header */
+.hdr{position:sticky;top:0;z-index:20;background:rgba(7,11,18,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(48,66,89,.7);padding-top:env(safe-area-inset-top,0px)}
+.hdr-in{max-width:1240px;margin:0 auto;height:72px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:var(--s5);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.hdr-logo img{height:38px;width:auto;display:block}
+.hdr-r{display:flex;align-items:center;gap:var(--s3);justify-self:end}
+.hdr-k{height:40px;width:auto;display:block}
+.hnav{display:flex;justify-content:center;gap:var(--s1)}
+.hnav a{font-family:var(--f-ui);font-weight:600;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--silver);text-decoration:none;padding:var(--s2) var(--s3);position:relative;white-space:nowrap}
+.hnav a::after{content:"";position:absolute;left:var(--s3);right:var(--s3);bottom:2px;height:2px;background:var(--cyan);transform:scaleX(0);transition:transform .25s}
+.hnav a:hover{color:var(--text)}
+.hnav a[aria-current="true"]{color:var(--text)}
+.hnav a[aria-current="true"]::after{transform:scaleX(1)}
+.burger{display:none;width:44px;height:44px;border:1px solid var(--border);background:var(--panel);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+.burger span{display:block;width:18px;height:2px;background:var(--text);transition:transform .25s,opacity .25s}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media (max-width:1100px){
+  .burger{display:flex}
+  .hdr-in{grid-template-columns:auto 1fr;height:64px}
+  .hdr-logo img{height:32px}.hdr-k{height:32px}
+  .hnav{position:fixed;left:0;right:0;top:calc(64px + env(safe-area-inset-top,0px));flex-direction:column;align-items:stretch;gap:0;background:rgba(7,11,18,.97);border-bottom:1px solid var(--border);padding:var(--s2) max(16px,env(safe-area-inset-right,0px)) var(--s4) max(16px,env(safe-area-inset-left,0px));transform:translateY(-8px);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+  .hnav.open{transform:none;opacity:1;pointer-events:auto}
+  .hnav a{padding:var(--s3) var(--s2);border-bottom:1px solid rgba(48,66,89,.5);font-size:17px}
+  .hnav a::after{left:0;right:auto;width:3px;top:var(--s3);bottom:var(--s3);height:auto;transform:scaleY(0)}
+  .hnav a[aria-current="true"]::after{transform:scaleY(1)}
+  html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
+}
+@media (max-width:420px){.hdr-logo img{height:28px}.hdr-k{height:28px}}
+
+/* hero */
+.hero2{position:relative;min-height:min(92vh,860px);display:flex;align-items:center;overflow:hidden;background:#05080D;padding-block:var(--s7)}
+.hero2-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 50%;filter:saturate(.85) brightness(.9)}
+.hero2-shade{position:absolute;inset:0;background:
+  linear-gradient(90deg,rgba(5,8,13,.96) 0%,rgba(5,8,13,.86) 34%,rgba(5,8,13,.35) 68%,rgba(5,8,13,.55) 100%),
+  linear-gradient(0deg,rgba(5,8,13,.95) 0%,transparent 40%),
+  radial-gradient(60% 60% at 20% 50%,rgba(0,188,235,.08),transparent 70%)}
+.hero2 .gut{position:relative;z-index:2;width:100%}
+.hero2-in{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:var(--s6);align-items:center}
+.hero2-main{display:flex;flex-direction:column;gap:var(--s4);max-width:640px}
+.hero2-logo{width:clamp(150px,22vw,230px);height:auto;filter:drop-shadow(0 0 24px rgba(0,188,235,.25))}
+.rule{height:2px;width:100%;max-width:560px;background:linear-gradient(90deg,var(--cyan),var(--blue) 60%,transparent)}
+.hero2 h1{font-family:var(--f-ui);font-weight:700;font-size:clamp(44px,8vw,84px);line-height:.95;margin:0;letter-spacing:.01em}
+.hero2 h1 span{color:var(--cyan);text-shadow:0 0 28px var(--glow)}
+.hero2-sub{margin:0;font-family:var(--f-ui);font-weight:600;font-size:clamp(14px,2.6vw,19px);letter-spacing:.14em;text-transform:uppercase;color:var(--silver)}
+.hero2-mission{margin:0;font-family:var(--f-ui);font-weight:700;font-size:clamp(15px,2.8vw,20px);letter-spacing:.14em;border-left:3px solid var(--cyan);padding-left:var(--s3);line-height:1.4}
+.hero2-mission span{color:var(--cyan)}
+.hero2-cta{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s2)}
+.glass{background:linear-gradient(160deg,rgba(25,40,61,.62),rgba(11,17,27,.55));border:1px solid rgba(120,160,200,.18);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.partners{padding:var(--s6) var(--s5);display:flex;flex-direction:column;align-items:center;gap:var(--s3);text-align:center}
+.partners img{height:auto;display:block}
+.p-hct{width:min(100%,280px)}.p-k{width:min(100%,200px)}
+.glass-rule{width:60%;height:1px;background:rgba(170,184,197,.25);margin-block:var(--s3)}
+.rtag2{position:absolute;z-index:3;right:max(16px,env(safe-area-inset-right,0px));bottom:var(--s4);font-family:var(--f-num);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--label)}
+.scrollcue{position:absolute;z-index:3;left:50%;bottom:var(--s4);width:26px;height:42px;margin-left:-13px;border:1.5px solid rgba(170,184,197,.5);border-radius:14px}
+.scrollcue span{position:absolute;left:50%;top:8px;width:3px;height:8px;margin-left:-1.5px;background:var(--cyan);border-radius:2px;animation:cue 1.8s infinite}
+@keyframes cue{0%{opacity:0;transform:translateY(0)}30%{opacity:1}100%{opacity:0;transform:translateY(14px)}}
+@media (max-width:900px){
+  .hero2{min-height:auto;align-items:flex-end;padding-block:calc(var(--s7) * 2) var(--s6)}
+  .hero2-bg{object-position:72% 30%}
+  .hero2-shade{background:linear-gradient(0deg,rgba(5,8,13,.98) 0%,rgba(5,8,13,.9) 50%,rgba(5,8,13,.35) 100%)}
+  .hero2-in{grid-template-columns:1fr}
+  .partners{flex-direction:row;flex-wrap:wrap;justify-content:center;padding:var(--s4);gap:var(--s3) var(--s5)}
+  .partners .lbl,.glass-rule{display:none}
+  .p-hct{width:170px}.p-k{width:120px}
+  .scrollcue{display:none}
+  .hero2-cta{display:grid;grid-template-columns:1fr}
+}
+
+/* status strip */
+.strip-wrap{background:#05080D}
+.strip-wrap .statusbar{border-top:1px solid var(--border)}
+
+/* sections */
+.sec{position:relative;padding-block:96px}
+.sec.alt{background:linear-gradient(180deg,#0D1520,#0B111B)}
+@media (max-width:760px){.sec{padding-block:64px}}
+.sechead,.pagehead{max-width:760px;margin-bottom:var(--s6)}
+.sechead::before,.pagehead::before{content:"";display:block;height:2px;width:min(100%,560px);background:linear-gradient(90deg,var(--cyan),var(--blue) 60%,transparent);margin-bottom:var(--s5)}
+.sechead h2,.pagehead .h1{font-family:var(--f-ui);font-weight:700;font-size:clamp(30px,5vw,46px);line-height:1.05;letter-spacing:.02em;margin:0;text-wrap:balance}
+.pagehead p{color:var(--silver);font-size:16.5px;line-height:1.6;margin:var(--s3) 0 0}
+.lead{font-family:var(--f-ui);font-weight:600;font-size:clamp(21px,3.4vw,28px);line-height:1.3;margin:0;color:var(--text);text-wrap:balance}
+.glasscards{margin-top:var(--s6)}
+.glasscards .card{background:linear-gradient(160deg,rgba(25,40,61,.55),rgba(16,26,40,.6));backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.net{overflow:hidden;background:radial-gradient(80% 60% at 70% 30%,rgba(0,188,235,.07),transparent 70%),#0B111B}
+.netbg{position:absolute;inset:0;width:100%;height:100%;opacity:.55;pointer-events:none}
+.net .gut{position:relative;z-index:1}
+
+/* image cards */
+.icards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s4)}
+@media (max-width:900px){.icards{grid-template-columns:1fr}}
+.icard{display:flex;flex-direction:column;border:1px solid var(--border);background:var(--panel);overflow:hidden;transition:border-color .25s,transform .25s}
+.icard:hover{border-color:var(--blue);transform:translateY(-3px)}
+.icard-img{aspect-ratio:16/10;overflow:hidden;position:relative}
+.icard-img::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(16,26,40,.8),transparent 55%)}
+.icard-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.icard:hover .icard-img img{transform:scale(1.04)}
+.icard-b{padding:var(--pad);display:flex;flex-direction:column;gap:var(--s2);flex:1;border-top:3px solid var(--blue)}
+.icard-b h3{font-family:var(--f-ui);font-weight:700;font-size:22px;letter-spacing:.03em;text-transform:uppercase;margin:0;line-height:1.15}
+.icard-b p{margin:0;color:var(--silver);font-size:15px;line-height:1.55}
+.icard-b .lbl{color:var(--cyan);font-size:12px}
+
+/* numbers band */
+.numbers{position:relative;padding-block:72px;background:
+  repeating-linear-gradient(90deg,rgba(35,145,235,.10) 0 1px,transparent 1px 14px),
+  linear-gradient(180deg,#0B111B,#0E1828 50%,#0B111B);overflow:hidden;border-block:1px solid var(--border)}
+.numbers::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 80% at 50% 120%,rgba(0,188,235,.18),transparent 70%)}
+.numbers .in{position:relative}
+.numbers h2{text-align:center;font-family:var(--f-ui);font-weight:600;font-size:clamp(26px,4.4vw,38px);letter-spacing:.03em;margin:0 0 var(--s6)}
+.nums{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--s4)}
+@media (max-width:900px){.nums{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:var(--s6)}}
+@media (max-width:520px){.nums{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stat{text-align:center;display:flex;flex-direction:column;align-items:center;gap:var(--s2)}
+.stat b{font-family:var(--f-ui);font-weight:700;font-size:clamp(46px,7vw,68px);line-height:1;color:#7FD7F7;text-shadow:0 0 22px rgba(0,188,235,.35);font-variant-numeric:tabular-nums}
+.stat span{font-family:var(--f-ui);font-weight:600;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--silver);max-width:16ch;line-height:1.3}
+.stat::after{content:"";width:64px;height:2px;background:var(--blue);margin-top:var(--s2)}
+
+/* facilities-style lab section */
+.facil{position:relative;padding-block:120px;overflow:hidden;background:#05080D}
+.facil-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.35) brightness(.7)}
+.facil-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,8,13,.85),rgba(5,8,13,.35) 70%),linear-gradient(0deg,rgba(11,17,27,1),transparent 25%),linear-gradient(180deg,rgba(11,17,27,1),transparent 20%)}
+.facil .gut{position:relative;z-index:1}
+.facil-card{max-width:560px;padding:var(--s6) var(--pad);display:flex;flex-direction:column;gap:var(--s3)}
+.facil-card h2{font-family:var(--f-ui);font-weight:700;font-size:clamp(28px,4.6vw,40px);line-height:1.05;margin:0}
+.facil-card>p{margin:0;color:var(--silver);font-size:16px;line-height:1.6}
+.ticks{list-style:none;margin:var(--s2) 0 0;padding:0;display:flex;flex-direction:column;gap:var(--s2)}
+.ticks li{display:grid;grid-template-columns:16px 1fr;gap:var(--s3);font-size:15.5px;line-height:1.5}
+.ticks li::before{content:"";width:10px;height:10px;margin-top:6px;border:2px solid var(--cyan);transform:rotate(45deg)}
+.labtags{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s3)}
+.labtags span{font-family:var(--f-ui);font-weight:600;font-size:13.5px;letter-spacing:.04em;padding:var(--s2) var(--s3);background:rgba(30,60,140,.55);border-right:3px solid var(--warn)}
+
+/* contact */
+.contact2{padding-block:96px 48px;background:radial-gradient(70% 90% at 80% 0%,rgba(35,145,235,.12),transparent 60%),#090E16;border-top:1px solid var(--border)}
+.contact2-in{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:var(--s6);align-items:center}
+@media (max-width:900px){.contact2-in{grid-template-columns:1fr}}
+.contact2 h2{font-family:var(--f-ui);font-weight:700;font-size:clamp(30px,5vw,46px);line-height:1.05;margin:0}
+.contact2 p{color:var(--silver);font-size:16.5px;line-height:1.6;margin:var(--s3) 0 var(--s5);max-width:52ch}
+.contact2 .mailbox{max-width:440px}
+.contact2-logos{display:flex;flex-direction:column;align-items:center;gap:var(--s5)}
+.c-ss{width:min(100%,320px);height:auto}
+.c-row{display:flex;align-items:center;gap:var(--s6);flex-wrap:wrap;justify-content:center}
+.c-row img{height:44px;width:auto}
+.mission2{margin-top:var(--s7);padding-top:var(--s5);border-top:1px solid var(--border);text-align:center}
+.mission2 p{margin:0;font-family:var(--f-ui);font-weight:700;font-size:clamp(16px,3.6vw,24px);letter-spacing:.16em;line-height:1.4}
+.mission2 span{color:var(--cyan);text-shadow:0 0 14px var(--glow)}
+.ftr{background:#070B12}
+.ftr .in{border-top:0;margin-top:0}
+
+/* reveal on scroll (content is visible by default; only animates when JS marks it) */
+.rv{transition:opacity .7s ease,transform .7s ease}
+.rv.pre{opacity:0;transform:translateY(18px)}
+@media (prefers-reduced-motion:reduce){.rv.pre{opacity:1;transform:none}}
+
+/* posters: natural proportions in columns */
+.pgrid{display:block;columns:4 220px;column-gap:var(--s3)}
+@media (max-width:520px){.pgrid{columns:2;column-gap:var(--s2)}}
+.poster{display:block;width:100%;aspect-ratio:auto;margin:0 0 var(--s3);break-inside:avoid;background:#fff}
+@media (max-width:520px){.poster{margin-bottom:var(--s2)}}
+.poster img{height:auto}
+/* gallery: five across on wide screens */
+@media (min-width:1100px){.gal{grid-template-columns:repeat(5,minmax(0,1fr))}}
+.mission2{width:100%;max-width:1240px}
+.mission2 p{max-width:none}
+
+/* header v2: Silent Spear leads, partners grouped on the right */
+.hdr-in{max-width:1400px;height:80px;grid-template-columns:auto 1fr auto;gap:var(--s5)}
+.hdr-ss{display:block}
+.hdr-ss img{display:block;height:50px;width:auto;filter:drop-shadow(0 0 14px rgba(0,188,235,.18))}
+.hdr-partners{display:flex;align-items:center;gap:var(--s4);opacity:.85}
+.hdr-hct{height:30px;width:auto;display:block}
+.hdr-partners .hdr-k{height:30px}
+.hdr-div{width:1px;height:28px;background:rgba(170,184,197,.35)}
+.hnav a{font-size:14px;padding:var(--s2) 10px}
+html{scroll-padding-top:calc(80px + env(safe-area-inset-top,0px))}
+@media (max-width:1280px){
+  .burger{display:flex}
+  .hdr-in{grid-template-columns:auto 1fr;height:72px}
+  .hdr-ss img{height:44px}
+  .hnav{position:fixed;left:0;right:0;top:calc(72px + env(safe-area-inset-top,0px));flex-direction:column;align-items:stretch;gap:0;background:rgba(7,11,18,.97);border-bottom:1px solid var(--border);padding:var(--s2) max(16px,env(safe-area-inset-right,0px)) var(--s4) max(16px,env(safe-area-inset-left,0px));transform:translateY(-8px);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+  .hnav.open{transform:none;opacity:1;pointer-events:auto}
+  .hnav a{padding:var(--s3) var(--s2);border-bottom:1px solid rgba(48,66,89,.5);font-size:17px}
+  .hnav a::after{left:0;right:auto;width:3px;top:var(--s3);bottom:var(--s3);height:auto;transform:scaleY(0)}
+  .hnav a[aria-current="true"]::after{transform:scaleY(1)}
+  .hdr-r{gap:var(--s4)}
+  html{scroll-padding-top:calc(72px + env(safe-area-inset-top,0px))}
+}
+@media (max-width:760px){
+  .hdr-partners{display:none}
+  .hdr-in{height:64px}
+  .hdr-ss img{height:38px}
+  .hnav{top:calc(64px + env(safe-area-inset-top,0px))}
+  html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
+}
+@media (max-width:380px){.hdr-ss img{height:32px}}
+
+/* ---------- mission photo ---------- */
+.snapcard{display:grid;grid-template-columns:52px minmax(0,1fr) auto;align-items:center;gap:var(--s3) var(--s4);padding:var(--s4) var(--pad);margin-bottom:var(--s5);border:1px solid rgba(0,188,235,.45);background:linear-gradient(120deg,rgba(0,188,235,.14),rgba(35,145,235,.06) 60%,transparent);position:relative}
+.snapcard::before{content:"";position:absolute;left:-1px;top:-1px;bottom:-1px;width:4px;background:var(--cyan)}
+.snap-ic{width:52px;height:52px;display:flex;align-items:center;justify-content:center;border:1px solid var(--cyan);background:rgba(0,188,235,.12)}
+.snap-ic svg{width:28px;height:28px;fill:none;stroke:var(--cyan);stroke-width:1.7;stroke-linejoin:round}
+.snap-t b{display:block;font-family:var(--f-ui);font-weight:700;font-size:clamp(19px,4vw,23px);letter-spacing:.04em;text-transform:uppercase;line-height:1.15}
+.snap-t span{display:block;color:var(--silver);font-size:15px;line-height:1.5;margin-top:var(--s1);max-width:62ch}
+.snap-tags{display:flex;flex-direction:column;gap:var(--s1);align-items:flex-end}
+.snap-tags span{font-family:var(--f-num);font-size:12px;color:var(--cyan);letter-spacing:.04em}
+@media (max-width:760px){.snapcard{grid-template-columns:44px minmax(0,1fr)}.snap-ic{width:44px;height:44px}.snap-tags{grid-column:1/-1;flex-direction:row;flex-wrap:wrap;align-items:flex-start;gap:var(--s3)}}
+.shutter{position:absolute;z-index:6;left:50%;bottom:var(--s5);width:72px;height:72px;margin-left:-36px;border-radius:50%;border:4px solid #fff;background:rgba(255,255,255,.18);padding:0;cursor:pointer;box-shadow:0 0 0 6px rgba(0,188,235,.35),0 6px 20px rgba(0,0,0,.4);animation:shpulse 2.2s infinite}
+.shutter span{position:absolute;inset:7px;border-radius:50%;background:#fff;transition:transform .15s}
+.shutter:active span{transform:scale(.88)}
+@keyframes shpulse{0%,100%{box-shadow:0 0 0 6px rgba(0,188,235,.35),0 6px 20px rgba(0,0,0,.4)}50%{box-shadow:0 0 0 14px rgba(0,188,235,.08),0 6px 20px rgba(0,0,0,.4)}}
+.countdown{position:absolute;inset:0;z-index:7;display:flex;align-items:center;justify-content:center;font-family:var(--f-ui);font-weight:700;font-size:clamp(90px,22vw,180px);color:#fff;text-shadow:0 0 30px var(--cyan),0 4px 20px rgba(0,0,0,.6);pointer-events:none;background:rgba(5,8,13,.15)}
+.countdown.tick{animation:tick .9s ease-out}
+@keyframes tick{0%{transform:scale(1.5);opacity:0}25%{opacity:1}100%{transform:scale(.9);opacity:.85}}
+.flash{position:absolute;inset:0;z-index:8;background:#fff;opacity:0;pointer-events:none}
+.flash.go{animation:flash .5s ease-out}
+@keyframes flash{0%{opacity:.95}100%{opacity:0}}
+.shotmodal{position:fixed;inset:0;z-index:60;background:rgba(4,7,11,.94);display:block;padding:calc(var(--s4) + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(var(--s4) + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));overflow:auto}
+.shot-in{width:100%;max-width:440px;min-width:0;display:flex;flex-direction:column;gap:var(--s3);margin:0 auto}
+.shot-h h3{font-family:var(--f-ui);font-weight:700;font-size:24px;letter-spacing:.04em;text-transform:uppercase;margin:0}
+.shot-img{display:flex;justify-content:center}
+.shot-img img{display:block;width:auto;max-width:100%;height:auto;max-height:60vh;border:1px solid var(--border);-webkit-touch-callout:default}
+.shot-tip{margin:0;color:var(--silver);font-size:14px;line-height:1.5}
+.shot-act{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2)}
+.shot-act #bShare{grid-column:1/-1}
+.controls #bShot2{grid-column:1/-1}
+
+.pgrid{columns:4 200px}
+@media (max-width:520px){.pgrid{columns:2}}
+
+.teamshot{margin:0 0 var(--s6);border:1px solid var(--border);overflow:hidden}
+.teamshot .zoomable{aspect-ratio:2576/1190;max-height:520px;width:100%}
+.teamshot img{object-position:50% 35%}
+.soon2{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#05080D}
+.soon2-bg{position:absolute;inset:-40px;width:calc(100% + 80px);height:calc(100% + 80px);object-fit:cover;filter:blur(30px) brightness(.5)}
+.soon2-p{position:relative;height:92%;width:auto;max-width:90%;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.hdr-ss img{height:62px}
+@media (max-width:1280px){.hdr-ss img{height:56px}}
+@media (max-width:760px){.hdr-ss img{height:48px}}
+@media (max-width:380px){.hdr-ss img{height:42px}}
+
+/* track with photo */
+.track.has-img{grid-template-columns:auto 1fr}
+.track-img{grid-column:1/-1;aspect-ratio:16/10;margin:calc(var(--pad) * -1) calc(var(--pad) * -1) var(--s3);width:calc(100% + var(--pad) * 2)}
+/* masonry gallery */
+.sk-lead{margin:calc(var(--s5) * -1 + var(--s2)) 0 var(--s5)}
+.masonry{columns:4 240px;column-gap:var(--s3)}
+@media (max-width:520px){.masonry{columns:2;column-gap:var(--s2)}}
+.masonry figure{margin:0 0 var(--s3);break-inside:avoid;border:1px solid var(--border);background:var(--panel)}
+@media (max-width:520px){.masonry figure{margin-bottom:var(--s2)}}
+.masonry .zoomable{aspect-ratio:auto}
+.masonry .zoomable img{height:auto}
+.masonry figcaption{padding:var(--s2) var(--s3);font-size:13.5px;color:var(--silver);line-height:1.4;border-top:2px solid var(--blue2)}
+
+.track{align-content:start}
+.track-img img{object-position:50% 50%}
+
+/* ---------- division icons ---------- */
+.divic{width:44px;height:44px;object-fit:contain;flex:none}
+.divic.sm{width:26px;height:26px}
+.icard-h{display:flex;align-items:center;gap:var(--s3)}
+.icard-h .lbl{margin-bottom:2px}
+.tg-t{display:flex;align-items:center;gap:var(--s3)}
+.tg-t .divic{width:40px;height:40px}
+.gal figcaption.withic{display:grid;grid-template-columns:26px minmax(0,1fr);column-gap:var(--s2);align-items:center}
+.gal figcaption.withic span{grid-column:1/-1}
+@media (min-width:1100px){.gal{grid-template-columns:repeat(4,minmax(0,1fr))}}
+/* visits: three cards */
+@media (min-width:900px){.duo.trio{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.vcard .vbody{display:flex;flex-direction:column;gap:var(--s1)}
+/* avatars fit 3 letters */
+.av{font-size:13px;letter-spacing:.02em}
+/* team photo frame */
+.teamshot{position:relative}
+.teamshot::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 0 1px rgba(0,188,235,.15);background:linear-gradient(0deg,rgba(11,17,27,.55),transparent 35%)}
+
+/* ---------- drone + demo alignment pass ---------- */
+.grid{align-items:start}
+.col{gap:var(--s3)}
+.feedtag{margin-bottom:0}
+.col>.frame{margin-top:0}
+.controls{margin-top:0}
+.chips{grid-template-columns:1fr 1fr}
+.chip{min-height:52px}
+.chip .n{font-variant-numeric:tabular-nums}
+.caption{max-width:62ch}
+.ana .rows{margin-top:var(--s1)}
+.pagehead{margin-bottom:var(--s5)}
+.sechead::before,.pagehead::before{width:min(100%,420px)}
+/* gallery captions: same structure everywhere */
+.gal figcaption{flex:1;align-content:start}
+.gal figcaption.withic b{line-height:1.2}
+/* showcase: uniform grid instead of uneven masonry */
+.masonry{columns:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s3)}
+@media (max-width:900px){.masonry{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s2)}}
+.masonry figure{margin:0;display:flex;flex-direction:column}
+.masonry .zoomable{aspect-ratio:4/5}
+.masonry .zoomable img{height:100%;object-fit:cover}
+.masonry figcaption{flex:1}
+/* team cards equal height */
+.people{grid-auto-rows:1fr}
+.person{min-height:96px}
+/* track photo framing */
+.track-img img{object-fit:cover}
+.track:nth-child(2) .track-img img{object-position:50% 85%}
+
+/* exact-aspect images, no awkward cover crops */
+.icard-img{aspect-ratio:16/10}
+.icard-img::after{background:linear-gradient(0deg,rgba(16,26,40,.55),transparent 40%)}
+.gal .zoomable{aspect-ratio:4/3}
+.masonry .zoomable img{object-position:50% 40%}
+.icard-h h3{font-size:clamp(17px,1.5vw,20px);white-space:nowrap}
+@media (max-width:900px){.icard-h h3{font-size:20px}}
+.gal figcaption.withic b{white-space:nowrap;font-size:15px}
+@media (max-width:420px){.gal figcaption.withic b{white-space:normal}}
+
+.plink,.hdr-partners a,.c-row a{display:block;transition:opacity .2s,transform .2s}
+.plink:hover,.hdr-partners a:hover,.c-row a:hover{opacity:.8;transform:translateY(-1px)}
+.partners .plink{display:flex;justify-content:center}
+
+/* soft filter on in-page photos (lightbox shows the original) */
+.zoomable img,.icard-img img,.pz img,.poster img,.track-img img{filter:brightness(.86) saturate(.9) contrast(1.03);transition:filter .3s,transform .5s}
+.zoomable:hover img,.icard:hover .icard-img img,.poster:hover img{filter:brightness(.94) saturate(.95) contrast(1.02)}
+.lightbox img,.shot-img img{filter:none}
+
+/* camera mode */
+.feedbox video.mono{filter:grayscale(1) contrast(1.12)}
+.seg{grid-column:1/-1;display:grid;grid-template-columns:auto 1fr 1fr;align-items:stretch;border:1px solid var(--border);background:var(--panel)}
+.seg-l{display:flex;align-items:center;padding:0 var(--s4);font-family:var(--f-ui);font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--label);border-right:1px solid var(--border)}
+.seg-b{font-family:var(--f-ui);font-weight:700;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--silver);background:transparent;border:0;min-height:44px;cursor:pointer}
+.seg-b+.seg-b{border-left:1px solid var(--border)}
+.seg-b[aria-pressed="true"]{background:rgba(0,188,235,.12);color:var(--cyan);box-shadow:inset 0 -2px 0 var(--cyan)}
+/* equal-height columns in drone + demo */
+@media (min-width:980px){
+  #model .grid,#demo .grid{align-items:stretch}
+  #model .ana,#demo .ana{height:100%}
+  #demo .ana .rows{margin-top:auto}
+  #demo .col>.note{margin-top:auto}
+}
+#demo .controls{grid-template-columns:1fr 1fr}
+@media (min-width:980px){#demo .ana .pos,#model .ana .pos{flex:1}}
+#model .controls{grid-template-columns:1fr}
+/* rhythm + small fixes from full-page review */
+.sec{padding-block:80px}
+@media (max-width:760px){.sec{padding-block:56px}}
+.sec .in>:last-child{margin-bottom:0}
+.hero2-main{max-width:720px}
+.hero2-mission{max-width:none}
+.person b{font-size:16px}
+.techline{margin-top:var(--s3)}
+/* phone fixes */
+@media (max-width:900px){.icard-h h3{white-space:normal;font-size:19px}}
+@media (max-width:600px){
+  .statusbar{grid-template-columns:1fr}
+  .st{border-left:0!important;border-top:1px solid var(--border);padding:var(--s3) var(--s4);display:flex;align-items:center;gap:var(--s3)}
+  .st:first-child{border-top:0}
+  .st>div{display:flex;justify-content:space-between;align-items:center;gap:var(--s3);flex:1}
+  .st b{margin:0;font-size:15px;text-align:right}
+  .nums{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .stat{grid-column:span 2}
+  .stat:nth-child(4){grid-column:2/span 2}
+  .stat:nth-child(5){grid-column:4/span 2}
+  .pgrid{display:grid;columns:auto;grid-template-columns:1fr 1fr;gap:var(--s2)}
+  .pgrid .poster{margin:0}
+  .contact2-logos{gap:var(--s4)}
+  .c-row{gap:var(--s5)}
+  .c-row img{height:36px}
+}
+@media (min-width:601px) and (max-width:900px){.nums{grid-template-columns:repeat(6,minmax(0,1fr))}.stat{grid-column:span 2}.stat:nth-child(4){grid-column:2/span 2}.stat:nth-child(5){grid-column:4/span 2}}
+.pgrid{display:grid;columns:auto;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s3);align-items:start}
+@media (max-width:900px){.pgrid{grid-template-columns:1fr 1fr}}
+.pgrid .poster{margin:0}
+@media (max-width:600px){.st .lbl{font-size:12px}.st b{font-size:14px;white-space:nowrap}}
+@media (min-width:901px) and (max-width:1100px){.split{grid-template-columns:1fr}}
+/* one fixed card size across the whole team section */
+#team .people{grid-auto-rows:auto;grid-template-columns:repeat(3,minmax(0,1fr))}
+#team .person{height:112px;min-height:0;overflow:hidden}
+@media (max-width:900px){#team .people{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){#team .people{grid-template-columns:1fr}#team .person{height:88px}}
+/* hero v3: drone fully visible, partners as a slim glass strip at the bottom */
+@media (min-width:901px){
+  .hero2{align-items:stretch;padding-block:0}
+  .hero2 .gut{display:flex}
+  .hero2-in{grid-template-columns:1fr;grid-template-rows:1fr auto;width:100%;min-height:min(92vh,860px);padding-block:var(--s7) var(--s6);gap:var(--s5)}
+  .hero2-main{align-self:center}
+  .partners{align-self:end;justify-self:end;flex-direction:row;align-items:center;gap:var(--s5);padding:var(--s3) var(--s5);
+    background:rgba(11,17,27,.38);border:1px solid rgba(170,184,197,.16);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:none}
+  .partners .lbl{font-size:11px;white-space:nowrap}
+  .glass-rule{width:1px;height:40px;margin:0}
+  .p-hct{width:200px}.p-k{width:130px}
+  .hero2-shade{background:
+    linear-gradient(90deg,rgba(5,8,13,.95) 0%,rgba(5,8,13,.82) 30%,rgba(5,8,13,.2) 62%,rgba(5,8,13,.1) 100%),
+    linear-gradient(0deg,rgba(5,8,13,.9) 0%,transparent 30%)}
+  .hero2-bg{filter:saturate(.9) brightness(.98);object-position:72% 45%}
+  .scrollcue,.rtag2{z-index:3}
+}
+.scrollcue{display:none!important}
+/* hero text: always readable, consistent rhythm, flush-left alignment */
+.hero2 h1 span{display:block}
+.hero2 h1{margin-bottom:var(--s2)}
+.hero2-main{gap:var(--s3)}
+.hero2-sub{margin-top:var(--s1)}
+.hero2-mission{border-left:0;padding-left:0;margin-top:var(--s1);display:flex;align-items:center;gap:var(--s3)}
+.hero2-mission::before{content:"";width:28px;height:2px;background:var(--cyan);flex:none;box-shadow:0 0 8px var(--glow)}
+.hero2-main h1,.hero2-sub,.hero2-mission{text-shadow:0 2px 14px rgba(5,8,13,.85)}
+@media (min-width:901px){
+  .hero2-main{max-width:640px}
+  .hero2-shade{background:
+    linear-gradient(90deg,rgba(5,8,13,.96) 0%,rgba(5,8,13,.9) 34%,rgba(5,8,13,.55) 50%,rgba(5,8,13,.12) 68%,rgba(5,8,13,.08) 100%),
+    linear-gradient(0deg,rgba(5,8,13,.9) 0%,transparent 30%)}
+}
+@media (min-width:1600px){.hero2-bg{object-position:80% 45%}}
+.hero2-mission{display:block}
+.hero2-mission::before{display:inline-block;vertical-align:middle;margin-right:var(--s3);position:relative;top:-2px}
+@media (min-width:901px){.hero2-main{max-width:780px}.hero2-mission{white-space:nowrap}}
+
+/* ---------- preloader ---------- */
+.preloader{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:radial-gradient(60% 60% at 50% 45%,#0E1B2C,#05080D 70%);transition:opacity .6s ease,visibility .6s}
+.preloader.done{opacity:0;visibility:hidden;pointer-events:none}
+.pl-in{width:min(78vw,420px);display:flex;flex-direction:column;align-items:center;gap:var(--s5)}
+.pl-logo{width:100%;height:auto;filter:drop-shadow(0 0 22px rgba(0,188,235,.3));animation:plpulse 2.4s ease-in-out infinite}
+@keyframes plpulse{50%{filter:drop-shadow(0 0 34px rgba(0,188,235,.55))}}
+.pl-bar{width:100%;height:3px;background:rgba(170,184,197,.15);overflow:hidden}
+.pl-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--cyan));box-shadow:0 0 12px var(--cyan);transition:width .25s ease}
+.pl-row{width:100%;display:flex;justify-content:space-between;font-family:var(--f-num);font-size:12px;letter-spacing:.16em;color:var(--silver)}
+.pl-num{color:var(--cyan);font-variant-numeric:tabular-nums}
+html.loading,html.loading body{overflow:hidden}
+
+/* ---------- performance: no live blur / no live photo filters ---------- */
+.hdr{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(7,11,18,.97)}
+.glass,.partners,.facil-card,.glasscards .card{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.glass,.facil-card{background:linear-gradient(160deg,rgba(25,40,61,.9),rgba(11,17,27,.88))}
+@media (min-width:901px){.partners{background:rgba(9,14,22,.72)!important}}
+.glasscards .card{background:linear-gradient(160deg,rgba(25,40,61,.88),rgba(16,26,40,.9))}
+.zoomable img,.icard-img img,.pz img,.poster img,.track-img img,.zoomable:hover img,.icard:hover .icard-img img,.poster:hover img{filter:none}
+.zoomable:hover img,.icard:hover .icard-img img{opacity:.96}
+.hero2-bg{filter:none}
+.facil-bg{filter:none}
+.sec,.numbers,.facil,.contact2{contain:layout paint}
+
+.pl-bar i{transition:none}
+
+/* ---------- softer artwork for posters and inspirational quotes ---------- */
+.poster img,.quotes .qs-slide img{filter:brightness(.89) saturate(.76) contrast(.98);transition:filter .3s,transform .5s}
+.poster:hover img,.quotes .qs-slide .zoomable:hover img{filter:brightness(.94) saturate(.82) contrast(.99)}
+
+/* ---------- quotes carousel ---------- */
+.quotes{background:linear-gradient(180deg,#0B111B,#0D1624 50%,#0B111B)}
+.qs{position:relative;overflow:hidden;border:1px solid var(--border);background:#fff;max-width:980px;margin:0 auto;box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.qs-track{display:flex;transition:transform .8s cubic-bezier(.2,.7,.2,1);will-change:transform}
+.qs-slide{flex:0 0 100%;margin:0;aspect-ratio:2000/1414}
+.qs-slide .zoomable{width:100%;height:100%;background:#fff}
+.qs-slide img{width:100%;height:100%;object-fit:cover;display:block}
+.qs-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border:1px solid rgba(48,66,89,.5);background:rgba(11,17,27,.72);color:#fff;font-size:24px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.qs-nav.prev{left:var(--s3)}.qs-nav.next{right:var(--s3)}
+.qs-nav:hover{background:var(--blue)}
+.qs-foot{max-width:980px;margin:var(--s4) auto 0;display:flex;align-items:center;justify-content:space-between;gap:var(--s4);flex-wrap:wrap}
+.qs-who{font-family:var(--f-ui);font-weight:600;font-size:15px;letter-spacing:.04em;color:var(--silver);min-height:1.4em}
+.qs-dots{display:flex;gap:var(--s2)}
+.qs-dot{width:34px;height:4px;border:0;padding:0;background:rgba(170,184,197,.3);cursor:pointer;position:relative;overflow:hidden}
+.qs-dot[aria-selected="true"]{background:rgba(0,188,235,.25)}
+.qs-dot[aria-selected="true"]::after{content:"";position:absolute;inset:0;background:var(--cyan);transform-origin:left;animation:qsfill var(--qs-dur,7s) linear forwards}
+.qs.paused~.qs-foot .qs-dot[aria-selected="true"]::after{animation-play-state:paused}
+@keyframes qsfill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media (max-width:600px){.qs-nav{width:36px;height:36px;font-size:20px}.qs-foot{flex-direction:column;align-items:flex-start}}
+@media (prefers-reduced-motion:reduce){.qs-track{transition:none}.qs-dot[aria-selected="true"]::after{animation:none;transform:none}}
+
+/* ---------- partners strip: higher + more transparent ---------- */
+@media (min-width:901px){
+  .hero2-in{padding-block:var(--s7) calc(var(--s7) + var(--s5))}
+  .partners{background:rgba(9,14,22,.42)!important;border-color:rgba(170,184,197,.14)}
+  .rtag2{bottom:var(--s3)}
+}
+.quotes .sechead{margin-left:auto;margin-right:auto;text-align:center;max-width:980px}
+.quotes .sechead::before{margin-left:auto;margin-right:auto;background:linear-gradient(90deg,transparent,var(--cyan),transparent)}
+
 </style>
 </head>
 <body>
-<main>
-  <img src="/icon-512.png" alt="Silent Spear Team logo" width="128" height="128">
-  <h1>Silent Spear Team</h1>
-  <p>Engineering students at the Higher Colleges of Technology.</p>
 
-  <a class="card" href="/kr8-063-nanodrone/">
-    <strong>KR8.063 Nanodrone &rarr;</strong>
-    <span>An intelligent indoor reconnaissance platform developed with Kre8+.</span>
-  </a>
+
+<div class="preloader" id="preloader" role="status" aria-live="polite">
+  <div class="pl-in">
+    <img decoding="async" class="pl-logo" src="img/ss-lock-w.png" alt="Silent Spear Team">
+    <div class="pl-bar"><i id="plBar"></i></div>
+    <div class="pl-row"><span id="plTxt">INITIALISING SYSTEMS</span><span class="pl-num" id="plNum">0%</span></div>
+  </div>
+</div>
+<header class="hdr" id="top">
+  <div class="hdr-in">
+    <a class="hdr-ss" href="#home" aria-label="Silent Spear Team, back to top"><img decoding="async" src="img/ss-lock-w.png" alt="Silent Spear Team"></a>
+    <nav class="hnav" id="hnav" aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#model">The Drone</a>
+      <a href="#demo">Live Demo</a>
+      <a href="#highlights">Highlights</a>
+      <a href="#team">Team</a>
+      <a href="#film">Film</a>
+      <a href="#posters">Posters</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="hdr-r">
+      <div class="hdr-partners">
+        <a href="https://www.hct.ac.ae" target="_blank" rel="noopener" aria-label="Higher Colleges of Technology website"><img decoding="async" class="hdr-hct" src="img/hct-w.png" alt="Higher Colleges of Technology"></a>
+        <span class="hdr-div" aria-hidden="true"></span>
+        <a href="https://www.kre8plus.com/" target="_blank" rel="noopener" aria-label="Kre8+ website"><img decoding="async" class="hdr-k" src="img/kre8-w.png" alt="Kre8+"></a>
+      </div>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="hnav"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- ===================== HERO ===================== -->
+  <section class="hero2" id="home">
+    <img decoding="async" class="hero2-bg" id="heroBg" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="">
+    <div class="hero2-shade"></div>
+    <div class="gut"><div class="in hero2-in">
+      <div class="hero2-main">
+        <img decoding="async" class="hero2-logo" src="img/ss-big-dk.png" alt="Silent Spear Team">
+        <div class="rule"></div>
+        <h1>KR8.063 <span>Nanodrone</span></h1>
+        <p class="hero2-sub">Intelligent Indoor Reconnaissance Platform</p>
+        <p class="hero2-mission">SO THAT HUMANS ARE <span>NEVER</span> THE FIRST TO ENTER.</p>
+        <div class="hero2-cta">
+          <a class="btn pri" href="#model">Explore the drone</a>
+          <a class="btn" href="#demo">Try the live demo</a>
+        </div>
+      </div>
+      <aside class="glass partners" aria-label="Partners">
+        <div class="lbl">Capstone design project</div>
+        <a class="plink" href="https://www.hct.ac.ae" target="_blank" rel="noopener" aria-label="Higher Colleges of Technology website"><img decoding="async" src="img/hct-w.png" alt="Higher Colleges of Technology" class="p-hct"></a>
+        <div class="glass-rule"></div>
+        <div class="lbl">Sponsored by</div>
+        <a class="plink" href="https://www.kre8plus.com/" target="_blank" rel="noopener" aria-label="Kre8+ website"><img decoding="async" src="img/kre8-w.png" alt="Kre8+" class="p-k"></a>
+      </aside>
+    </div></div>
+    <span class="rtag2">Background: concept rendering</span>
+    <a class="scrollcue" href="#about" aria-label="Scroll to About"><span></span></a>
+  </section>
+
+  <!-- status strip -->
+  <div class="gut strip-wrap"><div class="in">
+    <div class="statusbar">
+      <div class="st"><span class="dot ok"></span><div><div class="lbl">Live person detection</div><b>Working</b></div></div>
+      <div class="st"><span class="dot warn"></span><div><div class="lbl">Autonomous flight</div><b>In development</b></div></div>
+      <div class="st"><span class="dot cy"></span><div><div class="lbl">R&amp;D platform</div><b class="nt">Crazyflie 2.x</b></div></div>
+      <div class="st"><span class="dot warn"></span><div><div class="lbl">Custom nano drone</div><b>In design &amp; build</b></div></div>
+    </div>
+  </div></div>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section class="sec net" id="about">
+    <canvas class="netbg" id="netbg" aria-hidden="true"></canvas>
+    <div class="gut"><div class="in">
+      <div class="sechead"><div class="kicker">About us</div><h2>From the classroom to real engineering</h2></div>
+      <div class="split">
+        <p class="lead">We are Emirati engineering students at the Higher Colleges of Technology, turning what we learn into practical engineering experience.</p>
+        <div class="prose">
+          <p>Our goal is to contribute to the UAE's progress in research, innovation and emerging technology. The KR8.063 Nanodrone project builds the skills and technical capability that the nation's technological future depends on.</p>
+          <p>We develop and test on the <span class="nt">Crazyflie 2.x</span> research platform while we design and build our own custom nano drone.</p>
+        </div>
+      </div>
+      <div class="cards4 glasscards">
+        <article class="card"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><h3>Modular development</h3><p>Platforms, sensors and technologies are tested, combined and expanded step by step as the research progresses.</p></article>
+        <article class="card"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg><h3>Research-driven design</h3><p>Engineering decisions rest on technical studies, academic literature and continuous evaluation.</p></article>
+        <article class="card"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="18" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M12 7.5v4M12 11.5L6.5 16M12 11.5l5.5 4.5"/></svg><h3>Multidisciplinary engineering</h3><p>Mechanical, hardware, software and AI teams build one integrated indoor nanodrone platform together.</p></article>
+        <article class="card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><h3>Open-source innovation</h3><p>Open-source tools speed up prototyping, so the team can focus on system integration, algorithms and autonomy.</p></article>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ===================== INSPIRATION ===================== -->
+  <section class="sec quotes" id="inspiration" aria-roledescription="carousel" aria-label="Words that inspire us">
+    <div class="gut"><div class="in">
+      <div class="sechead"><div class="kicker">Our inspiration</div><h2>Words that drive us</h2></div>
+      <div class="qs" id="qs">
+        <div class="qs-track" id="qsTrack">
+          <figure class="qs-slide" aria-roledescription="slide" aria-label="1 of 3"><button class="zoomable" data-img="img/quotes/q1-zayed.jpg" aria-label="View full size"><img decoding="async" src="img/quotes/q1-zayed.jpg" alt="Quote by the Late Sheikh Zayed bin Sultan Al Nahyan: Men make factories; it's not factories that make men." loading="lazy"></button></figure>
+          <figure class="qs-slide" aria-roledescription="slide" aria-label="2 of 3"><button class="zoomable" data-img="img/quotes/q2-mbz.jpg" aria-label="View full size"><img decoding="async" src="img/quotes/q2-mbz.jpg" alt="Quote by His Highness Sheikh Mohamed bin Zayed Al Nahyan, President of the United Arab Emirates: There is no place in the future for those who lack knowledge and education." loading="lazy"></button></figure>
+          <figure class="qs-slide" aria-roledescription="slide" aria-label="3 of 3"><button class="zoomable" data-img="img/quotes/q3-mbr.jpg" aria-label="View full size"><img decoding="async" src="img/quotes/q3-mbr.jpg" alt="Quote by His Highness Sheikh Mohammed bin Rashid Al Maktoum: There is no alternative for us but first place, and the word impossible is not in our dictionary in the UAE." loading="lazy"></button></figure>
+        </div>
+        <button class="qs-nav prev" id="qsPrev" aria-label="Previous quote">‹</button>
+        <button class="qs-nav next" id="qsNext" aria-label="Next quote">›</button>
+      </div>
+      <div class="qs-foot">
+        <div class="qs-who" id="qsWho" aria-live="polite"></div>
+        <div class="qs-dots" id="qsDots" role="tablist" aria-label="Choose quote"></div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ===================== WHAT WE BUILD ===================== -->
+  <section class="sec" id="build">
+    <div class="gut"><div class="in">
+      <div class="sechead"><div class="kicker">What we build</div><h2>Three divisions, one platform</h2></div>
+      <div class="icards">
+        <article class="icard"><div class="icard-img"><img decoding="async" src="img/build/mech-frames-v.jpg" alt="Prototype drones and 3D-printed airframes in different materials" loading="lazy"></div><div class="icard-b"><div class="icard-h"><img decoding="async" class="divic" src="img/div-mech.png" alt=""><div><div class="lbl">Mechanical Engineering</div><h3>Mechanical Design</h3></div></div><p>Airframe studies, 3D-printed in different materials and designs. Structural analysis, mounting, weight and centre-of-gravity optimisation.</p></div></article>
+        <article class="icard"><div class="icard-img"><img decoding="async" src="img/build/hw-assembly-v.jpg" alt="Assembling the Crazyflie motors and propellers by hand" loading="lazy"></div><div class="icard-b"><div class="icard-h"><img decoding="async" class="divic" src="img/div-hw.png" alt=""><div><div class="lbl">Electrical Engineering</div><h3>Hardware &amp; Electronics</h3></div></div><p>Sensors, motors, power and flight-control integration. Wiring, embedded hardware and validation.</p></div></article>
+        <article class="icard"><div class="icard-img"><img decoding="async" src="img/build/sw-detect-v.jpg" alt="The team's live person-detection software with analytics panel" loading="lazy"></div><div class="icard-b"><div class="icard-h"><img decoding="async" class="divic" src="img/div-sw.png" alt=""><div><div class="lbl">Electrical Engineering</div><h3>Software &amp; AI</h3></div></div><p>Live person detection, flight software, computer vision and mission algorithms. Autonomy is in development.</p></div></article>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ===================== THE DRONE ===================== -->
+  <section class="sec alt" id="model">
+    <div class="gut"><div class="in">
+
+    <div class="pagehead"><div class="kicker">The drone · concept rendering</div><h1 class="h1">KR8.063 Nanodrone</h1><p>A visualisation of the final product concept. Tap a numbered marker to zoom in and see what each part does.</p></div>
+    <div class="grid">
+      <div class="col">
+        <div class="feedtag"><span class="dot cy"></span>Concept rendering</div>
+        <div class="frame pv" id="pv" role="img" aria-label="Concept rendering of the KR8.063 Nanodrone. Tap a numbered marker to zoom in on a part.">
+          <div class="pz" id="pz">
+            <img decoding="async" src="img/drone-v.jpg" alt="" draggable="false">
+          </div>
+          <span class="br a"></span><span class="br b"></span><span class="br c"></span><span class="br d"></span>
+          <div class="hud tl"><span class="stamp" id="zStamp">Tap a marker</span></div>
+          <div class="hud brr"><span class="zchip">Zoom <span class="v" id="zm">1.0×</span></span></div>
+        </div>
+        <div class="controls"><button class="btn" id="bFull">Show full photo</button></div>
+        <p class="caption">Concept rendering: a visualisation of the final product concept, not a photograph of a built prototype. Tap a numbered marker or a component to zoom in.</p>
+      </div>
+
+      <aside class="ana" aria-label="Component details">
+        <div class="ana-h"><h2>Component Details</h2><p>Tap a marker or pick from the list</p></div>
+        <div class="tiles">
+          <div class="tile"><div class="lbl">Components</div><div class="big" id="mCount">07</div></div>
+          <div class="tile"><div class="lbl">Selected</div><div class="mid"><span class="dot" id="mSelDot"></span><span id="mSel">None</span></div></div>
+        </div>
+        <div class="pos" aria-live="polite">
+          <div class="lbl" id="cIdx">Component</div>
+          <div class="val"><div class="t" id="cName">No part selected</div><p class="desc" id="cRole">Tap a numbered marker on the rendering to see what each part does.</p><div class="tag" id="cTag"></div></div>
+        </div>
+        <div class="chips" id="chips"></div>
+      </aside>
+    </div>
+    <div class="block">
+      <div class="kicker">The final product</div>
+      <h2 class="h2">The technology behind our Nanodrone</h2>
+      <div class="tracks">
+        <div class="track has-img"><button class="track-img zoomable" data-img="img/skills/rig-1.jpg" aria-label="View photo full size"><img decoding="async" src="img/skills/rig-1-v.jpg" alt="Crazyflie 2.x mounted on the team's 3D-printed test rig" loading="lazy"></button><span class="num">01</span><h3>Nano drone R&amp;D platform</h3><p>We program <span class="nt">Crazyflie 2.x</span>, select and integrate sensors, and develop and test flight, software, AI, and sensing functions.</p></div>
+        <div class="track has-img"><button class="track-img zoomable" data-img="img/skills/frame-poster.jpg" aria-label="View photo full size"><img decoding="async" src="img/skills/frame-poster-v.jpg" alt="Drone prototype with prop guards" loading="lazy"></button><span class="num">02</span><h3>Custom nano drone architecture</h3><p>We design, build, and integrate the custom Nano Drone, including the airframe, propulsion, power, electronics, sensors, and flight-control system.</p></div>
+      </div>
+    </div>
+    </div></div>
+  </section>
+
+  <!-- ===================== LIVE DEMO ===================== -->
+  <section class="sec" id="demo">
+    <div class="gut"><div class="in">
+
+    <div class="pagehead"><div class="kicker">Live demo</div><h1 class="h1">Person detection</h1><p>Try the detection concept with your own camera. Everything runs on your device.</p></div>
+    <div class="banner"><b>Live demo of the detection concept</b><span>General pre-trained model · Not the drone's onboard system</span></div>
+    <div class="snapcard">
+      <div class="snap-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg></div>
+      <div class="snap-t">
+        <b>Get spotted by the KR8.063</b>
+        <span>Start the camera, tap the shutter and strike a pose. You get a mission photo with your detection box, ready to share to your Instagram or Snapchat story.</span>
+      </div>
+      <div class="snap-tags"><span>#KR8063Nanodrone</span><span>#SilentSpearTeam</span></div>
+    </div>
+    <div class="grid">
+      <div class="col">
+        <div class="feedtag"><span class="dot" id="feedDot"></span><span id="feedTag">Camera feed offline</span></div>
+        <div class="frame">
+          <div class="feedbox idle" id="feedbox">
+            <video id="video" playsinline muted autoplay></video>
+            <canvas id="ovl"></canvas>
+            <span class="br a"></span><span class="br b"></span><span class="br c"></span><span class="br d"></span>
+            <div class="hud tl" id="hudTL" hidden></div>
+            <div class="hud tr" id="hudTR" hidden>FPS <span class="v" id="fps">--</span><br>Targets <span class="v" id="tgt">00</span></div>
+            <button class="shutter" id="bShot" hidden aria-label="Take a mission photo"><span></span></button>
+            <div class="countdown" id="cdown" hidden aria-live="assertive"></div>
+            <div class="flash" id="flash"></div>
+            <div class="hud bl" id="hudBL" hidden><span class="v" id="trk">SCANNING</span><span class="wide"> · Processing on this device</span></div>
+
+            <div class="ov" id="ovIntro">
+              <div class="ovc">
+                <div class="eye">KR8.063 · Detection concept</div>
+                <h3>See how the drone spots people</h3>
+                <p>Point your camera at the people around you. A person-detection model draws a box around each person it finds, live.</p>
+                <ul>
+                  <li><span><b>Private:</b> runs entirely on your device. No video is uploaded or stored.</span></li>
+                  <li><span>Uses a general pre-trained model (COCO-SSD), not the drone's onboard system.</span></li>
+                  <li><span>Your browser will ask for camera permission. Tap Allow.</span></li>
+                </ul>
+                <button class="btn pri" id="bStart">Start camera</button>
+              </div>
+            </div>
+            <div class="ov" id="ovBusy" hidden><div class="ovc c"><div class="spin" aria-hidden="true"></div><h3 id="busyT">Requesting camera</h3><p id="busyP">Allow camera access when your browser asks.</p></div></div>
+            <div class="ov" id="ovFail" hidden>
+              <div class="ovc c">
+                <div class="eye" id="failEye">Camera unavailable</div>
+                <h3 id="failT">Camera unavailable</h3>
+                <p id="failP"></p>
+                <button class="btn pri" id="bRetry">Try again</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="controls">
+          <button class="btn pri" id="bShot2" disabled>Take mission photo</button>
+          <div class="seg" role="group" aria-label="Camera mode"><span class="seg-l">Camera mode</span><button class="seg-b" id="mColor" aria-pressed="true">Colour</button><button class="seg-b" id="mMono" aria-pressed="false">Mono</button></div>
+          <button class="btn" id="bFlip" disabled>Switch camera</button>
+          <button class="btn" id="bStop" disabled>Stop camera</button>
+        </div>
+        <div class="note"><span class="dot ok"></span><span><b>Privacy:</b> the video is analysed in your browser on this device. Nothing is uploaded or stored. Photos are created on your phone and only leave it if you choose to share them.</span></div>
+      </div>
+
+      <aside class="ana" aria-label="Live analytics">
+        <div class="ana-h"><h2>Live Analytics</h2><p>Real-time detection status</p></div>
+        <div class="tiles">
+          <div class="tile"><div class="lbl">People detected</div><div class="big" id="aCount">00</div></div>
+          <div class="tile"><div class="lbl">Active target</div><div class="mid"><span class="dot" id="aTDot"></span><span id="aT">None</span></div></div>
+        </div>
+        <div class="pos">
+          <div class="lbl">Target position</div>
+          <div class="val"><div class="t big" id="aPos">No person</div><div class="tag" id="aPosS"></div></div>
+        </div>
+        <div class="conf">
+          <div class="row"><span class="lbl">Target confidence</span><span class="num" id="aConf">--</span></div>
+          <div class="bar"><i id="aBar"></i></div>
+        </div>
+        <div class="rows">
+          <div class="srow"><span class="dot" id="sAiD"></span><span id="sAiL">AI standby</span><span class="sv" id="sAi">NOT LOADED</span></div>
+          <div class="srow"><span class="dot" id="sCamD"></span><span id="sCamL">Camera offline</span><span class="sv" id="sCam"></span></div>
+          <div class="srow"><span class="dot ok"></span><span>Processing</span><span class="sv">ON THIS DEVICE</span></div>
+        </div>
+      </aside>
+    </div>
+    <div class="techline">Browser camera &nbsp;|&nbsp; COCO-SSD (general pre-trained) &nbsp;|&nbsp; On-device processing</div>
+    </div></div>
+  </section>
+
+  <!-- ===================== NUMBERS ===================== -->
+  <section class="numbers" aria-label="Silent Spear Team in numbers">
+    <div class="gut"><div class="in">
+      <h2>Silent Spear Team in numbers</h2>
+      <div class="nums">
+        <div class="stat"><b data-to="10">10</b><span>Engineering students</span></div>
+        <div class="stat"><b data-to="3">3</b><span>Engineering divisions</span></div>
+        <div class="stat"><b data-to="2">2</b><span>Academic supervisors</span></div>
+        <div class="stat"><b data-to="2">2</b><span>Development tracks</span></div>
+        <div class="stat"><b data-to="4">4</b><span>Educational posters</span></div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ===================== HIGHLIGHTS ===================== -->
+  <section class="sec" id="highlights">
+    <div class="gut"><div class="in">
+
+    <div class="pagehead"><div class="kicker">Highlights</div><h1 class="h1">Visits &amp; showcases</h1><p>Moments from presenting the KR8.063 Nanodrone to leaders, partners and guests.</p></div>
+
+    <article class="feat">
+      <button class="feat-img zoomable" data-img="img/nahyan.jpg" aria-label="View photo full size"><img decoding="async" src="img/nahyan-v.jpg" alt="H.E. Sheikh Nahyan bin Mubarak Al Nahyan and H.E. Dr. Zaki Anwar Nusseibeh at the Silent Spear Team stand" loading="lazy"></button>
+      <div class="feat-txt">
+        <div class="kicker">Distinguished visit · 29.09.2026</div>
+        <h2 class="h2">Madar Exhibition</h2>
+        <div class="vip">
+          <div><b>H.E. Sheikh Nahyan bin Mubarak Al Nahyan</b><span>Minister of Tolerance and Coexistence</span></div>
+          <div><b>H.E. Dr. Zaki Anwar Nusseibeh</b><span>Cultural Adviser to the UAE President · Chancellor of UAE University</span></div>
+        </div>
+      </div>
+    </article>
+
+    <div class="duo trio">
+      <article class="vcard">
+        <button class="vimg zoomable" data-img="img/nuaimi.jpg" aria-label="View photo full size"><img decoding="async" src="img/nuaimi-v.jpg" alt="H.E. Dr. Sultan Mohammed Al Nuaimi at the project showcase" loading="lazy"></button>
+        <div class="vbody">
+          <div class="kicker">Showcase</div>
+          <div class="vip"><div><b>H.E. Dr. Sultan Mohammed Al Nuaimi</b><span>Director General, Emirates Center for Strategic Studies and Research · Tawazun Council for Defence Enablement</span></div></div>
+        </div>
+      </article>
+      <article class="vcard">
+        <button class="vimg zoomable" data-img="img/team-guests.jpg" aria-label="View photo full size"><img decoding="async" src="img/team-guests-v.jpg" alt="Silent Spear Team with guests" loading="lazy"></button>
+        <div class="vbody">
+          <div class="kicker">Team photo with guests</div>
+          <div class="vip">
+            <div><b>H.E. Dr. Abdulla Al Shimmari</b><span>Executive Director, National Talent Empowerment · Department of Government Enablement</span></div>
+            <div><b>Anwan Al Katheeri</b><span>Senior Director, National Capability Development · EDGE Group</span></div>
+          </div>
+        </div>
+      </article>
+      <article class="vcard">
+        <button class="vimg zoomable" data-img="img/edge.jpg" aria-label="View photo full size"><img decoding="async" src="img/edge-v.jpg" alt="Guests watching the drone fly in the lab" loading="lazy"></button>
+        <div class="vbody">
+          <div class="kicker">Lab visit</div>
+          <div class="vip"><div><b>Ahmed Al Khoori</b><span>Senior Vice President, Strategy &amp; Excellence · EDGE Group</span></div></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="block">
+      <div class="kicker">How we build</div>
+      <h2 class="h2">Inside the lab</h2>
+      <div class="gal">
+        <figure><button class="zoomable" data-img="img/build/lab-frames.jpg" aria-label="View photo full size"><img decoding="async" src="img/build/lab-frames-v.jpg" alt="3D-printed drone frames next to a precision scale" loading="lazy"></button><figcaption class="withic"><img decoding="async" class="divic sm" src="img/div-mech.png" alt=""><b>Mechanical Design</b><span>Weighing our 3D-printed frames</span></figcaption></figure>
+        <figure><button class="zoomable" data-img="img/build/lab-assembly.jpg" aria-label="View photo full size"><img decoding="async" src="img/build/lab-assembly-v.jpg" alt="Team member assembling a nano drone" loading="lazy"></button><figcaption class="withic"><img decoding="async" class="divic sm" src="img/div-hw.png" alt=""><b>Hardware &amp; Electronics</b><span>Hand-assembling the Crazyflie</span></figcaption></figure>
+        <figure><button class="zoomable" data-img="img/build/lab-detect.jpg" aria-label="View photo full size"><img decoding="async" src="img/build/lab-detect-v.jpg" alt="Person-detection software running on a screen" loading="lazy"></button><figcaption class="withic"><img decoding="async" class="divic sm" src="img/div-sw.png" alt=""><b>Software &amp; AI</b><span>Live person detection on screen</span></figcaption></figure>
+        <figure><button class="zoomable" data-img="img/build/lab-posters.jpg" aria-label="View photo full size"><img decoding="async" src="img/build/lab-posters-v.jpg" alt="Silent Spear Team posters on the lab wall" loading="lazy"></button><figcaption class="withic"><img decoding="async" class="divic sm" src="img/sym-w.png" alt=""><b>Kre8+ lab</b><span>Our educational posters on the lab wall</span></figcaption></figure>
+      </div>
+    </div>
+    <div class="block">
+      <div class="kicker">HCT Skills · September 2026</div>
+      <h2 class="h2">At the showcase stand</h2>
+      <p class="prose-p sk-lead">Our Crazyflie test rig, frames, posters and live person detection on show.</p>
+      <div class="masonry">
+        <figure><button class="zoomable" data-img="img/skills/rig-stand.jpg" aria-label="View photo full size"><img decoding="async" src="img/skills/rig-stand-v.jpg" alt="Crazyflie on the 3D-printed test rig at the stand" loading="lazy"></button><figcaption>Crazyflie 2.x on our 3D-printed test rig</figcaption></figure>
+        <figure><button class="zoomable" data-img="img/skills/rig-2.jpg" aria-label="View photo full size"><img decoding="async" src="img/skills/rig-2-v.jpg" alt="Close-up of the Crazyflie in the test rig" loading="lazy"></button><figcaption>Test rig close-up</figcaption></figure>
+        <figure><button class="zoomable" data-img="img/skills/stand-sign.jpg" aria-label="View photo full size"><img decoding="async" src="img/skills/stand-sign-v.jpg" alt="Silent Spear Team stand sign with posters" loading="lazy"></button><figcaption>The Silent Spear Team stand</figcaption></figure>
+        <figure><button class="zoomable" data-img="img/skills/posters-stand.jpg" aria-label="View photo full size"><img decoding="async" src="img/skills/posters-stand-v.jpg" alt="Educational posters displayed at the stand" loading="lazy"></button><figcaption>Our educational posters</figcaption></figure>
+      </div>
+    </div>
+
+    </div></div>
+  </section>
+
+  <!-- ===================== WHERE WE BUILD ===================== -->
+  <section class="facil" id="lab">
+    <img decoding="async" class="facil-bg" src="img/kre8-lab-v.jpg" alt="" loading="lazy">
+    <div class="facil-shade"></div>
+    <div class="gut"><div class="in">
+      <div class="glass facil-card">
+        <div class="kicker">Where we build</div>
+        <h2>Kre8+ applied research lab</h2>
+        <p>We design, print, assemble and flight-test at Kre8+, the applied research lab at the Higher Colleges of Technology.</p>
+        <ul class="ticks">
+          <li>Airframes 3D-printed in different materials and designs</li>
+          <li>Sensors, motors, power and flight-control integration</li>
+          <li>Indoor flight testing</li>
+        </ul>
+        <div class="labtags">
+          <span>Kre8+ Advanced Manufacturing Lab</span>
+          <span>Kre8+ Electronics &amp; Sensor Integration Lab</span>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ===================== TEAM ===================== -->
+  <section class="sec" id="team">
+    <div class="gut"><div class="in">
+
+    <div class="pagehead"><div class="kicker">Our team</div><h1 class="h1">Silent Spear Team</h1><p>Ten mechanical and electrical engineering students from the Higher Colleges of Technology, working across mechanical design, electronics, embedded systems, software, AI and system integration.</p></div>
+
+    <figure class="teamshot"><button class="zoomable" data-img="img/team-group.jpg" aria-label="View team photo full size"><img decoding="async" src="img/team-group-v.jpg" alt="Silent Spear Team members together" loading="lazy"></button></figure>
+    <div class="tgroup">
+      <div class="tg-h"><h2>Academic supervisors</h2><p>Academic guidance, technical supervision, planning support, engineering reviews and research direction.</p></div>
+      <div class="people">
+        <div class="person lead"><span class="av">GJ</span><div><b>Dr. Ghalib Janjua</b><span>Electrical Engineering</span></div></div>
+        <div class="person lead"><span class="av">MA</span><div><b>Dr. Mahmoud Abusrea</b><span>Mechanical Engineering</span></div></div>
+      </div>
+    </div>
+
+    <div class="tgroup">
+      <div class="tg-h"><h2>Project lead</h2><p>Leads the project and integrates the mechanical, hardware and software work into one system.</p></div>
+      <div class="people">
+        <div class="person lead"><span class="av">AAZ</span><div><b>Ahmed Abdulhafidh Alzubaidi</b><span>Project Lead &amp; System Integration</span></div></div>
+      </div>
+    </div>
+
+    <div class="tgroup">
+      <div class="tg-h"><div class="tg-t"><img decoding="async" class="divic" src="img/div-mech.png" alt=""><h2>Mechanical Design</h2></div><p class="lbl">Mechanical Engineering</p><p>Airframe design, structural analysis, component mounting, payload integration, weight optimisation, centre-of-gravity evaluation, manufacturing and mechanical testing.</p></div>
+      <div class="people">
+        <div class="person lead"><span class="av">ZSZ</span><div><b>Zayed Samir Alzandani</b><span>Mechanical Design Lead</span></div></div>
+        <div class="person"><span class="av">SYS</span><div><b>Saif Yousef Alsharif</b><span>Flight Testing &amp; Validation Lead</span></div></div>
+        <div class="person"><span class="av">FAJ</span><div><b>Faisal Aref Aljaberi</b><span>Mechanical Design &amp; Manufacturing (proposed role)</span></div></div>
+      </div>
+    </div>
+
+    <div class="tgroup">
+      <div class="tg-h"><div class="tg-t"><img decoding="async" class="divic" src="img/div-hw.png" alt=""><h2>Hardware &amp; Electronics</h2></div><p class="lbl">Electrical Engineering</p><p>Selection and testing of sensors, motors, propellers, batteries, power systems and expansion modules, plus soldering, wiring, embedded hardware integration, communication interfaces and hardware validation.</p></div>
+      <div class="people">
+        <div class="person lead"><span class="av">AAS</span><div><b>Ahmed Abdullah Alsharif</b><span>Electronics &amp; Hardware Integration</span></div></div>
+        <div class="person"><span class="av">AMM</span><div><b>Ali Mohamed Almansoori</b><span>Propulsion &amp; Power Systems Lead</span></div></div>
+        <button class="person ref" data-go="team"><span class="av">+</span><div><b>Project lead</b><span>Also part of this division</span></div></button>
+      </div>
+    </div>
+
+    <div class="tgroup">
+      <div class="tg-h"><div class="tg-t"><img decoding="async" class="divic" src="img/div-sw.png" alt=""><h2>Software &amp; AI</h2></div><p class="lbl">Electrical Engineering</p><p>Flight software, embedded systems, artificial intelligence, computer vision, communication protocols, mission algorithms, system integration and autonomous UAV research.</p></div>
+      <div class="people">
+        <div class="person lead"><span class="av">MNS</span><div><b>Muaath Naser Alshehhi</b><span>Software &amp; AI Integration</span></div></div>
+        <div class="person"><span class="av">KAW</span><div><b>Khalifa Ahmed Alwahedi</b><span>AI &amp; Camera Systems Lead</span></div></div>
+        <div class="person"><span class="av">TSD</span><div><b>Tameim Saeed Aldhanhani</b><span>Obstacle Detection &amp; ToF Sensing</span></div></div>
+        <div class="person"><span class="av">ATJ</span><div><b>Abdulaziz Talal Aljouhi</b><span>Indoor Navigation &amp; Flow Sensing Lead</span></div></div>
+      </div>
+    </div>
+    </div></div>
+  </section>
+
+  <!-- ===================== FILM ===================== -->
+  <section class="sec" id="film">
+    <div class="gut"><div class="in">
+
+    <div class="pagehead"><div class="kicker">Film</div><h1 class="h1">KR8.063 Nanodrone</h1><p>The project film by Silent Spear Team.</p></div>
+    <div class="frame film">
+      <div class="filmbox" id="filmBox"></div>
+      <span class="br a"></span><span class="br b"></span><span class="br c"></span><span class="br d"></span>
+    </div>
+    </div></div>
+  </section>
+
+  <!-- ===================== POSTERS ===================== -->
+  <section class="sec alt" id="posters">
+    <div class="gut"><div class="in">
+
+    <div class="pagehead"><div class="kicker">Poster library</div><h1 class="h1">Learning about UAVs</h1><p>Educational posters by Silent Spear Team that support learning, research and public engagement in UAV technologies. Tap a poster to view it full size.</p></div>
+    <div class="pgrid" id="pgrid"></div>
+    </div></div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section class="contact2" id="contact">
+    <div class="gut"><div class="in contact2-in">
+      <div>
+        <div class="kicker">Collaboration &amp; research</div>
+        <h2>Work with Silent Spear Team</h2>
+        <p>Interested in collaborating, supporting the project, or learning more about our research? We would be pleased to hear from you.</p>
+        <div class="mailbox">
+          <span class="mail" id="mailTxt">silentspear.team@gmail.com</span>
+          <div class="mail-actions">
+            <button class="btn" id="bCopy">Copy email</button>
+            <a class="btn pri" href="mailto:silentspear.team@gmail.com">Send email</a>
+          </div>
+        </div>
+      </div>
+      <div class="contact2-logos">
+        <img decoding="async" class="c-ss" src="img/ss-big-dk.png" alt="Silent Spear Team">
+        <div class="c-row"><a href="https://www.hct.ac.ae" target="_blank" rel="noopener"><img decoding="async" src="img/hct-w.png" alt="Higher Colleges of Technology"></a><a href="https://www.kre8plus.com/" target="_blank" rel="noopener"><img decoding="async" src="img/kre8-w.png" alt="Kre8+"></a></div>
+      </div>
+    </div></div>
+    <div class="gut"><div class="in mission2"><p>SO THAT HUMANS ARE <span>NEVER</span> THE FIRST TO ENTER.</p></div></div>
+  </section>
 </main>
+
+<div class="shotmodal" id="shotModal" hidden role="dialog" aria-modal="true" aria-labelledby="shotTitle">
+  <div class="shot-in">
+    <div class="shot-h"><div class="kicker">Mission photo</div><h3 id="shotTitle">Your KR8.063 moment</h3></div>
+    <div class="shot-img"><img decoding="async" id="shotImg" alt="Your mission photo with the Silent Spear Team frame"></div>
+    <p class="shot-tip" id="shotTip">Share it to your story and tag us. On iPhone you can also press and hold the photo to save it.</p>
+    <div class="shot-act">
+      <button class="btn pri" id="bShare">Share to story</button>
+      <a class="btn" id="bSave" download="KR8063-mission-photo.jpg" href="#">Save photo</a>
+      <button class="btn" id="bRetake">Retake</button>
+    </div>
+  </div>
+</div>
+<div class="lightbox" id="lb" hidden>
+      <button class="lb-x btn" id="lbX">Close</button>
+      <button class="lb-n btn" id="lbP" aria-label="Previous poster">‹</button>
+      <img decoding="async" id="lbImg" alt="">
+      <button class="lb-n r btn" id="lbN" aria-label="Next poster">›</button>
+      <div class="lb-c num" id="lbC"></div>
+    </div>
+
+
+<footer class="gut ftr">
+  <div class="in">
+    <span><b>© 2026 Silent Spear Team</b> · Nanodrone Research &amp; Development</span>
+    <span>Capstone project · Higher Colleges of Technology (HCT) · Sponsored by <b class="nt">Kre8+</b></span>
+  </div>
+</footer>
+
+<div hidden><span id="sysDot"></span><span id="sysTxt"></span></div>
+
+<script>
+/* ======================= PRELOADER ======================= */
+(function(){
+const pre=document.getElementById("preloader");if(!pre)return;
+document.documentElement.classList.add("loading");
+const bar=document.getElementById("plBar"),num=document.getElementById("plNum"),txt=document.getElementById("plTxt");
+const steps=["INITIALISING SYSTEMS","LOADING SENSORS","CALIBRATING","SYSTEM ONLINE"];
+const imgs=[...document.querySelectorAll("img")].filter(i=>i.loading!=="lazy"&&i.closest(".hdr,.hero2,.strip-wrap,.preloader"));
+let total=imgs.length+2,done=0,shown=0,target=0,finished=false;
+const tick=()=>{done++;target=Math.min(100,Math.round(done/total*100))};
+imgs.forEach(i=>{if(i.complete)tick();else{i.addEventListener("load",tick,{once:true});i.addEventListener("error",tick,{once:true})}});
+(document.fonts?document.fonts.ready:Promise.resolve()).then(tick);
+if(document.readyState==="complete")tick();else addEventListener("load",tick,{once:true});
+const start=performance.now();
+function frame(t){const min=Math.min(100,(t-start)/12);const goal=Math.min(target,Math.max(min,shown));
+  shown+=(goal-shown)*0.18;if(goal-shown<0.6)shown=goal;
+  const v=Math.round(shown);bar.style.width=v+"%";num.textContent=v+"%";txt.textContent=steps[Math.min(3,Math.floor(v/34))];
+  if(v>=100&&!finished){finished=true;setTimeout(close,250);return}
+  requestAnimationFrame(frame)}
+function close(){pre.classList.add("done");document.documentElement.classList.remove("loading");setTimeout(()=>pre.remove(),700)}
+requestAnimationFrame(frame);
+setTimeout(()=>{target=100},6000);
+})();
+
+
+/* ======================= ONE-PAGE NAV ======================= */
+let current="home";
+const heroBg=document.getElementById("heroBg");heroBg.src=document.querySelector("#pz img").src;
+const navLinks=[...document.querySelectorAll(".hnav a")],hnav=document.getElementById("hnav"),burger=document.getElementById("burger");
+burger.addEventListener("click",()=>{const o=!hnav.classList.contains("open");hnav.classList.toggle("open",o);burger.setAttribute("aria-expanded",o)});
+navLinks.forEach(a=>a.addEventListener("click",()=>{hnav.classList.remove("open");burger.setAttribute("aria-expanded","false")}));
+document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g){e.preventDefault();const t=document.getElementById(g.dataset.go);if(t)t.scrollIntoView({behavior:"smooth"})}});
+const SECS=["home","about","build","model","demo","highlights","lab","team","film","posters","contact"].map(id=>document.getElementById(id)).filter(Boolean);
+const NAVMAP={build:"about",lab:"highlights",home:null};
+function setActive(id){current=id;const key=id in NAVMAP?NAVMAP[id]:id;navLinks.forEach(a=>a.setAttribute("aria-current",a.getAttribute("href")==="#"+key?"true":"false"))}
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)setActive(e.target.id)})},{rootMargin:"-45% 0px -50% 0px"});
+SECS.forEach(s=>io.observe(s));
+/* stop the camera when the demo scrolls out of view */
+new IntersectionObserver(es=>{es.forEach(e=>{if(!e.isIntersecting&&window.DEMO)DEMO.stop()})},{threshold:0}).observe(document.getElementById("demo"));
+const sysDot=document.getElementById("sysDot"),sysTxt=document.getElementById("sysTxt");
+function setSys(cls,txt){sysDot.className="dot "+cls;sysTxt.textContent=txt}
+/* reveal on scroll */
+(function(){if(!("IntersectionObserver" in window))return;const els=document.querySelectorAll(".sechead,.pagehead,.card,.icard,.feat,.vcard,.gal figure,.tgroup,.stat,.facil-card");
+  const r=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.remove("pre");r.unobserve(e.target)}})},{rootMargin:"0px 0px -8% 0px"});
+  els.forEach(el=>{const b=el.getBoundingClientRect();if(b.top>innerHeight){el.classList.add("rv","pre");r.observe(el)}})})();
+/* animated network background (About) */
+(function(){const c=document.getElementById("netbg");if(!c)return;const x=c.getContext("2d");let W,H,P=[],run=false,raf;const red=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function size(){const r=c.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);W=c.width=r.width*d;H=c.height=r.height*d;const n=Math.round(Math.min(40,r.width*r.height/26000));P=[];for(let i=0;i<n;i++)P.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.25*d,vy:(Math.random()-.5)*.25*d})}
+  function draw(){x.clearRect(0,0,W,H);const d=Math.min(devicePixelRatio||1,2),L=150*d;
+    for(const p of P){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1}
+    for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++){const a=P[i],b=P[j],dx=a.x-b.x,dy=a.y-b.y,q=dx*dx+dy*dy;if(q<L*L){x.strokeStyle="rgba(0,188,235,"+(0.22*(1-Math.sqrt(q)/L))+")";x.lineWidth=d;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke()}}
+    x.fillStyle="rgba(127,215,247,.7)";for(const p of P){x.beginPath();x.arc(p.x,p.y,1.6*d,0,6.283);x.fill()}
+    if(run&&!red)raf=setTimeout(()=>requestAnimationFrame(draw),33)}
+  size();draw();addEventListener("resize",()=>{size();draw()});
+  new IntersectionObserver(es=>{run=es[0].isIntersecting;cancelAnimationFrame(raf);if(run&&!red)raf=requestAnimationFrame(draw)}).observe(c)})();
+
+/* copy email */
+document.getElementById("bCopy").addEventListener("click",async e=>{const b=e.currentTarget,t="silentspear.team@gmail.com";
+  try{await navigator.clipboard.writeText(t);b.textContent="Copied"}catch(_){const r=document.createRange();r.selectNodeContents(document.getElementById("mailTxt"));const sl=getSelection();sl.removeAllRanges();sl.addRange(r);b.textContent="Selected"}
+  setTimeout(()=>b.textContent="Copy email",1800)});
+
+/* ======================= FILM =======================
+   Set FILM_SRC to the film: a YouTube link, or a video file name in the same folder (e.g. "film.mp4"). */
+const FILM_SRC="";
+window.FILM={mount(){const box=document.getElementById("filmBox");if(box.dataset.on)return;box.dataset.on=1;const s=FILM_SRC.trim();
+  const yt=s.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/);
+  if(yt){const f=document.createElement("iframe");f.src="https://www.youtube-nocookie.com/embed/"+yt[1]+"?rel=0&modestbranding=1&playsinline=1";f.allow="autoplay; encrypted-media; picture-in-picture; fullscreen";f.allowFullscreen=true;f.title="KR8.063 Nanodrone film";box.appendChild(f)}
+  else if(s){const v=document.createElement("video");v.src=s;v.controls=true;v.playsInline=true;v.preload="metadata";v.poster=document.getElementById("heroBg").src;box.appendChild(v)}
+  else{box.innerHTML='<div class="soon2"><img decoding="async" class="soon2-bg" src="img/film-teaser-v.jpg" alt=""><img decoding="async" class="soon2-p" src="img/film-teaser-v.jpg" alt="KR8.063 Nanodrone, the official film, coming soon"></div>'}}};
+
+/* ======================= QUOTES CAROUSEL ======================= */
+(function(){
+const box=document.getElementById("qs");if(!box)return;
+const track=document.getElementById("qsTrack"),slides=[...track.children],dots=document.getElementById("qsDots"),who=document.getElementById("qsWho");
+const NAMES=["The Late Sheikh Zayed bin Sultan Al Nahyan","His Highness Sheikh Mohamed bin Zayed Al Nahyan","His Highness Sheikh Mohammed bin Rashid Al Maktoum"];
+const DUR=7000;let i=0,timer=null,visible=false,hover=false;
+document.documentElement.style.setProperty("--qs-dur",DUR+"ms");
+slides.forEach((_,k)=>{const d=document.createElement("button");d.className="qs-dot";d.setAttribute("role","tab");d.setAttribute("aria-label","Quote "+(k+1));d.onclick=()=>{go(k);restart()};dots.appendChild(d)});
+function go(k){i=(k+slides.length)%slides.length;track.style.transform="translateX("+(-100*i)+"%)";
+  [...dots.children].forEach((d,n)=>{d.setAttribute("aria-selected",n===i);if(n===i){d.style.animation="none";void d.offsetWidth;d.style.animation=""}});
+  who.textContent=NAMES[i]}
+function restart(){clearTimeout(timer);if(visible&&!hover&&!document.hidden)timer=setTimeout(()=>{go(i+1);restart()},DUR);box.classList.toggle("paused",!(visible&&!hover))}
+document.getElementById("qsPrev").onclick=()=>{go(i-1);restart()};document.getElementById("qsNext").onclick=()=>{go(i+1);restart()};
+box.addEventListener("mouseenter",()=>{hover=true;restart()});box.addEventListener("mouseleave",()=>{hover=false;restart()});
+let sx=null;box.addEventListener("touchstart",e=>{sx=e.touches[0].clientX},{passive:true});
+box.addEventListener("touchend",e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40){go(i+(dx<0?1:-1));restart()}sx=null});
+new IntersectionObserver(es=>{visible=es[0].isIntersecting;restart()},{threshold:.35}).observe(box);
+document.addEventListener("visibilitychange",restart);
+go(0);
+})();
+
+/* ======================= BACKGROUND IMAGE DECODE (smooth scrolling) ======================= */
+(function(){
+const idle=window.requestIdleCallback||(f=>setTimeout(()=>f({timeRemaining:()=>8}),200));
+function run(){const imgs=[...document.querySelectorAll('img[loading="lazy"]')];let k=0;
+  (function step(dl){while(k<imgs.length&&dl.timeRemaining()>4){const im=imgs[k++];im.loading="eager";if(im.decode)im.decode().catch(()=>{})}if(k<imgs.length)idle(step,{timeout:2000})})({timeRemaining:()=>0});
+  idle(function s(dl){},{timeout:10})}
+addEventListener("load",()=>setTimeout(()=>{const imgs=[...document.querySelectorAll('img[loading="lazy"]')];let k=0;
+  (function step(dl){let n=0;while(k<imgs.length&&(dl.timeRemaining()>4||n<1)){const im=imgs[k++];im.loading="eager";if(im.decode)im.decode().catch(()=>{});n++}if(k<imgs.length)idle(step,{timeout:1500})})({timeRemaining:()=>0})},1200),{once:true});
+})();
+
+/* ======================= PHOTO LIGHTBOX ======================= */
+document.addEventListener("click",e=>{const z=e.target.closest(".zoomable[data-img]");if(!z)return;
+  const lb=document.getElementById("lb"),im=document.getElementById("lbImg");im.src=z.dataset.img;im.alt=(z.querySelector("img")||{}).alt||"";
+  document.getElementById("lbC").textContent=(z.closest("figure")?.querySelector("figcaption b")?.textContent)||"";
+  lb.dataset.single="1";lb.hidden=false;document.getElementById("lbX").focus()});
+
+/* ======================= POSTERS ======================= */
+(function(){
+const grid=document.getElementById("pgrid"),lb=document.getElementById("lb"),img=document.getElementById("lbImg");let at=0;
+const urls=Array.from({length:4},(_,i)=>"img/posters/poster-"+String(i+1).padStart(2,"0")+".jpg");
+urls.forEach((u,i)=>{const b=document.createElement("button");b.className="poster";b.setAttribute("aria-label","Poster "+(i+1));
+  const im=document.createElement("img");im.loading="lazy";im.alt="Poster "+(i+1);im.src=u.replace(".jpg","-s.jpg");
+  im.onerror=()=>{b.classList.add("err");b.textContent="Poster "+(i+1)};
+  const n=document.createElement("span");n.className="pn";n.textContent=String(i+1).padStart(2,"0");b.append(im,n);b.onclick=()=>open(i);grid.appendChild(b)});
+function open(i){lb.dataset.single="";at=(i+urls.length)%urls.length;img.src=urls[at];document.getElementById("lbC").textContent=String(at+1).padStart(2,"0")+" / "+String(urls.length).padStart(2,"0");lb.hidden=false;document.getElementById("lbX").focus()}
+function close(){lb.hidden=true}
+document.getElementById("lbX").onclick=close;document.getElementById("lbP").onclick=()=>{if(!lb.dataset.single)open(at-1)};document.getElementById("lbN").onclick=()=>{if(!lb.dataset.single)open(at+1)};
+lb.addEventListener("click",e=>{if(e.target===lb)close()});
+document.addEventListener("keydown",e=>{if(lb.hidden)return;if(e.key==="Escape")close();if(lb.dataset.single)return;if(e.key==="ArrowRight")open(at+1);if(e.key==="ArrowLeft")open(at-1)});
+})();
+
+/* ======================= THE DRONE · photo explorer ======================= */
+(function(){
+"use strict";
+const IW=1513,IH=1039;
+// x,y in photo pixels. visible:false = part not visible in the photo, so the view zooms to the body only.
+const PARTS=[
+ {name:"Airframe",role:"Lightweight frame that carries every component and keeps the drone rigid in flight.",x:1120,y:575,z:2.4,visible:true},
+ {name:"Motors & propellers",role:"Four motor-and-propeller units that create lift and steer the drone.",x:1188,y:642,z:2.6,visible:true},
+ {name:"Battery",role:"Onboard power source for the motors, flight controller and sensors.",x:1075,y:470,z:1.7,visible:false},
+ {name:"Flight controller",role:"Reads the motion sensors and constantly adjusts motor speeds to keep the drone stable.",x:1165,y:452,z:2.6,visible:true,inside:true},
+ {name:"Camera / AI sensor",role:"Forward-facing camera whose video feeds the person-detection software.",x:956,y:505,z:2.8,visible:true},
+ {name:"Distance (ToF) sensors",role:"Time-of-flight sensors that measure the distance to nearby walls and obstacles.",x:1075,y:470,z:1.7,visible:false},
+ {name:"Optical-flow sensor",role:"Downward-facing sensor that tracks the floor so the drone can hold its position indoors.",x:1075,y:470,z:1.7,visible:false}
+];
+const pv=document.getElementById("pv"),pz=document.getElementById("pz"),chips=document.getElementById("chips");
+const $=id=>document.getElementById(id);
+let sel=-1,zoom=1,full=false;const OV={x:1068,y:448,z:1.5};
+const two=n=>String(n).padStart(2,"0");
+$("mCount").textContent=two(PARTS.length);
+const markers=[];
+PARTS.forEach((p,i)=>{
+  if(p.visible){const b=document.createElement("button");b.className="hs";b.style.left=(p.x/IW*100)+"%";b.style.top=(p.y/IH*100)+"%";
+    b.textContent=two(i+1);b.setAttribute("aria-label",p.name);b.setAttribute("aria-pressed","false");
+    b.addEventListener("click",e=>{e.stopPropagation();select(sel===i?-1:i)});pz.appendChild(b);markers[i]=b}
+  const c=document.createElement("button");c.className="chip";c.setAttribute("aria-pressed","false");
+  const n=document.createElement("span");n.className="n";n.textContent=two(i+1);const t=document.createElement("span");t.textContent=p.name;c.append(n,t);
+  c.addEventListener("click",()=>select(sel===i?-1:i));chips.appendChild(c)});
+function apply(){const r=pv.getBoundingClientRect(),W=r.width,H=r.height;
+  if(!W)return;if(sel<0&&full){zoom=1;pz.style.transform="translate(0px,0px) scale(1)";}
+  else{const p=sel<0?OV:PARTS[sel];zoom=p.z;const px=p.x/IW*W,py=p.y/IH*H;
+    let tx=W/2-px*zoom,ty=H/2-py*zoom;tx=Math.min(0,Math.max(W-W*zoom,tx));ty=Math.min(0,Math.max(H-H*zoom,ty));
+    pz.style.transform="translate("+tx.toFixed(1)+"px,"+ty.toFixed(1)+"px) scale("+zoom+")"}
+  pz.style.setProperty("--z",zoom);pv.classList.toggle("zoomed",sel>=0);$("bFull").textContent=(sel<0&&full)?"Focus on the drone":"Show full photo";$("zm").textContent=zoom.toFixed(1)+"×"}
+function select(i){sel=i;if(i>=0)full=false;
+  [...chips.children].forEach((c,k)=>c.setAttribute("aria-pressed",k===i?"true":"false"));
+  markers.forEach((m,k)=>m&&m.setAttribute("aria-pressed",k===i?"true":"false"));
+  const name=$("cName");
+  if(i<0){$("cIdx").textContent="Component";name.textContent="No part selected";name.classList.remove("on");$("cRole").textContent="Tap a numbered marker on the rendering to see what each part does.";$("cTag").textContent="";$("mSel").textContent="None";$("mSelDot").className="dot";$("zStamp").textContent="Tap a marker"}
+  else{const p=PARTS[i];$("cIdx").textContent="Component "+two(i+1)+" / "+two(PARTS.length);name.textContent=p.name;name.classList.add("on");$("cRole").textContent=p.role;
+    $("cTag").textContent=!p.visible?"Not shown in this rendering":p.inside?"Inside the body":"Marker "+two(i+1)+" on the rendering";
+    $("mSel").textContent="#"+two(i+1);$("mSelDot").className="dot cy";$("zStamp").textContent=p.name}
+  apply()}
+pv.addEventListener("click",()=>{if(sel>=0)select(-1)});
+$("bFull").addEventListener("click",()=>{full=!(sel<0&&full);select(-1)});
+window.addEventListener("resize",apply);
+window.PHOTO={refresh:apply,select};
+select(-1);
+})();
+
+/* ======================= LIVE DEMO ======================= */
+(function(){
+"use strict";
+const LIBS=["https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js","https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.3/dist/coco-ssd.min.js"];
+const $=id=>document.getElementById(id);
+const video=$("video"),ovl=$("ovl"),ctx=ovl.getContext("2d"),box=$("feedbox");
+const ovIntro=$("ovIntro"),ovBusy=$("ovBusy"),ovFail=$("ovFail");
+const S={stream:null,model:null,running:false,facing:"environment",mirror:false,tracks:[],nextId:1,fps:0,lastDet:0,loop:0,wake:null,modelState:"none",camLabel:"OFFLINE",multiCam:false};
+
+function overlay(which){box.classList.toggle("idle",which!==null&&!S.stream);if(which===null||S.stream)fit();ovIntro.hidden=which!=="intro";ovBusy.hidden=which!=="busy";ovFail.hidden=which!=="fail";
+  ["hudTL","hudTR","hudBL"].forEach(id=>$(id).hidden=which!==null)}
+function busy(t,p){$("busyT").textContent=t;$("busyP").textContent=p;overlay("busy")}
+const FAILS={
+  denied:["Camera permission denied","Camera access was blocked. Allow the camera for this page in your browser settings (tap the lock or camera icon in the address bar), then try again."],
+  nocam:["No camera found","This device has no available camera, or another app is using it. Close other camera apps and try again."],
+  insecure:["Camera needs a secure link","Browsers only open the camera on secure (https) pages. Open the demo through its https link."],
+  unsupported:["Camera not supported here","This browser or in-app viewer cannot open the camera. Open the link in Safari or Chrome."],
+  model:["Detection model didn't load","The demo downloads its detection model from the internet the first time. Check your connection and try again."],
+  framed:["Camera blocked in this view","This page is shown inside another app that doesn't allow camera access. Open the demo's own link in Safari or Chrome to use the live camera."],
+  other:["Camera unavailable","The camera could not be started. Try again, or open the link in Safari or Chrome."]};
+function fail(kind){stopStream();const f=FAILS[kind]||FAILS.other;$("failEye").textContent="Live demo · "+(kind==="model"?"Model offline":"Camera offline");$("failT").textContent=f[0];$("failP").textContent=f[1];overlay("fail");setCam("off");updateSys()}
+
+function setDot(id,cls){$(id).className="dot "+cls}
+function setModelState(s){S.modelState=s;const m={none:["","NOT LOADED"],loading:["warn blink","LOADING"],ready:["ok","COCO-SSD"],error:["warn","OFFLINE"]}[s];setDot("sAiD",m[0]);$("sAi").textContent=m[1];$("sAiL").textContent=s==="ready"?"AI active":s==="loading"?"AI loading":"AI standby"}
+function setCam(s){if(s==="live"){setDot("sCamD","ok");setDot("feedDot","ok");$("sCamL").textContent="Camera live";$("sCam").textContent=S.camLabel;$("feedTag").textContent="Camera feed live · "+S.camLabel}
+  else{setDot("sCamD","warn");setDot("feedDot","warn");$("sCamL").textContent="Camera offline";$("sCam").textContent="";$("feedTag").textContent="Camera feed offline"}}
+function updateSys(){if(current!=="demo"){setSys("cy","Ready");return}
+  if(S.running)setSys("ok","System online");else setSys("warn","Camera offline")}
+
+function loadScript(src){return new Promise((res,rej)=>{if([...document.scripts].some(s=>s.src===src))return res();const s=document.createElement("script");s.src=src;s.async=false;s.onload=res;s.onerror=()=>rej(new Error("load "+src));document.head.appendChild(s)})}
+let MODEL_P=null;
+function ensureModel(){if(S.model)return Promise.resolve(S.model);if(!MODEL_P)MODEL_P=loadModel().catch(e=>{MODEL_P=null;throw e});return MODEL_P}
+async function loadModel(){setModelState("loading");
+  try{for(const u of LIBS)await loadScript(u);
+    try{await tf.setBackend("webgl")}catch(_){}await tf.ready();
+    try{tf.enableProdMode()}catch(_){}
+    S.model=await cocoSsd.load({base:"lite_mobilenet_v2"});
+    try{const w=document.createElement("canvas");w.width=320;w.height=240;await S.model.detect(w);await S.model.detect(w)}catch(_){}
+    setModelState("ready");return S.model}
+  catch(e){console.error(e);setModelState("error");throw e}}
+
+async function openCam(){const c={audio:false,video:{facingMode:{ideal:S.facing},width:{ideal:640},height:{ideal:480},frameRate:{ideal:30}}};
+  const st=await navigator.mediaDevices.getUserMedia(c);S.stream=st;video.srcObject=st;
+  await new Promise(r=>{if(video.readyState>=1)r();else video.onloadedmetadata=()=>r()});await video.play().catch(()=>{});
+  const tr=st.getVideoTracks()[0],set=tr&&tr.getSettings?tr.getSettings():{};
+  const fm=set.facingMode||(S.facing==="user"?"user":"");S.mirror=fm==="user"||(!set.facingMode&&!/Android|iPhone|iPad|Mobile/i.test(navigator.userAgent));
+  S.camLabel=fm==="environment"?"REAR":fm==="user"?"FRONT":"WEBCAM";video.classList.toggle("mirror",S.mirror);
+  try{const devs=await navigator.mediaDevices.enumerateDevices();S.multiCam=devs.filter(d=>d.kind==="videoinput").length>1}catch(_){S.multiCam=false}
+  $("bFlip").disabled=!S.multiCam;fit()}
+function stopStream(){S.running=false;cancelAnimationFrame(S.loop);if(S.stream){S.stream.getTracks().forEach(t=>t.stop());S.stream=null}video.srcObject=null;
+  S.tracks=[];$("bStop").disabled=true;$("bFlip").disabled=true;if(S.wake){S.wake.release().catch(()=>{});S.wake=null}clearCanvas();panel()}
+
+async function start(){
+  if(!window.isSecureContext)return fail("insecure");
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)return fail("unsupported");
+  busy("Requesting camera","Allow camera access when your browser asks.");
+  try{await openCam()}catch(e){console.error(e);const n=e&&e.name;
+    let framed=false;try{framed=window.self!==window.top}catch(_){framed=true}
+    return fail((n==="NotAllowedError"||n==="SecurityError")&&framed?"framed":n==="NotAllowedError"||n==="SecurityError"?"denied":(n==="NotFoundError"||n==="OverconstrainedError"||n==="NotReadableError")?"nocam":"other")}
+  setCam("live");
+  if(!S.model){busy("Preparing detection model","Almost ready. This happens once; next time it opens instantly.");try{await ensureModel()}catch(e){return fail("model")}}
+  overlay(null);S.running=true;$("bStop").disabled=false;
+  try{if("wakeLock" in navigator)S.wake=await navigator.wakeLock.request("screen")}catch(_){}
+  S.lastDet=performance.now();detectLoop();drawLoop();updateSys()}
+function stop(){if(!S.stream&&!S.running)return;stopStream();setCam("off");overlay("intro");updateSys()}
+async function flip(){S.facing=S.facing==="environment"?"user":"environment";const was=S.running;stopStream();busy("Switching camera","");
+  try{await openCam();setCam("live");overlay(null);if(was||S.model){S.running=true;$("bStop").disabled=false;detectLoop();drawLoop()}}catch(e){fail("other")}updateSys()}
+
+function fit(){const vw=video.videoWidth||4,vh=video.videoHeight||3;if(!S.stream){box.style.aspectRatio="";box.style.width="";return}box.style.aspectRatio=vw+" / "+vh;
+  const maxH=window.innerHeight*(window.innerWidth<980?.62:.7),pw=box.parentElement.clientWidth;box.style.width=Math.min(pw,maxH*vw/vh)+"px";
+  const r=box.getBoundingClientRect(),d=Math.min(window.devicePixelRatio||1,2);ovl.width=Math.round(r.width*d);ovl.height=Math.round(r.height*d)}
+window.addEventListener("resize",()=>{if(S.stream)fit()});
+
+function iou(a,b){const x1=Math.max(a[0],b[0]),y1=Math.max(a[1],b[1]),x2=Math.min(a[0]+a[2],b[0]+b[2]),y2=Math.min(a[1]+a[3],b[1]+b[3]);const i=Math.max(0,x2-x1)*Math.max(0,y2-y1);return i/(a[2]*a[3]+b[2]*b[3]-i||1)}
+function update(dets,now){const used=new Set();
+  for(const t of S.tracks){let best=-1,bv=.25;dets.forEach((d,k)=>{if(used.has(k))return;const v=iou(t.box,d.bbox);if(v>bv){bv=v;best=k}});
+    if(best>=0){used.add(best);t.box=dets[best].bbox.slice();t.score=dets[best].score;t.seen=now}}
+  dets.forEach((d,k)=>{if(!used.has(k))S.tracks.push({id:S.nextId++,box:d.bbox.slice(),disp:d.bbox.slice(),score:d.score,seen:now,born:now})});
+  S.tracks=S.tracks.filter(t=>now-t.seen<400);if(S.nextId>99)S.nextId=1}
+const dc=document.createElement("canvas"),dctx=dc.getContext("2d",{willReadFrequently:false});const DET_MAX=320;
+async function detectLoop(){if(!S.running)return;
+  if(video.readyState>=2&&!document.hidden){try{const vw=video.videoWidth,vh=video.videoHeight,k=Math.min(1,DET_MAX/Math.max(vw,vh)),dw=Math.round(vw*k),dh=Math.round(vh*k);
+      if(dc.width!==dw||dc.height!==dh){dc.width=dw;dc.height=dh}dctx.drawImage(video,0,0,dw,dh);
+      const p=await S.model.detect(dc,20,.45);const now=performance.now(),inv=1/k;
+      update(p.filter(x=>x.class==="person").map(x=>({score:x.score,bbox:x.bbox.map(v=>v*inv)})),now);const dt=(now-S.lastDet)/1000;S.lastDet=now;if(dt>0)S.fps=S.fps?S.fps*.85+(1/dt)*.15:1/dt;panel()}catch(e){console.error(e)}}
+  else await new Promise(r=>setTimeout(r,200));
+  if(S.running)requestAnimationFrame(()=>detectLoop())}
+function clearCanvas(){ctx.clearRect(0,0,ovl.width,ovl.height)}
+function primary(){let b=null;for(const t of S.tracks)if(!b||t.score>b.score)b=t;return b}
+function drawLoop(){if(!S.running)return;draw(performance.now());S.loop=requestAnimationFrame(drawLoop)}
+function draw(now){const W=ovl.width,H=ovl.height,sx=W/(video.videoWidth||W),sy=H/(video.videoHeight||H),d=W/Math.max(1,ovl.getBoundingClientRect().width);clearCanvas();
+  const P=primary();
+  for(const t of S.tracks){for(let i=0;i<4;i++)t.disp[i]+=(t.box[i]-t.disp[i])*.9;
+    let [x,y,w,h]=t.disp;x*=sx;y*=sy;w*=sx;h*=sy;if(S.mirror)x=W-x-w;
+    const age=Math.min(1,(now-t.born)/80),fade=Math.max(0,1-Math.max(0,now-t.seen-150)/250);ctx.globalAlpha=age*fade;
+    const isP=t===P,col="#2391EB";
+    ctx.strokeStyle=col;ctx.lineWidth=2*d;ctx.strokeRect(x,y,w,h);
+    const lab="PERSON "+Math.round(t.score*100)+"%";ctx.font="700 "+(15*d)+"px Rajdhani,Bahnschrift,'Arial Narrow',sans-serif";
+    const tw=ctx.measureText(lab).width,ph=24*d,pad=8*d;let ly=y-ph;if(ly<0)ly=y;
+    ctx.fillStyle=col;ctx.fillRect(x-1*d,ly,tw+pad*2,ph);ctx.fillStyle="#FFFFFF";ctx.textBaseline="middle";ctx.fillText(lab,x-1*d+pad,ly+ph/2+1*d);
+    if(isP){ctx.fillStyle="#FFFFFF";ctx.beginPath();ctx.arc(x+w/2,y+h/2,4*d,0,Math.PI*2);ctx.fill()}
+    ctx.globalAlpha=1}}
+function panel(){const n=S.tracks.length,P=primary();$("aCount").textContent=String(n).padStart(2,"0");$("tgt").textContent=String(n).padStart(2,"0");
+  $("fps").textContent=S.running&&S.fps?S.fps.toFixed(1):"--";const trk=$("trk");trk.textContent=n?"● TARGET ACQUIRED":"○ SCANNING";
+  if(P){setDot("aTDot","ok");$("aT").textContent="Acquired";
+    const vw=video.videoWidth||1,vh=video.videoHeight||1;let cx=(P.box[0]+P.box[2]/2)/vw,cy=(P.box[1]+P.box[3]/2)/vh;if(S.mirror)cx=1-cx;
+    const hx=cx<.4?"Left":cx>.6?"Right":"Center",dx=Math.round((cx-.5)*200),dy=Math.round((.5-cy)*200),sg=v=>(v>=0?"+":"")+v;
+    $("aPos").textContent=hx;$("aPos").classList.add("on");$("aPosS").textContent="";
+    $("aConf").textContent=Math.round(P.score*100)+"%";$("aBar").style.width=Math.round(P.score*100)+"%"}
+  else{setDot("aTDot","");$("aT").textContent="None";$("aPos").textContent="No person";$("aPos").classList.remove("on");$("aPosS").textContent="";$("aConf").textContent="--";$("aBar").style.width="0"}
+  updateSys()}
+
+$("bStart").onclick=start;$("bRetry").onclick=start;$("bStop").onclick=stop;$("bFlip").onclick=flip;
+document.addEventListener("visibilitychange",async()=>{if(!document.hidden&&S.running&&!S.wake&&"wakeLock" in navigator){try{S.wake=await navigator.wakeLock.request("screen")}catch(_){}}});
+setModelState("none");setCam("off");overlay("intro");
+window.DEMO={stop,updateSys,S,panel,draw,fit,overlay,setCam,setModelState};
+
+
+/* network-only prefetch: warms the browser cache, no parsing or GPU work while the visitor scrolls */
+function prefetch(){
+  const MJ="https://storage.googleapis.com/tfjs-models/savedmodel/ssdlite_mobilenet_v2/model.json";
+  const get=u=>fetch(u,{mode:"cors",credentials:"omit",priority:"low"}).catch(()=>null);
+  LIBS.forEach(get);
+  get(MJ).then(r=>r&&r.ok?r.json():null).then(j=>{if(!j||!j.weightsManifest)return;const base=MJ.slice(0,MJ.lastIndexOf("/")+1);
+    j.weightsManifest.forEach(g=>(g.paths||[]).forEach(p=>get(base+p)))}).catch(()=>{});
+}
+/* silent background preload: when the visitor nears the demo, or a few seconds after the site opens */
+(function(){
+  const c=navigator.connection;if(c&&(c.saveData||/(^|-)2g$/.test(c.effectiveType||"")))return;
+  let go=false;const kick=()=>{if(go||S.model)return;go=true;prefetch()};
+  const demo=document.getElementById("demo");
+  if(demo&&"IntersectionObserver" in window){const io=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){io.disconnect();kick()}},{rootMargin:"900px 0px"});io.observe(demo)}
+  const idle=window.requestIdleCallback||(f=>setTimeout(f,1));
+})();
+})();
+
+
+
+/* ======================= MISSION PHOTO (share card) ======================= */
+(function(){
+"use strict";
+const $=id=>document.getElementById(id);
+const video=$("video"),bShot=$("bShot"),bShot2=$("bShot2"),cd=$("cdown"),flash=$("flash");
+const modal=$("shotModal"),shotImg=$("shotImg"),bShare=$("bShare"),bSave=$("bSave"),bRetake=$("bRetake");
+const SITE="silentspearteam-oss.github.io/kr8-063-nanodrone";
+const QRIMG=new Image();QRIMG.src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMMAAADDCAIAAACwHTL9AAAIx0lEQVR42u2da2xTZRjH1xvttsLGRtmAzYJcBAUURUEFAxqjcXghIkaNJhr9qlGjJsoH+WKiAQkfvJtoTDAS1BAu0yBMMIAEQREQRAdjbrALu4+t63rzsMHW3bqdvpd27PcLH067c9rTt3+e5/++fc5zLNt++zcFQBgrQwAoCVASoCQAlAQoCVASoCQAlAQoCVASoCQAlAQoCa4q7Kb2fnz9UT2ntfGlubFOo6Ag1rHbtw/9WFM7a2OQs0qOb4GYBGQ3QEmAkgAUOG4RR6bNy5uyySKeWqK1Fzk2Sb4FYhKQ3QAlAUoCUOC4RfyaKZ+YKF8s4ppFPoLQGyn7FohJQHYDlAQoCSDRjlsbEktBTFlsc0vPAovaxCQguwGgJEBJgONOKLGdr8iitogBVzdpEFnyJiYB2Q1QEgBKgqvIcUssUTBlVyUuPWsz0Qq9vK5vgZgEKAlQEqAkAPWOW1vTDKGTFCgUEXG+6l45Ob8FYhKgJEBJgJIA+scyLO45qa7KQuIFjRKt/bAoIyEmAUoClAQoCUCB49a2bqutK4hETy1xDjEsxpmYBGQ3QEmAkgCGhLmqEnXdOdRZXRG7GntnbevjIt+RyOc1dRrEJCC7AUoClATQP0JVJRIrJUzdRlLiPSdF3KvE/n8SJysi6+MiTp+YBGQ3QEmAkgD6R+yek/JqEpLEU2vztiIzG23HEpOA7AYoCVASQKIdt7r7qWvrfC1yrLbiFokvpW5aQEwClJQcVNT7V20sHhatpJI3u41wIpHIjqO1G/ZW+IOR0S4bSoJ4qG8JfPxT+ZHS5s6HK2/PHeEDoq9XSaL6jajo+/HLyfov95xv8Yc6H+Znu959crrNaon7rLRNKdTdbJ6YZI5mX/DTXeUHTzdFP/nUotxeMiK7QSwOn2kyZNTQGox+ck6++ybvaAYHJQ0JX3voq18qiv6q6z31taQ8vXiCxWJhiFDS4Bwvu/jJrvLqxva+f7pr1livJ5UhStG5xi1SN6LNvfblhyM1hrnu90+j7JaVC3Ok2FVtfcDVdSUkJvXACDyHzjQWV/pKa3x1FwNG2lo8M3NaTuq40aPGuu1nqnynKlq7dl42z5M9ehSDhpJ6UF7X9s3+ykOnmyI9n//xz1q7zXL7jMy8LNeOo90+aUyq7cFbPIwbSurBruO1X+w+HwhF+v1rKBwx5mubDpQaG11PrliQk+a0MXQoqZsth6o37Ksc6K+Z6fYls8b+fKK+LRA2gpPNavEHwnlZzntmZzF08StJ4sWQpvypiHuNzcHixq/395ZRttth2KPr89xTc1Lbg5HV355u7FhDen7ppM2/VVc2thszf7vNqm46og51vzSM6JjU7Asa0/tIVE5z2q1PLsq9d05255p1qz+0ZltJZcf8f8WC8UtvyNr+x4XZ+e4bWYpESdF8d7D6Yluo66HLYX17xdQp4y+vDwVC4fU//He6ymdsGyHKMEbGxqrl1zodVpYiUVI3Ta3Bncdqo595eL7HUMn5en/nw90n6jp/6p+Q6XzwZk9Fw5WVSUtK6ii8Nkq6wp6T9b0maxt/rTL+9d2zosH/+tfdFRNG3vvkhevHpDJZkackicup6i7wG8hU7jvVEN8L5me74qhrS846bol+fIRW3za2Bs5e8MV37PJbx+OTUNJl6luCkbgOnJTlXDAtA93gky4z2ZP6wXMz/YFwj0WBttDabWebfJdmc8vmjbu7Y+1x57G6wiM1Xfs8eluO1UpAQklRjOv546sx5/+8qKRTRrPz3U/cOcFus1Q1+qNrkiZ7XHfMICCpV5LE1s/q+vD1SzgS+XBH2YlzLcZ2Xpbz1QKvISMjYq0r/K8tKm49s3iiIodkajQSWGNDTBqETQeq9v/TaGxkuR2vPzQ5zWlraQu9X1haUt3tyhddl3lDvpuxQkkDUnS87vuD1Skda9yvLfPmZDj/Ptfy0c6yyobuIslst+PZJRMZK5Q0IH+WNn9WVG5sGFnrxfuv8bWH39ty9nBJj0tHnHbrKwVet4v/dShpAMpq29YVlnYWHXnHufpeN5LSUWL76jLvtNw0tBIbhfeclNiAWwUNrYG3vimuaQ4Y254xjgtNgb77ZKbbX37AO3NiemItdpK0Micm9UNbe2jN1tJOGRkuu6GldygyZmiLZmY+vXhiRhpJDSUNQCQS+ein8n8rL9X2G0Jp8gWDUT/lpjttC6dn3Dc3m8uPUNIgMtqwt/JA8aU5/2SPa/61Y7YerpmQ7czLchrSmTUpfXpuGpdmo6TB+flE/dbfL6RcWuN2vPnIlIw0x2MLc9GBbsctYhvVeeqhv9HxsovvbC4JhSNj0+2rH5uak+HUNtDq7hAvAnd5j5O1284aMjKc0BsPTdEpo5HAyFJSa3vYYbO8UuDtKtYGfFJcwfyluXzlxCQYMY5bZvAQqAGX2OdE3RxC20uZemXquIHsBigJACVBolcB1HW6kPhGIjXRIkXQEnslJuq6SmISkN0AJQGgJEi041bnqWPbRlMeU2TnRNV+qKux0fZ5iUlAdgOUBCgJQLvjFvHUEteLRd5IXf/x5BxJYhKQ3QAlAaAkkI9Qr5JEmWhTx6pzoMlzY0xFo0EdN5DdACUBSgLQ7rgThUSnn+T35RnKWZkaK4nXoBKTgOwGKAlQEkA8mLxycv1RPafVq9GRKSMsYqITtZgu8eZBIlMZ6riB7AYoCQAlgXxMVpX0dNwSG4DGfmVtN6jU1n3F3PwjQc0CiUlAdgOUBCgJQAJS7/JuZgVcxK2rWxFW149bpLpDW+05a9xAdgOUBICSILkd97BAXfuR5Lw0VNuKPzEJyG6AkgAlAVy9jltkcVmiazZlZiX6YpHPS1UJkN0AJQGgJBhWjltiWbcpF6muk4kptDX8E7HYxCQguwFKAkBJMKwct7bWJepuUClSMW1qbd3UJ4o9D0jOC0eJSUB2A5QEKAmgf4ZHP24gJgFKAkBJgJIAJQFKAkBJgJIAJQGgJEBJgJIAJQGgJNDL/+uCVsSm4le3AAAAAElFTkSuQmCC";
+const load=src=>new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=src});
+let LOGOS=null;async function logos(){if(!LOGOS)LOGOS=await Promise.all([load("img/ss-lock-w.png"),load("img/hct-w.png"),load("img/kre8-w.png")]);return LOGOS}
+let busy=false,lastBlob=null,lastURL=null;
+setInterval(()=>{const S=window.DEMO&&DEMO.S;const on=!!(S&&S.running&&$("ovIntro").hidden&&$("ovBusy").hidden&&$("ovFail").hidden);bShot.hidden=!on||busy;bShot2.disabled=!on||busy},300);
+function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
+async function countdown(){cd.hidden=false;for(const n of [3,2,1]){cd.textContent=n;cd.classList.remove("tick");void cd.offsetWidth;cd.classList.add("tick");await sleep(900)}cd.hidden=true}
+function spaced(ctx,txt,x,y,ls,align){try{ctx.letterSpacing=ls+"px"}catch(_){}ctx.textAlign=align||"center";ctx.fillText(txt,x,y);try{ctx.letterSpacing="0px"}catch(_){}}
+async function compose(){
+  const S=DEMO.S,W=1080,H=1920,c=document.createElement("canvas");c.width=W;c.height=H;const x=c.getContext("2d");
+  try{await document.fonts.ready}catch(_){}
+  const [ss,hct,k8]=await logos();
+  // background
+  const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,"#0B1626");g.addColorStop(.5,"#070B12");g.addColorStop(1,"#0B1626");x.fillStyle=g;x.fillRect(0,0,W,H);
+  x.strokeStyle="rgba(35,145,235,.07)";x.lineWidth=1;for(let i=0;i<W;i+=40){x.beginPath();x.moveTo(i,0);x.lineTo(i,H);x.stroke()}for(let j=0;j<H;j+=40){x.beginPath();x.moveTo(0,j);x.lineTo(W,j);x.stroke()}
+  // header
+  if(ss){const h=124,w=h*ss.width/ss.height;x.drawImage(ss,(W-w)/2,48,w,h)}
+  x.fillStyle="#00BCEB";x.font="500 24px 'Roboto Mono',monospace";spaced(x,"LIVE DEMO · DETECTION CONCEPT",W/2,226,5);
+  // photo area
+  const R={x:60,y:258,w:960,h:1140};
+  x.fillStyle="#000";x.fillRect(R.x,R.y,R.w,R.h);
+  const vw=video.videoWidth||4,vh=video.videoHeight||3,kk=Math.max(R.w/vw,R.h/vh),ox=(vw*kk-R.w)/2,oy=(vh*kk-R.h)/2;
+  x.save();x.beginPath();x.rect(R.x,R.y,R.w,R.h);x.clip();
+  if(S.mirror){x.translate(R.x+R.w,0);x.scale(-1,1);x.drawImage(video,-ox,R.y-oy,vw*kk,vh*kk)}else x.drawImage(video,R.x-ox,R.y-oy,vw*kk,vh*kk);
+  x.restore();
+  // black & white: done per-pixel because iOS/Safari ignores canvas ctx.filter
+  if(window.CAM_MONO){try{const im=x.getImageData(R.x,R.y,R.w,R.h),d=im.data;
+    for(let i=0;i<d.length;i+=4){let v=.2126*d[i]+.7152*d[i+1]+.0722*d[i+2];v=(v-128)*1.12+128;v=v<0?0:v>255?255:v;d[i]=d[i+1]=d[i+2]=v}
+    x.putImageData(im,R.x,R.y)}catch(_){}}
+  // soft vignette
+  const vg=x.createRadialGradient(W/2,R.y+R.h/2,R.h*.35,W/2,R.y+R.h/2,R.h*.8);vg.addColorStop(0,"rgba(0,0,0,0)");vg.addColorStop(1,"rgba(0,0,0,.45)");x.fillStyle=vg;x.fillRect(R.x,R.y,R.w,R.h);
+  // detection boxes
+  let best=null;for(const t of S.tracks)if(!best||t.score>best.score)best=t;
+  x.save();x.beginPath();x.rect(R.x,R.y,R.w,R.h);x.clip();
+  for(const t of S.tracks){const b=t.disp||t.box;let bx=b[0]*kk-ox,by=b[1]*kk-oy,bw=b[2]*kk,bh=b[3]*kk;if(S.mirror)bx=R.w-bx-bw;bx+=R.x;by+=R.y;
+    x.strokeStyle="#2391EB";x.lineWidth=5;x.strokeRect(bx,by,bw,bh);
+    const lab="PERSON "+Math.round(t.score*100)+"%";x.font="700 34px Rajdhani,Bahnschrift,'Arial Narrow',sans-serif";const tw=x.measureText(lab).width;
+    let ly=by-50;if(ly<R.y)ly=by;x.fillStyle="#2391EB";x.fillRect(bx-2.5,ly,tw+32,50);x.fillStyle="#fff";x.textAlign="left";x.textBaseline="middle";x.fillText(lab,bx+14,ly+27);x.textBaseline="alphabetic";
+    if(t===best){x.fillStyle="#fff";x.beginPath();x.arc(bx+bw/2,by+bh/2,8,0,6.283);x.fill()}}
+  x.restore();
+  // HUD frame
+  x.strokeStyle="rgba(48,66,89,1)";x.lineWidth=2;x.strokeRect(R.x,R.y,R.w,R.h);
+  x.strokeStyle="#00BCEB";x.lineWidth=5;const L=46,m=18;
+  [[R.x+m,R.y+m,1,1],[R.x+R.w-m,R.y+m,-1,1],[R.x+m,R.y+R.h-m,1,-1],[R.x+R.w-m,R.y+R.h-m,-1,-1]].forEach(([px,py,ux,uy])=>{x.beginPath();x.moveTo(px+ux*L,py);x.lineTo(px,py);x.lineTo(px,py+uy*L);x.stroke()});
+  const n=S.tracks.length,now=new Date(),dd=String(now.getDate()).padStart(2,"0")+"."+String(now.getMonth()+1).padStart(2,"0")+"."+now.getFullYear();
+  x.fillStyle="rgba(0,0,0,.72)";x.fillRect(R.x+42,R.y+42,n?380:300,58);x.fillStyle="#00BCEB";x.fillRect(R.x+42,R.y+42,6,58);
+  x.fillStyle="#fff";x.font="700 32px Rajdhani,Bahnschrift,sans-serif";x.textAlign="left";x.fillText(n?"● TARGET ACQUIRED":"○ SCANNING",R.x+64,R.y+82);
+  x.fillStyle="rgba(0,0,0,.72)";x.fillRect(R.x+R.w-262,R.y+42,220,72);x.font="500 24px 'Roboto Mono',monospace";x.fillStyle="#E6EDF5";x.textAlign="right";x.fillText("PERSONS "+String(n).padStart(2,"0"),R.x+R.w-46,R.y+70);x.fillStyle="#AAB8C5";x.fillText(dd,R.x+R.w-46,R.y+102);
+  // title block
+  x.textAlign="center";x.font="700 96px Rajdhani,Bahnschrift,sans-serif";
+  const t1="KR8.063 ",t2="Nanodrone",w1=x.measureText(t1).width,w2=x.measureText(t2).width,sx=(W-w1-w2)/2;
+  x.textAlign="left";x.fillStyle="#fff";x.fillText(t1,sx,1506);x.fillStyle="#00BCEB";x.shadowColor="rgba(0,188,235,.6)";x.shadowBlur=24;x.fillText(t2,sx+w1,1506);x.shadowBlur=0;
+  x.fillStyle="#AAB8C5";x.font="600 27px Rajdhani,Bahnschrift,sans-serif";spaced(x,"INTELLIGENT INDOOR RECONNAISSANCE PLATFORM",W/2,1556,5);
+  x.font="700 29px Rajdhani,Bahnschrift,sans-serif";const m1="SO THAT HUMANS ARE ",m2="NEVER",m3=" THE FIRST TO ENTER.";
+  try{x.letterSpacing="4px"}catch(_){}const a1=x.measureText(m1).width,a2=x.measureText(m2).width,a3=x.measureText(m3).width;let mx=(W-a1-a2-a3)/2;x.textAlign="left";
+  x.fillStyle="#E6EDF5";x.fillText(m1,mx,1612);x.fillStyle="#00BCEB";x.fillText(m2,mx+a1,1612);x.fillStyle="#E6EDF5";x.fillText(m3,mx+a1+a2,1612);try{x.letterSpacing="0px"}catch(_){}
+  // footer: QR (bottom-left, opens the Live Demo section) + partner logos, call to action and url on the right
+  x.fillStyle="rgba(170,184,197,.25)";x.fillRect(60,1652,W-120,2);
+  try{await QRIMG.decode()}catch(_){}
+  const qs=195,qx=60,qy=1688;
+  const rr=(px,py,w,h,r)=>{x.beginPath();x.moveTo(px+r,py);x.arcTo(px+w,py,px+w,py+h,r);x.arcTo(px+w,py+h,px,py+h,r);x.arcTo(px,py+h,px,py,r);x.arcTo(px,py,px+w,py,r);x.closePath()};
+  x.save();x.shadowColor="rgba(0,188,235,.55)";x.shadowBlur=26;x.fillStyle="#B4CBDB";rr(qx,qy,qs,qs,12);x.fill();x.restore();
+  x.save();rr(qx,qy,qs,qs,12);x.clip();x.imageSmoothingEnabled=false;x.drawImage(QRIMG,qx,qy,qs,qs);x.restore();
+  x.save();x.strokeStyle="#00BCEB";x.lineWidth=3;rr(qx,qy,qs,qs,12);x.stroke();x.restore();
+  const cx=(qx+qs+34+(W-60))/2;
+  const lh=58;let parts=[];if(hct)parts.push([hct,hct.width*lh/hct.height]);if(k8)parts.push([k8,k8.width*lh/k8.height]);
+  const gap=60,tot=parts.reduce((a,p)=>a+p[1],0)+gap*(parts.length-1);let px=cx-tot/2;
+  parts.forEach(([im,w],i)=>{x.drawImage(im,px,1690,w,lh);px+=w;if(i<parts.length-1){x.fillStyle="rgba(170,184,197,.4)";x.fillRect(px+gap/2-1,1694,2,50);px+=gap}});
+  x.fillStyle="#00BCEB";x.font="700 34px Rajdhani,Bahnschrift,sans-serif";spaced(x,"YOUR TURN \u00b7 SCAN & TRY",cx,1817,4);
+  x.fillStyle="#7C8898";x.font="500 22px 'Roboto Mono',monospace";spaced(x,SITE,cx,1879,0);
+  return await new Promise(r=>c.toBlob(r,"image/jpeg",.95));
+}
+async function shoot(){if(busy)return;busy=true;bShot.hidden=true;
+  try{await countdown();flash.classList.remove("go");void flash.offsetWidth;flash.classList.add("go");
+    const blob=await compose();if(!blob)throw new Error("no image");
+    lastBlob=blob;if(lastURL)URL.revokeObjectURL(lastURL);lastURL=URL.createObjectURL(blob);shotImg.src=lastURL;bSave.href=lastURL;
+    const file=new File([blob],"KR8063-mission-photo.jpg",{type:"image/jpeg"});
+    bShare.hidden=!(navigator.canShare&&navigator.canShare({files:[file]}));
+    $("shotTip").textContent=bShare.hidden?"Save the photo, then post it to your story and tag Silent Spear Team. On iPhone you can also press and hold the photo to save it.":"Tap Share to story, then pick Instagram or Snapchat. Tag Silent Spear Team.";
+    modal.hidden=false;bShare.hidden?bSave.focus():bShare.focus()}
+  catch(e){console.error(e)}finally{busy=false;cd.hidden=true}}
+(function(){const bc=$("mColor"),bm=$("mMono");function set(m){window.CAM_MONO=m;video.classList.toggle("mono",m);bc.setAttribute("aria-pressed",!m);bm.setAttribute("aria-pressed",m);try{localStorage.setItem("kr8mono",m?"1":"0")}catch(_){}}
+  bc.onclick=()=>set(false);bm.onclick=()=>set(true);let s=false;try{s=localStorage.getItem("kr8mono")==="1"}catch(_){}set(s)})();
+bShot.addEventListener("click",shoot);bShot2.addEventListener("click",shoot);
+bShare.addEventListener("click",async()=>{if(!lastBlob)return;const file=new File([lastBlob],"KR8063-mission-photo.jpg",{type:"image/jpeg"});
+  try{await navigator.share({files:[file],title:"KR8.063 Nanodrone",text:"Spotted by the KR8.063 Nanodrone detection demo · Silent Spear Team #KR8063Nanodrone #SilentSpearTeam https://"+SITE})}catch(_){}});
+bRetake.addEventListener("click",()=>{modal.hidden=true});
+modal.addEventListener("click",e=>{if(e.target===modal)modal.hidden=true});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!modal.hidden)modal.hidden=true});
+window.SHOT={compose};
+})();
+FILM.mount();
+
+</script>
+
 </body>
 </html>
