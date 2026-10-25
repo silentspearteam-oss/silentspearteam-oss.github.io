@@ -1,4 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://silentspearteam-oss.github.io/</loc><lastmod>2026-10-25</lastmod></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://silentspearteam-oss.github.io/</loc>
+    <lastmod>2026-10-25</lastmod>
+    <image:image><image:loc>https://silentspearteam-oss.github.io/img/drone.jpg</image:loc></image:image>
+    <image:image><image:loc>https://silentspearteam-oss.github.io/img/drone-v.jpg</image:loc></image:image>
+    <image:image><image:loc>https://silentspearteam-oss.github.io/img/build/mech-frames-v.jpg</image:loc></image:image>
+    <image:image><image:loc>https://silentspearteam-oss.github.io/img/build/hw-assembly-v.jpg</image:loc></image:image>
+    <image:image><image:loc>https://silentspearteam-oss.github.io/img/build/sw-detect-v.jpg</image:loc></image:image>
+    <image:image><image:loc>https://silentspearteam-oss.github.io/img/skills/rig-1.jpg</image:loc></image:image>
+    <image:image><image:loc>https://silentspearteam-oss.github.io/img/skills/frame-poster.jpg</image:loc></image:image>
+    <image:image><image:loc>https://silentspearteam-oss.github.io/img/skills/rig-stand.jpg</image:loc></image:image>
+    <image:image><image:loc>https://silentspearteam-oss.github.io/img/skills/rig-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://silentspearteam-oss.github.io/img/skills/stand-sign.jpg</image:loc></image:image>
+    <image:image><image:loc>https://silentspearteam-oss.github.io/img/skills/posters-stand.jpg</image:loc></image:image>
+    <image:image><image:loc>https://silentspearteam-oss.github.io/img/nahyan.jpg</image:loc></image:image>
+    <image:image><image:loc>https://silentspearteam-oss.github.io/img/nuaimi.jpg</image:loc></image:image>
+    <image:image><image:loc>https://silentspearteam-oss.github.io/img/team-guests.jpg</image:loc></image:image>
+    <image:image><image:loc>https://silentspearteam-oss.github.io/img/edge.jpg</image:loc></image:image>
+    <image:image><image:loc>https://silentspearteam-oss.github.io/img/team-group.jpg</image:loc></image:image>
+    <image:image><image:loc>https://silentspearteam-oss.github.io/img/build/lab-frames.jpg</image:loc></image:image>
+    <image:image><image:loc>https://silentspearteam-oss.github.io/img/build/lab-assembly.jpg</image:loc></image:image>
+    <image:image><image:loc>https://silentspearteam-oss.github.io/img/build/lab-detect.jpg</image:loc></image:image>
+    <image:image><image:loc>https://silentspearteam-oss.github.io/img/build/lab-posters.jpg</image:loc></image:image>
+    <image:image><image:loc>https://silentspearteam-oss.github.io/img/kre8-lab-v.jpg</image:loc></image:image>
+    <image:image><image:loc>https://silentspearteam-oss.github.io/img/quotes/q1-zayed.jpg</image:loc></image:image>
+    <image:image><image:loc>https://silentspearteam-oss.github.io/img/quotes/q2-mbz.jpg</image:loc></image:image>
+    <image:image><image:loc>https://silentspearteam-oss.github.io/img/quotes/q3-mbr.jpg</image:loc></image:image>
+  </url>
 </urlset>
