@@ -1924,14 +1924,22 @@ const M={
 /* section -> motif; "b" = also a mirrored copy at the bottom of tall sections, "mid" = vertically centred */
 const MAPS=[["#inspiration","compass"],["#build","circuit"],["#model","radar"],["#demo","scan"],[".numbers","ticks","mid"],["#highlights","hexes","b"],["#lab","rotors"],["#team","stars","b"],["#film","lens"],["#posters","blueprint","b"],["#contact","horizon"]]
  .map(m=>({el:document.querySelector(m[0]),fn:M[m[1]],mid:m[2]==="mid",b:m[2]==="b"})).filter(m=>m.el);
+
+/* keep motifs off text, images and controls: erase them under content (cached rects, page coords) */
+const SEL="h1,h2,h3,h4,h5,p,li,img,video,iframe,button,a,label,input,textarea,select,figcaption,blockquote,th,td,.eyebrow,[class*=card],[class*=panel],[class*=tile],[class*=stat],[class*=qs],[class*=hud],[class*=shot]";
+let RC=[];
+function scan(){const sx=scrollX,sy=scrollY,out=[];document.querySelectorAll(SEL+",div,span,strong,b,em,small").forEach(e=>{if(!e.matches(SEL)&&![...e.childNodes].some(n=>n.nodeType===3&&n.textContent.trim()))return;if(e.id==="fxcv"||e.closest("nav,header"))return;const r=e.getBoundingClientRect();if(r.width<4||r.height<4)return;const big=r.width*r.height>VW*VH*.45&&!/^(IMG|VIDEO|IFRAME)$/.test(e.tagName);if(big)return;out.push([r.left+sx,r.top+sy,r.width,r.height])});RC=out}
+function mask(){const sx=scrollX,sy=scrollY,P=16;x.save();x.globalCompositeOperation="destination-out";x.fillStyle="#000";for(const c of RC){const l=c[0]-sx-P,tp=c[1]-sy-P,w=c[2]+2*P,h=c[3]+2*P;if(tp>VH||tp+h<0||l>VW||l+w<0)continue;x.fillRect(l,tp,w,h)}x.restore()}
+setTimeout(scan,300);setInterval(scan,1200);addEventListener("load",scan);addEventListener("resize",()=>setTimeout(scan,100));
 function draw(now,force){
-  const t=now/1000;x.setTransform(DPR,0,0,DPR,0,0);x.clearRect(0,0,VW,VH);let any=false;
+  const t=now/1000*0.3;x.setTransform(DPR,0,0,DPR,0,0);x.clearRect(0,0,VW,VH);let any=false;
   for(const m of MAPS){const r=m.el.getBoundingClientRect();if(r.bottom<0||r.top>VH||r.width<10)continue;any=true;
     const s=Math.min(r.width,1600)/1200,ox=r.left+(r.width-1200*s)/2;
     x.save();x.beginPath();x.rect(Math.max(0,r.left),Math.max(0,r.top),Math.min(r.width,VW),r.height);x.clip();
     x.save();x.translate(ox,m.mid?r.top+(r.height-700*s)/2:r.top);x.scale(s,s);m.fn(t);x.restore();
     if(m.b&&r.width>700&&r.height>700*s*1.25){x.save();x.translate(ox+1200*s,r.bottom-700*s);x.scale(-s,s);m.fn(t+3.7);x.restore()}
     x.restore()}
+  if(any)mask();
   return any}
 let last=0,slow=0,fps=30;
 function loop(now){requestAnimationFrame(loop);if(document.hidden||now-last<1000/fps-2)return;last=now;const t0=performance.now();draw(now);const dt=performance.now()-t0;slow=slow*.9+dt*.1;if(slow>9&&fps>20)fps=20}
