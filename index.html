@@ -1669,7 +1669,7 @@ function draw(now){const W=ovl.width,H=ovl.height,sx=W/(video.videoWidth||W),sy=
     const lab="PERSON "+Math.round(t.score*100)+"%";ctx.font="700 "+(15*d)+"px Rajdhani,Bahnschrift,'Arial Narrow',sans-serif";
     const tw=ctx.measureText(lab).width,ph=24*d,pad=8*d;let ly=y-ph;if(ly<0)ly=y;
     ctx.fillStyle=col;ctx.fillRect(x-1*d,ly,tw+pad*2,ph);ctx.fillStyle="#FFFFFF";ctx.textBaseline="middle";ctx.fillText(lab,x-1*d+pad,ly+ph/2+1*d);
-    if(isP){ctx.fillStyle="#FFFFFF";ctx.beginPath();ctx.arc(x+w/2,y+h/2,4*d,0,Math.PI*2);ctx.fill()}
+    
     ctx.globalAlpha=1}}
 function panel(){const n=S.tracks.length,P=primary();$("aCount").textContent=String(n).padStart(2,"0");$("tgt").textContent=String(n).padStart(2,"0");
   $("fps").textContent=S.running&&S.fps?S.fps.toFixed(1):"--";const trk=$("trk");trk.textContent=n?"● TARGET ACQUIRED":"○ SCANNING";
@@ -1752,7 +1752,7 @@ async function compose(){
     x.strokeStyle="#2391EB";x.lineWidth=5;x.strokeRect(bx,by,bw,bh);
     const lab="PERSON "+Math.round(t.score*100)+"%";x.font="700 34px Rajdhani,Bahnschrift,'Arial Narrow',sans-serif";const tw=x.measureText(lab).width;
     let ly=by-50;if(ly<R.y)ly=by;x.fillStyle="#2391EB";x.fillRect(bx-2.5,ly,tw+32,50);x.fillStyle="#fff";x.textAlign="left";x.textBaseline="middle";x.fillText(lab,bx+14,ly+27);x.textBaseline="alphabetic";
-    if(t===best){x.fillStyle="#fff";x.beginPath();x.arc(bx+bw/2,by+bh/2,8,0,6.283);x.fill()}}
+    }
   x.restore();
   // HUD frame
   x.strokeStyle="rgba(48,66,89,1)";x.lineWidth=2;x.strokeRect(R.x,R.y,R.w,R.h);
@@ -1932,7 +1932,7 @@ function scan(){const sx=scrollX,sy=scrollY,out=[];document.querySelectorAll(SEL
 function mask(){const sx=scrollX,sy=scrollY,P=16;x.save();x.globalCompositeOperation="destination-out";x.fillStyle="#000";for(const c of RC){const l=c[0]-sx-P,tp=c[1]-sy-P,w=c[2]+2*P,h=c[3]+2*P;if(tp>VH||tp+h<0||l>VW||l+w<0)continue;x.fillRect(l,tp,w,h)}x.restore()}
 setTimeout(scan,300);setInterval(scan,1200);addEventListener("load",scan);addEventListener("resize",()=>setTimeout(scan,100));
 function draw(now,force){
-  const t=now/1000*0.3;x.setTransform(DPR,0,0,DPR,0,0);x.clearRect(0,0,VW,VH);let any=false;
+  const t=now/1000*0.15;x.setTransform(DPR,0,0,DPR,0,0);x.clearRect(0,0,VW,VH);let any=false;
   for(const m of MAPS){const r=m.el.getBoundingClientRect();if(r.bottom<0||r.top>VH||r.width<10)continue;any=true;
     const s=Math.min(r.width,1600)/1200,ox=r.left+(r.width-1200*s)/2;
     x.save();x.beginPath();x.rect(Math.max(0,r.left),Math.max(0,r.top),Math.min(r.width,VW),r.height);x.clip();
