@@ -789,15 +789,15 @@ html.loading,html.loading body{overflow:hidden}
 
 /* ---------- quotes carousel ---------- */
 .quotes{background:linear-gradient(180deg,#0B111B,#0D1624 50%,#0B111B)}
-.qs{position:relative;overflow:hidden;border:1px solid var(--border);background:#fff;max-width:980px;margin:0 auto;box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.qs{position:relative;overflow:hidden;border:1px solid var(--border);background:#fff;max-width:min(720px,calc(58vh*1.4144));margin:0 auto;box-shadow:0 24px 60px rgba(0,0,0,.4)}
 .qs-track{display:flex;transition:transform .8s cubic-bezier(.2,.7,.2,1);will-change:transform}
 .qs-slide{flex:0 0 100%;margin:0;aspect-ratio:2000/1414}
 .qs-slide .zoomable{width:100%;height:100%;background:#fff}
-.qs-slide img{width:100%;height:100%;object-fit:cover;display:block}
+.qs-slide img{width:100%;height:100%;object-fit:contain;display:block}
 .qs-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border:1px solid rgba(48,66,89,.5);background:rgba(11,17,27,.72);color:#fff;font-size:24px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .qs-nav.prev{left:var(--s3)}.qs-nav.next{right:var(--s3)}
 .qs-nav:hover{background:var(--blue)}
-.qs-foot{max-width:980px;margin:var(--s4) auto 0;display:flex;align-items:center;justify-content:space-between;gap:var(--s4);flex-wrap:wrap}
+.qs-foot{max-width:min(720px,calc(58vh*1.4144));margin:var(--s4) auto 0;display:flex;align-items:center;justify-content:space-between;gap:var(--s4);flex-wrap:wrap}
 .qs-who{font-family:var(--f-ui);font-weight:600;font-size:15px;letter-spacing:.04em;color:var(--silver);min-height:1.4em}
 .qs-dots{display:flex;gap:var(--s2)}
 .qs-dot{width:34px;height:4px;border:0;padding:0;background:rgba(170,184,197,.3);cursor:pointer;position:relative;overflow:hidden}
@@ -1569,7 +1569,7 @@ function update(dets,now){const used=new Set();
   for(const t of S.tracks){let best=-1,bv=.25;dets.forEach((d,k)=>{if(used.has(k))return;const v=iou(t.box,d.bbox);if(v>bv){bv=v;best=k}});
     if(best>=0){used.add(best);t.box=dets[best].bbox.slice();t.score=dets[best].score;t.seen=now}}
   dets.forEach((d,k)=>{if(!used.has(k))S.tracks.push({id:S.nextId++,box:d.bbox.slice(),disp:d.bbox.slice(),score:d.score,seen:now,born:now})});
-  S.tracks=S.tracks.filter(t=>now-t.seen<400);if(S.nextId>99)S.nextId=1}
+  S.tracks=S.tracks.filter(t=>now-t.seen<650);if(S.nextId>99)S.nextId=1}
 const dc=document.createElement("canvas"),dctx=dc.getContext("2d",{willReadFrequently:false});const DET_MAX=320;
 async function detectLoop(){if(!S.running)return;
   if(video.readyState>=2&&!document.hidden){try{const vw=video.videoWidth,vh=video.videoHeight,k=Math.min(1,DET_MAX/Math.max(vw,vh)),dw=Math.round(vw*k),dh=Math.round(vh*k);
@@ -1581,11 +1581,16 @@ async function detectLoop(){if(!S.running)return;
 function clearCanvas(){ctx.clearRect(0,0,ovl.width,ovl.height)}
 function primary(){let b=null;for(const t of S.tracks)if(!b||t.score>b.score)b=t;return b}
 function drawLoop(){if(!S.running)return;draw(performance.now());S.loop=requestAnimationFrame(drawLoop)}
+/* Selfie (front/webcam): when the person fills the frame the detection box would sit outside the picture, so we show a compact box around the head/upper body, always fully inside the frame. Rear camera keeps the full-size box. */
+function selfieBox(b,vw,vh){vw=vw||video.videoWidth||640;vh=vh||video.videoHeight||480;let [x,y,w,h]=b;
+  if(S.mirror){if(w>vw*.5||h>vh*.5){const cx=x+w/2,oh=h;w=Math.min(w*.5,vw*.46);h=Math.min(oh*.42,vh*.42);x=cx-w/2;y=y+oh*.03}
+    const m=Math.min(vw,vh)*.04;w=Math.min(w,vw-2*m);h=Math.min(h,vh-2*m);x=Math.max(m,Math.min(vw-m-w,x));y=Math.max(m,Math.min(vh-m-h,y))}
+  return [x,y,w,h]}
 function draw(now){const W=ovl.width,H=ovl.height,sx=W/(video.videoWidth||W),sy=H/(video.videoHeight||H),d=W/Math.max(1,ovl.getBoundingClientRect().width);clearCanvas();
   const P=primary();
   for(const t of S.tracks){for(let i=0;i<4;i++)t.disp[i]+=(t.box[i]-t.disp[i])*.9;
-    let [x,y,w,h]=t.disp;x*=sx;y*=sy;w*=sx;h*=sy;if(S.mirror)x=W-x-w;
-    const age=Math.min(1,(now-t.born)/80),fade=Math.max(0,1-Math.max(0,now-t.seen-150)/250);ctx.globalAlpha=age*fade;
+    let [x,y,w,h]=selfieBox(t.disp);x*=sx;y*=sy;w*=sx;h*=sy;if(S.mirror)x=W-x-w;
+    const age=Math.min(1,(now-t.born)/80),fade=Math.max(0,1-Math.max(0,now-t.seen-300)/350);ctx.globalAlpha=age*fade;
     const isP=t===P,col="#2391EB";
     ctx.strokeStyle=col;ctx.lineWidth=2*d;ctx.strokeRect(x,y,w,h);
     const lab="PERSON "+Math.round(t.score*100)+"%";ctx.font="700 "+(15*d)+"px Rajdhani,Bahnschrift,'Arial Narrow',sans-serif";
@@ -1606,7 +1611,7 @@ function panel(){const n=S.tracks.length,P=primary();$("aCount").textContent=Str
 $("bStart").onclick=start;$("bRetry").onclick=start;$("bStop").onclick=stop;$("bFlip").onclick=flip;
 document.addEventListener("visibilitychange",async()=>{if(!document.hidden&&S.running&&!S.wake&&"wakeLock" in navigator){try{S.wake=await navigator.wakeLock.request("screen")}catch(_){}}});
 setModelState("none");setCam("off");overlay("intro");
-window.DEMO={stop,updateSys,S,panel,draw,fit,overlay,setCam,setModelState};
+window.DEMO={stop,updateSys,S,panel,draw,fit,overlay,setCam,setModelState,selfieBox};
 
 
 /* network-only prefetch: warms the browser cache, no parsing or GPU work while the visitor scrolls */
@@ -1670,7 +1675,7 @@ async function compose(){
   // detection boxes
   let best=null;for(const t of S.tracks)if(!best||t.score>best.score)best=t;
   x.save();x.beginPath();x.rect(R.x,R.y,R.w,R.h);x.clip();
-  for(const t of S.tracks){const b=t.disp||t.box;let bx=b[0]*kk-ox,by=b[1]*kk-oy,bw=b[2]*kk,bh=b[3]*kk;if(S.mirror)bx=R.w-bx-bw;bx+=R.x;by+=R.y;
+  for(const t of S.tracks){const b=DEMO.selfieBox(t.disp||t.box,vw,vh);let bx=b[0]*kk-ox,by=b[1]*kk-oy,bw=b[2]*kk,bh=b[3]*kk;if(S.mirror)bx=R.w-bx-bw;bx+=R.x;by+=R.y;if(S.mirror){by=Math.max(by,R.y+170);by=Math.min(by,R.y+R.h-110-bh)}
     x.strokeStyle="#2391EB";x.lineWidth=5;x.strokeRect(bx,by,bw,bh);
     const lab="PERSON "+Math.round(t.score*100)+"%";x.font="700 34px Rajdhani,Bahnschrift,'Arial Narrow',sans-serif";const tw=x.measureText(lab).width;
     let ly=by-50;if(ly<R.y)ly=by;x.fillStyle="#2391EB";x.fillRect(bx-2.5,ly,tw+32,50);x.fillStyle="#fff";x.textAlign="left";x.textBaseline="middle";x.fillText(lab,bx+14,ly+27);x.textBaseline="alphabetic";
@@ -1684,6 +1689,20 @@ async function compose(){
   x.fillStyle="rgba(0,0,0,.72)";x.fillRect(R.x+42,R.y+42,n?380:300,58);x.fillStyle="#00BCEB";x.fillRect(R.x+42,R.y+42,6,58);
   x.fillStyle="#fff";x.font="700 32px Rajdhani,Bahnschrift,sans-serif";x.textAlign="left";x.fillText(n?"● TARGET ACQUIRED":"○ SCANNING",R.x+64,R.y+82);
   x.fillStyle="rgba(0,0,0,.72)";x.fillRect(R.x+R.w-262,R.y+42,220,72);x.font="500 24px 'Roboto Mono',monospace";x.fillStyle="#E6EDF5";x.textAlign="right";x.fillText("PERSONS "+String(n).padStart(2,"0"),R.x+R.w-46,R.y+70);x.fillStyle="#AAB8C5";x.fillText(dd,R.x+R.w-46,R.y+102);
+  // light drone-style telemetry (thin, low contrast: it must not hide the photo)
+  {const P=best,hh=[now.getHours(),now.getMinutes(),now.getSeconds()].map(v=>String(v).padStart(2,"0")).join(":"),cam=S.camLabel||"CAM",res=(video.videoWidth||0)+"x"+(video.videoHeight||0),sg=v=>(v>=0?"+":"-")+String(Math.abs(v)).padStart(3,"0");
+    let dx=0,dy=0;if(P){const vv=video.videoWidth||1,vh2=video.videoHeight||1;let pc=(P.box[0]+P.box[2]/2)/vv,pr=(P.box[1]+P.box[3]/2)/vh2;if(S.mirror)pc=1-pc;dx=Math.round((pc-.5)*200);dy=Math.round((.5-pr)*200)}
+    x.save();x.beginPath();x.rect(R.x,R.y,R.w,R.h);x.clip();
+    const cx0=R.x+R.w/2,cy0=R.y+R.h/2;x.strokeStyle="rgba(230,237,245,.5)";x.lineWidth=1.5;x.shadowColor="rgba(0,0,0,.85)";x.shadowBlur=6;
+    x.beginPath();x.arc(cx0,cy0,30,0,6.283);x.moveTo(cx0-64,cy0);x.lineTo(cx0-40,cy0);x.moveTo(cx0+40,cy0);x.lineTo(cx0+64,cy0);x.moveTo(cx0,cy0-64);x.lineTo(cx0,cy0-40);x.moveTo(cx0,cy0+40);x.lineTo(cx0,cy0+64);x.stroke();
+    x.beginPath();for(let i=1;i<14;i++){const ty=R.y+R.h*i/14,L=i%2?9:17;x.moveTo(R.x+10,ty);x.lineTo(R.x+10+L,ty);x.moveTo(R.x+R.w-10,ty);x.lineTo(R.x+R.w-10-L,ty)}x.stroke();
+    x.fillStyle="rgba(235,241,248,.9)";x.font="400 20px 'Roboto Mono',monospace";x.textAlign="center";try{x.letterSpacing="2px"}catch(_){}
+    x.fillText(P?"TGT LOCK":"SCAN",cx0,cy0+98);
+    try{x.letterSpacing="1px"}catch(_){}x.textAlign="left";const y1=R.y+R.h-62,y2=R.y+R.h-34;
+    x.fillText("TGT "+(P?String(P.id).padStart(2,"0"):"--")+"  CONF "+(P?Math.round(P.score*100)+"%":"--"),R.x+72,y1);
+    x.fillText("OFFSET X "+(P?sg(dx):"---")+" Y "+(P?sg(dy):"---"),R.x+72,y2);
+    x.textAlign="right";x.fillText("TIME "+hh,R.x+R.w-72,y1);x.fillText("CAM "+cam+" "+res,R.x+R.w-72,y2);
+    try{x.letterSpacing="0px"}catch(_){}x.restore()}
   // title block
   x.textAlign="center";x.font="700 96px Rajdhani,Bahnschrift,sans-serif";
   const t1="KR8.063 ",t2="Nanodrone",w1=x.measureText(t1).width,w2=x.measureText(t2).width,sx=(W-w1-w2)/2;
