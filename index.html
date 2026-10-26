@@ -821,6 +821,10 @@ html.loading,html.loading body{overflow:hidden}
 /* ---------- animated section backgrounds (one light canvas per section, drawn only while visible) ---------- */
 .fxc{display:block;position:sticky;top:0;width:100%;height:100vh;margin-bottom:-100vh;z-index:-1;pointer-events:none;-webkit-mask-image:linear-gradient(180deg,transparent,#000 16%,#000 84%,transparent);mask-image:linear-gradient(180deg,transparent,#000 16%,#000 84%,transparent)}
 
+.abgrid{display:grid;grid-template-columns:1fr;gap:var(--s5);margin-bottom:var(--s6)}
+.abgrid .sechead{margin-bottom:var(--s5)}
+@media (min-width:1000px){.abgrid{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:var(--s7);align-items:center}.abgrid .prose{border-left:2px solid rgba(0,188,235,.35);padding-left:var(--s6)}}
+
 /* ---------- animated background motifs (one light canvas, see script) ---------- */
 #fxcv{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
 .numbers,.contact2{position:relative}
@@ -903,9 +907,8 @@ html.loading,html.loading body{overflow:hidden}
   <section class="sec net" id="about">
     <canvas class="netbg" id="netbg" aria-hidden="true"></canvas>
     <div class="gut"><div class="in">
-      <div class="sechead"><div class="kicker">About us</div><h2>From the classroom to real engineering</h2></div>
-      <div class="split">
-        <p class="lead">We are Emirati engineering students at the Higher Colleges of Technology, turning what we learn into practical engineering experience.</p>
+      <div class="abgrid"><div class="abl"><div class="sechead"><div class="kicker">About us</div><h2>From the classroom to real engineering</h2></div>
+        <p class="lead">We are Emirati engineering students at the Higher Colleges of Technology, turning what we learn into practical engineering experience.</p></div>
         <div class="prose">
           <p>Our goal is to contribute to the UAE's progress in research, innovation and emerging technology. The KR8.063 Nanodrone project builds the skills and technical capability that the nation's technological future depends on.</p>
           <p>We develop and test on the <span class="nt">Crazyflie 2.x</span> research platform while we design and build our own custom nano drone.</p>
@@ -1833,6 +1836,7 @@ size();addEventListener("resize",()=>{size();draw(performance.now(),true)});
 const ring=(cx,cy,r,c,a,lw,dash,off)=>{x.beginPath();x.arc(cx,cy,r,0,TAU);x.strokeStyle=rg(c,a);x.lineWidth=lw||1.2;x.setLineDash(dash||[]);x.lineDashOffset=off||0;x.stroke();x.setLineDash([])};
 const dot=(cx,cy,r,c,a)=>{x.beginPath();x.arc(cx,cy,r,0,TAU);x.fillStyle=rg(c,a);x.fill()};
 const line=(x1,y1,x2,y2,c,a,lw)=>{x.beginPath();x.moveTo(x1,y1);x.lineTo(x2,y2);x.strokeStyle=rg(c,a);x.lineWidth=lw||1;x.stroke()};
+const dia=(cx,cy,r,c,a)=>{x.beginPath();x.moveTo(cx,cy-r);x.lineTo(cx+r,cy);x.lineTo(cx,cy+r);x.lineTo(cx-r,cy);x.closePath();x.fillStyle=rg(c,a);x.fill()};
 const plus=(px,py,c,a)=>{line(px-7,py,px+7,py,c,a,1.4);line(px,py-7,px,py+7,c,a,1.4)};
 const poly=(pts)=>{let L=[0];for(let i=1;i<pts.length;i++)L.push(L[i-1]+Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]));return{pts,L,T:L[L.length-1]}};
 const along=(P,f)=>{const d=f*P.T;let i=1;while(i<P.L.length-1&&P.L[i]<d)i++;const k=(d-P.L[i-1])/((P.L[i]-P.L[i-1])||1);return[P.pts[i-1][0]+(P.pts[i][0]-P.pts[i-1][0])*k,P.pts[i-1][1]+(P.pts[i][1]-P.pts[i-1][1])*k]};
@@ -1895,9 +1899,9 @@ const M={
   quad(980,300,1,7);if(innerWidth>700)quad(200,560,.55,9);
  },
  stars(t){
-  SL.forEach(l=>line(l[0][0],l[0][1],l[1][0],l[1][1],Cc,.1,1));
-  STAR.forEach(s=>dot(s[0],s[1],s[2],Cc,.15+.55*(.5+.5*Math.sin((t/s[3]+s[4])*TAU))));
-  [0,2,4].forEach((k,i)=>{const l=SL[k];if(!l)return;const f=((t/(4+i))+i*.3)%1;dot(l[0][0]+(l[1][0]-l[0][0])*f,l[0][1]+(l[1][1]-l[0][1])*f,2.6,Bc,.85)});
+  SL.forEach(l=>line(l[0][0],l[0][1],l[1][0],l[1][1],Cc,.08,1));
+  STAR.forEach(s=>dia(s[0],s[1],s[2]+1,Cc,.12+.4*(.5+.5*Math.sin((t/s[3]+s[4])*TAU))));
+  [0,2,4].forEach((k,i)=>{const l=SL[k];if(!l)return;const f=((t/(4+i))+i*.3)%1;dia(l[0][0]+(l[1][0]-l[0][0])*f,l[0][1]+(l[1][1]-l[0][1])*f,3.2,Bc,.8)});
  },
  lens(t){
   ring(190,150,96,Cc,.2,1.2);ring(190,150,74,Bc,.18,1,[4,8],t*4);x.save();x.translate(190,150);x.rotate(t/50*TAU);x.strokeStyle=rg(Cc,.28);x.lineWidth=1.3;
@@ -1916,9 +1920,9 @@ const M={
  },
  horizon(t){
   [[[0,600],[300,560],[700,520],[1000,420]],[[0,380],[300,420],[700,440],[1000,420]],[[0,200],[400,260],[760,360],[1000,420]]].forEach((c,i)=>{
-   x.beginPath();x.moveTo(c[0][0],c[0][1]);x.bezierCurveTo(c[1][0],c[1][1],c[2][0],c[2][1],c[3][0],c[3][1]);x.strokeStyle=rg(Cc,.18);x.lineWidth=1.2;x.setLineDash([3,9]);x.lineDashOffset=-t*10/(1+i*.3);x.stroke();x.setLineDash([]);
-   const f=((t/(7+i*2))+i*.33)%1,p=bez(c[0],c[1],c[2],c[3],f);dot(p[0],p[1],7,Cc,.1);dot(p[0],p[1],3,Cc,.85)});
-  [0,.5].forEach(o=>{const p=(t/4+o)%1;ring(1000,420,6+84*p,Bc,.5*(1-p),1.4)});dot(1000,420,5,Cc,.7);
+   x.beginPath();x.moveTo(c[0][0],c[0][1]);x.bezierCurveTo(c[1][0],c[1][1],c[2][0],c[2][1],c[3][0],c[3][1]);x.strokeStyle=rg(Cc,.14);x.lineWidth=1.1;x.setLineDash([3,9]);x.lineDashOffset=-t*10/(1+i*.3);x.stroke();x.setLineDash([]);
+   const f=((t/(7+i*2))+i*.33)%1,p=bez(c[0],c[1],c[2],c[3],f);dia(p[0],p[1],3.4,Cc,.75)});
+  dia(1000,420,5,Cc,.5);
  }
 };
 /* section -> motif; "b" = also a mirrored copy at the bottom of tall sections, "mid" = vertically centred */
@@ -1926,7 +1930,7 @@ const MAPS=[["#inspiration","compass"],["#build","circuit"],["#model","radar"],[
  .map(m=>({el:document.querySelector(m[0]),fn:M[m[1]],mid:m[2]==="mid",b:m[2]==="b"})).filter(m=>m.el);
 
 /* keep motifs off text, images and controls: erase them under content (cached rects, page coords) */
-const SEL="h1,h2,h3,h4,h5,p,li,img,video,iframe,button,a,label,input,textarea,select,figcaption,blockquote,th,td,.eyebrow,[class*=card],[class*=panel],[class*=tile],[class*=stat],[class*=qs],[class*=hud],[class*=shot]";
+const SEL="h1,h2,h3,h4,h5,p,li,img,video,iframe,button,a,label,input,textarea,select,figcaption,blockquote,th,td,.eyebrow,[class*=card],[class*=panel],[class*=tile],[class*=stat],[class*=qs],[class*=hud],[class*=shot],.person,.tg-h,.abph";
 let RC=[];
 function scan(){const sx=scrollX,sy=scrollY,out=[];document.querySelectorAll(SEL+",div,span,strong,b,em,small").forEach(e=>{if(!e.matches(SEL)&&![...e.childNodes].some(n=>n.nodeType===3&&n.textContent.trim()))return;if(e.id==="fxcv"||e.closest("nav,header"))return;const r=e.getBoundingClientRect();if(r.width<4||r.height<4)return;const big=r.width*r.height>VW*VH*.45&&!/^(IMG|VIDEO|IFRAME)$/.test(e.tagName);if(big)return;out.push([r.left+sx,r.top+sy,r.width,r.height])});RC=out}
 function mask(){const sx=scrollX,sy=scrollY,P=16;x.save();x.globalCompositeOperation="destination-out";x.fillStyle="#000";for(const c of RC){const l=c[0]-sx-P,tp=c[1]-sy-P,w=c[2]+2*P,h=c[3]+2*P;if(tp>VH||tp+h<0||l>VW||l+w<0)continue;x.fillRect(l,tp,w,h)}x.restore()}
