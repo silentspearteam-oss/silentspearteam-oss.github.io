@@ -1738,7 +1738,10 @@ async function compose(){
   // photo area
   const R={x:60,y:258,w:960,h:1140};
   x.fillStyle="#000";x.fillRect(R.x,R.y,R.w,R.h);
-  const vw=video.videoWidth||4,vh=video.videoHeight||3,kk=Math.max(R.w/vw,R.h/vh),ox=(vw*kk-R.w)/2,oy=(vh*kk-R.h)/2;
+  const vw=video.videoWidth||4,vh=video.videoHeight||3,wide=vw/vh>R.w/R.h,kk=wide?Math.min(R.w/vw,R.h/vh):Math.max(R.w/vw,R.h/vh),ox=(vw*kk-R.w)/2,oy=(vh*kk-R.h)/2;
+  // wide (landscape) camera: keep the WHOLE frame so nobody at the sides is cut off; the spare area is a dark, blurred copy of the same picture
+  if(wide){const t=document.createElement("canvas");t.width=24;t.height=Math.max(2,Math.round(24*R.h/R.w));const tc=t.getContext("2d"),kc=Math.max(t.width/vw,t.height/vh);tc.drawImage(video,(t.width-vw*kc)/2,(t.height-vh*kc)/2,vw*kc,vh*kc);
+    x.imageSmoothingEnabled=true;try{x.imageSmoothingQuality="high"}catch(_){}x.drawImage(t,R.x,R.y,R.w,R.h);x.fillStyle="rgba(5,10,18,.5)";x.fillRect(R.x,R.y,R.w,R.h)}
   x.save();x.beginPath();x.rect(R.x,R.y,R.w,R.h);x.clip();
   if(S.mirror){x.translate(R.x+R.w,0);x.scale(-1,1);x.drawImage(video,-ox,R.y-oy,vw*kk,vh*kk)}else x.drawImage(video,R.x-ox,R.y-oy,vw*kk,vh*kk);
   x.restore();
