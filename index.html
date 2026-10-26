@@ -1217,16 +1217,16 @@ html.loading,html.loading body{overflow:hidden}
     <div class="tgroup">
       <div class="tg-h"><div class="tg-t"><img decoding="async" class="divic" src="img/div-mech.png" alt=""><h2>Mechanical Design</h2></div><p class="lbl">Mechanical Engineering</p><p>Airframe design, structural analysis, component mounting, payload integration, weight optimisation, centre-of-gravity evaluation, manufacturing and mechanical testing.</p></div>
       <div class="people">
-        <div class="person lead"><span class="av">ZSZ</span><div><b>Zayed Samir Alzandani</b><span>Mechanical Design Lead</span></div></div>
-        <div class="person"><span class="av">SYS</span><div><b>Saif Yousef Alsharif</b><span>Flight Testing &amp; Validation Lead</span></div></div>
-        <div class="person"><span class="av">FAJ</span><div><b>Faisal Aref Aljaberi</b><span>Mechanical Design &amp; Manufacturing (proposed role)</span></div></div>
+        <div class="person lead"><span class="av">ZSZ</span><div><b>Zayed Samir Alzandani</b><span>Mechanical Design &amp; Integration Lead</span></div></div>
+        <div class="person"><span class="av">SYS</span><div><b>Saif Yousef Alsharif</b><span>Testing &amp; Performance Validation Lead</span></div></div>
+        <div class="person"><span class="av">FAJ</span><div><b>Faisal Aref Aljaberi</b><span>Prototyping &amp; Manufacturing Lead</span></div></div>
       </div>
     </div>
 
     <div class="tgroup">
       <div class="tg-h"><div class="tg-t"><img decoding="async" class="divic" src="img/div-hw.png" alt=""><h2>Hardware &amp; Electronics</h2></div><p class="lbl">Electrical Engineering</p><p>Selection and testing of sensors, motors, propellers, batteries, power systems and expansion modules, plus soldering, wiring, embedded hardware integration, communication interfaces and hardware validation.</p></div>
       <div class="people">
-        <div class="person lead"><span class="av">AAS</span><div><b>Ahmed Abdullah Alsharif</b><span>Electronics &amp; Hardware Integration</span></div></div>
+        <div class="person lead"><span class="av">AAS</span><div><b>Ahmed Abdullah Alsharif</b><span>Electronics &amp; Hardware Integration Lead</span></div></div>
         <div class="person"><span class="av">AMM</span><div><b>Ali Mohamed Almansoori</b><span>Propulsion &amp; Power Systems Lead</span></div></div>
         <button class="person ref" data-go="team"><span class="av">+</span><div><b>Project lead</b><span>Also part of this division</span></div></button>
       </div>
@@ -1235,9 +1235,9 @@ html.loading,html.loading body{overflow:hidden}
     <div class="tgroup">
       <div class="tg-h"><div class="tg-t"><img decoding="async" class="divic" src="img/div-sw.png" alt=""><h2>Software &amp; AI</h2></div><p class="lbl">Electrical Engineering</p><p>Flight software, embedded systems, artificial intelligence, computer vision, communication protocols, mission algorithms, system integration and autonomous UAV research.</p></div>
       <div class="people">
-        <div class="person lead"><span class="av">MNS</span><div><b>Muaath Naser Alshehhi</b><span>Software &amp; AI Integration</span></div></div>
+        <div class="person lead"><span class="av">MNS</span><div><b>Muaath Naser Alshehhi</b><span>Software &amp; AI Integration Lead</span></div></div>
         <div class="person"><span class="av">KAW</span><div><b>Khalifa Ahmed Alwahedi</b><span>AI &amp; Camera Systems Lead</span></div></div>
-        <div class="person"><span class="av">TSD</span><div><b>Tameim Saeed Aldhanhani</b><span>Obstacle Detection &amp; ToF Sensing</span></div></div>
+        <div class="person"><span class="av">TSD</span><div><b>Tameim Saeed Aldhanhani</b><span>Depth Sensing &amp; Obstacle Detection Lead</span></div></div>
         <div class="person"><span class="av">ATJ</span><div><b>Abdulaziz Talal Aljouhi</b><span>Indoor Navigation &amp; Flow Sensing Lead</span></div></div>
       </div>
     </div>
@@ -1432,7 +1432,7 @@ const SC={
   draw(x,w,h,t){x.lineWidth=1;[[.3,.9,.012,26,.11],[.5,1.2,.009,34,.09],[.7,1.5,.015,20,.07]].forEach(([y,sp,fq,am,al],i)=>{x.strokeStyle="rgba("+(i===1?C1:C0)+","+al+")";x.beginPath();
    for(let px=0;px<=w;px+=14){const py=h*y+Math.sin(px*fq+t*sp)*am+Math.sin(px*fq*2.3-t*sp*.7)*am*.4;px?x.lineTo(px,py):x.moveTo(px,py)}x.stroke()})}}
 };
-const MAP=[["#inspiration","stars"],["#build","blueprint"],["#model","radar"],["#demo","hex"],["#highlights","orbit"],["#team","rise"],["#film","paths"],["#posters","markers"],["#contact","ping"],[".numbers","waves"]];
+const MAP=[["#inspiration","stars"],["#build","blueprint"],["#model","radar"],["#demo","hex"],["#highlights","orbit"],["#team","rise"],["#film","paths"],["#posters","markers"],["#contact","waves"],[".numbers","waves"]];
 const inst=[];
 MAP.forEach(([sel,name])=>{const sec=document.querySelector(sel);if(!sec)return;const c=document.createElement("canvas");c.className="fxc";c.setAttribute("aria-hidden","true");sec.insertBefore(c,sec.firstChild);
   inst.push({sec,c,x:c.getContext("2d"),sc:SC[name],name,st:null,vis:false,w:0,h:0,t0:0,idle:false})});
@@ -1926,7 +1926,7 @@ const M={
  }
 };
 /* section -> motif; "b" = also a mirrored copy at the bottom of tall sections, "mid" = vertically centred */
-const MAPS=[["#inspiration","compass"],["#build","circuit"],["#model","radar"],["#demo","scan"],[".numbers","ticks","mid"],["#highlights","hexes","b"],["#lab","rotors"],["#team","stars","b"],["#film","lens"],["#posters","blueprint","b"],["#contact","horizon"]]
+const MAPS=[["#inspiration","compass"],["#build","circuit"],["#model","radar"],["#demo","scan"],[".numbers","ticks","mid"],["#highlights","hexes","b"],["#lab","rotors"],["#team","stars","b"],["#film","lens"],["#posters","blueprint","b"]]
  .map(m=>({el:document.querySelector(m[0]),fn:M[m[1]],mid:m[2]==="mid",b:m[2]==="b"})).filter(m=>m.el);
 
 /* keep motifs off text, images and controls: erase them under content (cached rects, page coords) */
@@ -1939,7 +1939,7 @@ function draw(now,force){
   const t=now/1000*0.15;x.setTransform(DPR,0,0,DPR,0,0);x.clearRect(0,0,VW,VH);let any=false;
   for(const m of MAPS){const r=m.el.getBoundingClientRect();if(r.bottom<0||r.top>VH||r.width<10)continue;any=true;
     const s=Math.min(r.width,1600)/1200,ox=r.left+(r.width-1200*s)/2;
-    x.save();x.beginPath();x.rect(Math.max(0,r.left),Math.max(0,r.top),Math.min(r.width,VW),r.height);x.clip();
+    x.save();x.beginPath();x.rect(Math.max(0,r.left),Math.max(0,r.top),Math.min(r.width,VW),Math.max(0,r.bottom-Math.max(0,r.top)));x.clip();
     x.save();x.translate(ox,m.mid?r.top+(r.height-700*s)/2:r.top);x.scale(s,s);m.fn(t);x.restore();
     if(m.b&&r.width>700&&r.height>700*s*1.25){x.save();x.translate(ox+1200*s,r.bottom-700*s);x.scale(-s,s);m.fn(t+3.7);x.restore()}
     x.restore()}
