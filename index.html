@@ -993,7 +993,7 @@ html.loading,html.loading body{overflow:hidden}
           <button class="btn" id="stkExp" aria-pressed="false"><span class="ind"></span>Exploded view</button>
           <button class="btn" id="stkReset">Reset view</button>
         </div>
-        <p class="caption">The frame is drawn from the team's own CAD file. Electronics are shown as simplified models; photos are from our build.</p>
+        <p class="caption">The frame is drawn from the team's own CAD file. Electronics are shown as simplified models.</p>
       </div>
 
       <aside class="ana" aria-label="Component details">
@@ -1004,7 +1004,7 @@ html.loading,html.loading body{overflow:hidden}
         </div>
         <div class="pos" aria-live="polite">
           <div class="lbl" id="cIdx">Component</div>
-          <div class="val"><div class="t" id="cName">No part selected</div><p class="desc" id="cRole">Tap a part on the 3D model, or pick one from the list.</p><img class="cimg" id="cImg" alt="" hidden><div class="tag" id="cTag"></div></div>
+          <div class="val"><div class="t" id="cName">No part selected</div><p class="desc" id="cRole">Tap a part on the 3D model, or pick one from the list.</p><img class="cimg" id="cImg" alt="" hidden style="display:none"><div class="tag" id="cTag"></div></div>
         </div>
         <div class="chips" id="stkChips"></div>
       </aside>
@@ -1934,11 +1934,11 @@ const cv=document.getElementById("stkcv"),box=document.getElementById("stk");if(
 const $=id=>document.getElementById(id);
 const PARTS=[
  {id:"ranger",name:"Distance sensors",role:"Range sensors facing front, back, left, right and up, so the drone can sense walls and obstacles around it.",ey:1.0,ay:.47},
- {id:"batt",name:"Battery",role:"Two-cell 18650 lithium-ion pack that powers the motors and all the electronics.",ey:.5,ay:.21,img:"img/stack/battery.jpg"},
- {id:"motor",name:"Motors & propellers",role:"Four brushless motors with propellers create the lift and steer the drone.",ey:.08,ay:0,img:"img/stack/motor.jpg"},
- {id:"frame",name:"Airframe",role:"Our modified 130 mm frame, 3D-printed from the team's own CAD file.",ey:0,ay:0,img:"img/stack/frame.jpg"},
- {id:"fc",name:"Flight controller",role:"The brain of the drone: reads the motion sensors and drives the four motors to keep it stable.",ey:-.42,ay:-.08,img:"img/stack/fc.jpg"},
- {id:"ai",name:"AI camera module",role:"Camera with an on-board AI processor for vision tasks such as detecting people.",ey:-.82,ay:-.16},
+ {id:"batt",name:"Battery",role:"Two-cell 18650 lithium-ion pack that powers the motors and all the electronics.",ey:.5,ay:.21},
+ {id:"motor",name:"Motors & propellers",role:"Four brushless motors with propellers create the lift and steer the drone.",ey:.08,ay:0},
+ {id:"frame",name:"Airframe",role:"Our modified 130 mm frame, 3D-printed from the team's own CAD file.",ey:0,ay:0},
+ {id:"fc",name:"Flight controller",role:"The brain of the drone: reads the motion sensors and drives the four motors to keep it stable.",ey:-.42,ay:-.08},
+ {id:"ai",name:"On-board computer & camera",role:"A small on-board computer with a camera, used for AI tasks such as detecting people and, in development, autonomous flight.",ey:-.82,ay:-.16},
  {id:"flow",name:"Optical-flow sensor",role:"Looks down at the floor to track movement, so the drone can hold its position indoors without GPS.",ey:-1.2,ay:-.24}
 ];
 const N=PARTS.length,two=n=>String(n).padStart(2,"0");
