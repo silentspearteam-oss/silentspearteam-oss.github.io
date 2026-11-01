@@ -2500,36 +2500,59 @@ function at(s){s=Math.max(0,Math.min(TOT,s));for(const[a,b,s0,l]of SEG)if(s<=s0+
 function head(s){const a=at(Math.max(0,s-45)),b=at(Math.min(TOT,s+45));return Math.atan2(b[0]-a[0],a[1]-b[1])*180/Math.PI}
 
 /* ---------- build the scene once ---------- */
-const W0=el("g",{});
-const defs=el("defs",{},W0);
-defs.innerHTML='<radialGradient id="msRv"><stop offset="0" stop-color="#fff"/><stop offset=".65" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>';
-const mask=el("mask",{id:"msMask",maskUnits:"userSpaceOnUse",x:-60,y:-60,width:1520,height:1120},defs);
-el("rect",{x:-60,y:-60,width:1520,height:1120,fill:"#000"},mask);
-const RV=[];for(let s=0;s<=TOT;s+=45){const p=at(s);RV.push({s,c:el("circle",{cx:p[0],cy:p[1],r:s>900?380:320,fill:"url(#msRv)",style:"display:none"},mask)})}
-function plan(g,wall,lw,furn,glow){
-  el("rect",{x:0,y:0,width:1400,height:900,fill:"rgba(35,145,235,.045)"},g);
-  FURN.forEach(([x,y,w,h])=>el("rect",{x,y,width:w,height:h,rx:6,fill:"none",stroke:furn,"stroke-width":1.2,...NSS},g));
-  if(glow)WALLS.forEach(([a,b,c,d])=>el("line",{x1:a,y1:b,x2:c,y2:d,stroke:"#00BCEB","stroke-width":8,opacity:.18,"stroke-linecap":"square",...NSS},g));
-  WALLS.forEach(([a,b,c,d])=>el("line",{x1:a,y1:b,x2:c,y2:d,stroke:wall,"stroke-width":lw,"stroke-linecap":"square",...NSS},g));
-  DOORS.forEach(([x,y,w,s,o])=>el("path",{d:o==="h"?`M${x} ${y} l0 ${-s*w} A${w} ${w} 0 0 ${s>0?0:1} ${x+w} ${y}`:`M${x} ${y} l${-s*w} 0 A${w} ${w} 0 0 ${s>0?1:0} ${x} ${y+w}`,fill:"none",stroke:furn,"stroke-width":1,...NSS},g))}
-plan(el("g",{opacity:.2},W0),"#AAB8C5",2,"#304259",false);
-plan(el("g",{mask:"url(#msMask)"},W0),"#E6EDF5",3,"#3F6A92",true);
-el("polyline",{points:PATH.map(p=>p.join(",")).join(" "),fill:"none",stroke:"#2391EB","stroke-width":1,opacity:.12,"stroke-dasharray":"2 7",...NSS},W0);
-const trail=el("polyline",{points:"",fill:"none",stroke:"#2391EB","stroke-width":2.2,"stroke-dasharray":"2 7","stroke-linecap":"round",...NSS},W0);
-/* person (top view, true size) */
-const PG=el("g",{opacity:0},W0);
-el("ellipse",{cx:PERSON[0],cy:PERSON[1],rx:26,ry:15,fill:"#C9D3DD",opacity:.9},PG);el("circle",{cx:PERSON[0],cy:PERSON[1],r:10,fill:"#7E8B98"},PG);
+/* ---------- canvas renderer: replaces the SVG scene (SVG mask + non-scaling strokes are very slow on Safari / iPad) ---------- */
+svg.style.display="none";document.getElementById("msGrid").style.display="none";
+const cvs=document.createElement("canvas");cvs.className="ms-svg";cvs.setAttribute("aria-hidden","true");svg.parentNode.insertBefore(cvs,svg);
+const cx=cvs.getContext("2d"),bc=document.createElement("canvas"),bx=bc.getContext("2d");
+let CW=1,CH=1,DPR=1;
+function sizeCv(){const stk=sec.querySelector(".ms-stick")||sec;CW=stk.clientWidth||innerWidth;CH=stk.clientHeight||innerHeight;DPR=Math.min(devicePixelRatio||1,2);
+  const w=Math.round(CW*DPR),h=Math.round(CH*DPR);if(cvs.width!==w||cvs.height!==h){cvs.width=bc.width=w;cvs.height=bc.height=h}}
+const DOORP=DOORS.map(([x,y,w,s,o])=>new Path2D(o==="h"?`M${x} ${y} l0 ${-s*w} A${w} ${w} 0 0 ${s>0?0:1} ${x+w} ${y}`:`M${x} ${y} l${-s*w} 0 A${w} ${w} 0 0 ${s>0?1:0} ${x} ${y+w}`));
+function rrect(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+function planDraw(c,sc,wall,lw,furn,glow){
+  c.fillStyle="rgba(35,145,235,.045)";c.fillRect(0,0,1400,900);
+  c.setLineDash([]);c.lineCap="butt";c.strokeStyle=furn;c.lineWidth=1.2/sc;FURN.forEach(([x,y,w,h])=>{rrect(c,x,y,w,h,6);c.stroke()});
+  c.lineCap="square";
+  if(glow){c.strokeStyle="rgba(0,188,235,.18)";c.lineWidth=8/sc;WALLS.forEach(([a,b,e,d])=>{c.beginPath();c.moveTo(a,b);c.lineTo(e,d);c.stroke()})}
+  c.strokeStyle=wall;c.lineWidth=lw/sc;c.beginPath();WALLS.forEach(([a,b,e,d])=>{c.moveTo(a,b);c.lineTo(e,d)});c.stroke();
+  c.lineCap="butt";c.strokeStyle=furn;c.lineWidth=1/sc;DOORP.forEach(d=>c.stroke(d))}
+/* soft reveal ("fog of war") is pre-rendered; it only changes when the drone passes the next 45 cm step */
+const RVP=[];for(let s=0;s<=TOT;s+=45){const q=at(s);RVP.push({s,x:q[0],y:q[1],r:s>900?380:320})}
+const FZ=.5,FX=-60,FY=-60,FWd=1520,FHt=1120,fc=document.createElement("canvas");fc.width=Math.round(FWd*FZ);fc.height=Math.round(FHt*FZ);const fx=fc.getContext("2d");let fogN=-1;
+function fog(n){if(n===fogN)return;fogN=n;fx.clearRect(0,0,fc.width,fc.height);
+  for(let i=0;i<n;i++){const o=RVP[i],X=(o.x-FX)*FZ,Y=(o.y-FY)*FZ,R=o.r*FZ,g=fx.createRadialGradient(X,Y,0,X,Y,R);g.addColorStop(0,"#fff");g.addColorStop(.65,"#fff");g.addColorStop(1,"rgba(255,255,255,0)");fx.fillStyle=g;fx.fillRect(X-R,Y-R,2*R,2*R)}}
 const b=48,[px,py]=PERSON;
-el("rect",{x:px-b,y:py-b,width:2*b,height:2*b,fill:"rgba(35,145,235,.08)",stroke:"#2391EB","stroke-width":1,...NSS},PG);
-el("path",{d:`M${px-b} ${py-b+14}v-14h14M${px+b-14} ${py-b}h14v14M${px+b} ${py+b-14}v14h-14M${px-b+14} ${py+b}h-14v-14`,stroke:"#2391EB","stroke-width":2.5,fill:"none",...NSS},PG);
-/* drone (≈15 cm across with propellers) */
-const DG=el("g",{},W0);
-const CONE=el("g",{opacity:0},DG);{const r=520,a=34*Math.PI/180,x=Math.sin(a)*r,y=-Math.cos(a)*r;
-  el("path",{d:`M0 0L${-x} ${y}A${r} ${r} 0 0 1 ${x} ${y}Z`,fill:"rgba(0,188,235,.11)"},CONE);el("path",{d:`M0 0L${-x} ${y}M0 0L${x} ${y}`,stroke:"#00BCEB","stroke-width":1,opacity:.6,...NSS},CONE)}
-const BEAM=el("g",{opacity:0},DG);
-[[0,-1,85],[0,1,85],[-1,0,75],[1,0,75]].forEach(([vx,vy,L])=>{el("line",{x1:vx*4,y1:vy*4,x2:vx*L,y2:vy*L,stroke:"#00BCEB","stroke-width":1.6,"stroke-dasharray":"4 4",...NSS},BEAM);el("circle",{cx:vx*L,cy:vy*L,r:1.6,fill:"#00BCEB"},BEAM)});
-[[75,109],[540,106],[70,584],[545,566]].forEach(([u,v])=>el("circle",{cx:u/712*15-7.5,cy:v/716*15-7.5,r:3,fill:"rgba(170,184,197,.14)",stroke:"rgba(200,215,230,.45)","stroke-width":1,...NSS},DG));
-el("image",{href:window.__SST_MSDRONE__||"",x:-7.5,y:-7.5,width:15,height:15},DG);
+const BRK=new Path2D(`M${px-b} ${py-b+14}v-14h14M${px+b-14} ${py-b}h14v14M${px+b} ${py+b-14}v14h-14M${px-b+14} ${py+b}h-14v-14`);
+const CR=520,CA=34*Math.PI/180,CXX=Math.sin(CA)*CR,CYY=-Math.cos(CA)*CR;
+const CONEP=new Path2D(`M0 0L${-CXX} ${CYY}A${CR} ${CR} 0 0 1 ${CXX} ${CYY}Z`),CONEL=new Path2D(`M0 0L${-CXX} ${CYY}M0 0L${CXX} ${CYY}`);
+const GUARDS=[[75,109],[540,106],[70,584],[545,566]].map(([u,v])=>[u/712*15-7.5,v/716*15-7.5]);
+const DIMG=new Image(),DS=document.createElement("canvas");DS.width=DS.height=128;let dimgOk=false;
+DIMG.onload=()=>{const q=DS.getContext("2d");q.imageSmoothingQuality="high";q.drawImage(DIMG,0,0,128,128);dimgOk=true;last=-1;req()};DIMG.src=window.__SST_MSDRONE__||"";
+function paint(tx,ty,sc,n,tr,d,hd,bo,co,pe){
+  const c=cx,k=DPR*sc;c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,cvs.width,cvs.height);
+  /* grid */
+  c.setTransform(DPR,0,0,DPR,0,0);{const g=40*sc;c.globalAlpha=.42;c.fillStyle="#17304A";
+    for(let x=((tx%g)+g)%g;x<CW;x+=g)c.fillRect(x,0,1,CH);for(let y=((ty%g)+g)%g;y<CH;y+=g)c.fillRect(0,y,CW,1);c.globalAlpha=1}
+  /* dim full plan, then bright plan masked by the fog */
+  c.setTransform(k,0,0,-k,DPR*tx,DPR*ty);c.globalAlpha=.2;planDraw(c,sc,"#AAB8C5",2,"#304259",false);c.globalAlpha=1;
+  fog(n);bx.setTransform(1,0,0,1,0,0);bx.clearRect(0,0,bc.width,bc.height);bx.setTransform(k,0,0,-k,DPR*tx,DPR*ty);
+  planDraw(bx,sc,"#E6EDF5",3,"#3F6A92",true);bx.globalCompositeOperation="destination-in";bx.drawImage(fc,FX,FY,FWd,FHt);bx.globalCompositeOperation="source-over";
+  c.setTransform(1,0,0,1,0,0);c.drawImage(bc,0,0);c.setTransform(k,0,0,-k,DPR*tx,DPR*ty);
+  /* route + trail */
+  c.lineWidth=1/sc;c.setLineDash([2/sc,7/sc]);c.globalAlpha=.12;c.strokeStyle="#2391EB";c.beginPath();PATH.forEach((q,i)=>i?c.lineTo(q[0],q[1]):c.moveTo(q[0],q[1]));c.stroke();
+  c.globalAlpha=1;c.lineWidth=2.2/sc;c.lineCap="round";c.beginPath();tr.forEach((q,i)=>i?c.lineTo(q[0],q[1]):c.moveTo(q[0],q[1]));c.stroke();c.setLineDash([]);c.lineCap="butt";
+  /* person */
+  if(pe>.002){c.globalAlpha=pe*.9;c.fillStyle="#C9D3DD";c.beginPath();c.ellipse(px,py,26,15,0,0,6.2832);c.fill();
+    c.globalAlpha=pe;c.fillStyle="#7E8B98";c.beginPath();c.arc(px,py,10,0,6.2832);c.fill();
+    c.fillStyle="rgba(35,145,235,.08)";c.strokeStyle="#2391EB";c.lineWidth=1/sc;c.beginPath();c.rect(px-b,py-b,2*b,2*b);c.fill();c.stroke();c.lineWidth=2.5/sc;c.stroke(BRK);c.globalAlpha=1}
+  /* drone */
+  c.translate(d[0],d[1]);c.rotate(hd*Math.PI/180);
+  if(co>.002){c.globalAlpha=co;c.fillStyle="rgba(0,188,235,.11)";c.fill(CONEP);c.globalAlpha=co*.6;c.strokeStyle="#00BCEB";c.lineWidth=1/sc;c.stroke(CONEL);c.globalAlpha=1}
+  if(bo>.002){c.globalAlpha=bo;c.strokeStyle="#00BCEB";c.fillStyle="#00BCEB";c.lineWidth=1.6/sc;c.setLineDash([4/sc,4/sc]);
+    [[0,-1,85],[0,1,85],[-1,0,75],[1,0,75]].forEach(([vx,vy,L])=>{c.beginPath();c.moveTo(vx*4,vy*4);c.lineTo(vx*L,vy*L);c.stroke()});c.setLineDash([]);
+    [[0,-1,85],[0,1,85],[-1,0,75],[1,0,75]].forEach(([vx,vy,L])=>{c.beginPath();c.arc(vx*L,vy*L,1.6,0,6.2832);c.fill()});c.globalAlpha=1}
+  c.fillStyle="rgba(170,184,197,.14)";c.strokeStyle="rgba(200,215,230,.45)";c.lineWidth=1/sc;GUARDS.forEach(([u,v])=>{c.beginPath();c.arc(u,v,3,0,6.2832);c.fill();c.stroke()});
+  if(dimgOk)c.drawImage(DS,-7.5,-7.5,15,15)}
 
 /* screen-space overlay */
 const RL=ROOMS.map(r=>({r,e:div("ms-room",r[0])}));
@@ -2541,7 +2564,7 @@ const steps=[...sec.querySelectorAll(".ms-step")],dots=[...document.getElementBy
 const sm=x=>x<=0?0:x>=1?1:x*x*(3-2*x),rp=(p,a,b)=>sm((p-a)/(b-a)),bump=(p,a,b,c,d)=>rp(p,a,b)*(1-rp(p,c,d)),lerp=(a,b,t)=>a+(b-a)*t;
 const KF=[[0,40,1.7],[.14,160,1.7],[.40,735,1.9],[.45,770,1.9],[.58,TOT,1.6],[.78,TOT,1.6],[.93,TOT,0],[1,TOT,0]];
 let W=1,H=1,MOB=false,last=-1,ws=[];
-function measure(){W=sec.clientWidth;H=innerHeight;MOB=W<760;last=-1;RL.concat(TAGS).forEach(o=>{o.w=o.e.offsetWidth;o.h=o.e.offsetHeight})}
+function measure(){sizeCv();W=sec.clientWidth;H=innerHeight;MOB=W<760;last=-1;RL.concat(TAGS).forEach(o=>{o.w=o.e.offsetWidth;o.h=o.e.offsetHeight})}
 function render(p){
   let i=0;while(i<KF.length-2&&p>KF[i+1][0])i++;const k0=KF[i],k1=KF[i+1],t=sm((p-k0[0])/(k1[0]-k0[0]||1));
   const s=lerp(k0[1],k1[1],t);
@@ -2551,14 +2574,14 @@ function render(p){
   const cam=[lerp(lerp(d[0],Cd[0],w3),Co[0],w4),lerp(lerp(d[1],Cd[1],w3),Co[1],w4)];
   const Af=MOB?[W*.5,H*.32]:[W*.66,H*.46],Ao=MOB?[W*.5,H*.37]:[W*.65,H*.52],A=[lerp(Af[0],Ao[0],w4),lerp(Af[1],Ao[1],w4)];
   const tx=A[0]-cam[0]*sc,ty=A[1]+cam[1]*sc,X=x=>tx+x*sc,Y=y=>ty-y*sc,pos=(e,x,y)=>e.style.transform="translate("+x.toFixed(1)+"px,"+y.toFixed(1)+"px)";
-  W0.setAttribute("transform","translate("+tx.toFixed(2)+","+ty.toFixed(2)+") scale("+sc.toFixed(4)+","+(-sc).toFixed(4)+")");
-  const g=(40*sc).toFixed(2)+"px";if(g!==grid._s){grid._s=g;grid.style.backgroundSize=g+" "+g}grid.style.backgroundPosition=tx.toFixed(1)+"px "+ty.toFixed(1)+"px";
+  
+  
   /* reveal + trail */
-  RV.forEach(o=>o.c.style.display=o.s<=s+20?"":"none");
-  trail.setAttribute("points",PATH.filter((q,k)=>k===0||SEG[k-1][2]+SEG[k-1][3]<=s).concat([d]).map(q=>q[0].toFixed(1)+","+q[1].toFixed(1)).join(" "));
-  const hd=head(s);DG.setAttribute("transform","translate("+d[0].toFixed(2)+","+d[1].toFixed(2)+") rotate("+hd.toFixed(1)+")");
-  BEAM.setAttribute("opacity",bump(p,.31,.35,.43,.46).toFixed(3));CONE.setAttribute("opacity",(rp(p,.5,.58)*(1-w4)).toFixed(3));
-  const pe=rp(p,.56,.62);PG.setAttribute("opacity",pe.toFixed(3));
+  let nrv=0;while(nrv<RVP.length&&RVP[nrv].s<=s+20)nrv++;
+  const tr=PATH.filter((q,k)=>k===0||SEG[k-1][2]+SEG[k-1][3]<=s).concat([d]);
+  const hd=head(s);
+  const bo=bump(p,.31,.35,.43,.46),co=rp(p,.5,.58)*(1-w4);
+  const pe=rp(p,.56,.62);paint(tx,ty,sc,nrv,tr,d,hd,bo,co,pe);
   /* overlay */
   RL.forEach(o=>{const[n,x,y,sv]=o.r,on=((sv&&s>=sv)||w4>.5)&&!(sv&&p>.86);o.e.style.opacity=on?1:0;o.k=on?24:Math.max(0,(o.k||0)-1);if(o.k>0||o.k===undefined)pos(o.e,X(x)-o.w/2,Y(y)-o.h/2)});
   const rr=Math.max(15*sc*.85,22);if(Math.abs(rr-(RING._r||0))>.2){RING._r=rr;RING.style.width=RING.style.height=2*rr+"px";RING.style.margin=-rr+"px 0 0 "+(-rr)+"px"}pos(RING,X(d[0]),Y(d[1]));RING.style.opacity=1-w4;
