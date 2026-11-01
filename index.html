@@ -1009,8 +1009,8 @@ html.loading,html.loading body{overflow:hidden}
   <div class="hdr-in">
     <a class="hdr-ss" href="#home" aria-label="Silent Spear Team, back to top"><img decoding="async" src="img/ss-lock-w.png" alt="Silent Spear Team"></a>
     <nav class="hnav" id="hnav" aria-label="Sections">
-      <a href="#about">About</a>
       <a href="#mission">Mission</a>
+      <a href="#about">About</a>
       <a href="#model">The Drone</a>
       <a href="#demo">Live Demo</a>
       <a href="#highlights">Highlights</a>
@@ -1069,6 +1069,26 @@ html.loading,html.loading body{overflow:hidden}
     </div>
   </div></div>
 
+  <!-- ===================== MISSION · SCROLL STORY ===================== -->
+  <section class="ms" id="mission" aria-label="Mission: how the drone checks a building">
+    <div class="ms-stick">
+      <div class="ms-grid" id="msGrid"></div>
+      <svg class="ms-svg" id="msSvg" aria-hidden="true"></svg>
+      <div class="ms-ov" id="msOv" aria-hidden="true"></div>
+      <div class="ms-fade"></div>
+      <div class="ms-txt">
+        <div class="ms-step on"><div class="ms-k">01 · Enter</div><h2 class="ms-h">Goes in <span>first</span></h2><p>The drone is launched at the doorway and enters the building before anyone else.</p><div class="ms-chips"><span>Front door</span><span>Launch</span></div></div>
+        <div class="ms-step"><div class="ms-k">02 · Map</div><h2 class="ms-h">Senses every <span>wall</span></h2><p>Distance sensors measure the walls around it. The optical-flow sensor tracks the floor, so it holds position without GPS.</p><div class="ms-chips"><span>Distance sensors</span><span>Optical flow</span></div></div>
+        <div class="ms-step"><div class="ms-k">03 · Detect</div><h2 class="ms-h">Finds <span>people</span></h2><p>The on-board camera checks each room for people, one room at a time.</p><div class="ms-chips"><span>On-board camera</span><span>AI detection</span></div></div>
+        <div class="ms-step last"><div class="ms-k">04 · Report</div><h2 class="ms-h">So that humans are never the <span>first</span> to enter.</h2><p>The team sees what is inside before anyone steps in.</p><div class="ms-chips"><span>Path recorded</span><span>Rooms checked</span></div></div>
+      </div>
+      <div class="ms-prog" id="msProg"><div class="on"><span>Enter</span><i></i></div><div><span>Map</span><i></i></div><div><span>Detect</span><i></i></div><div><span>Report</span><i></i></div></div>
+      <div class="ms-scale" id="msScale"><span>1 m</span><i></i></div>
+      <div class="ms-foot">Concept of operations · Autonomous flight is in development</div>
+      <div class="ms-bar"><i id="msBar"></i></div>
+    </div>
+  </section>
+
   <!-- ===================== ABOUT ===================== -->
   <section class="sec net" id="about">
     <canvas class="netbg" id="netbg" aria-hidden="true"></canvas>
@@ -1119,26 +1139,6 @@ html.loading,html.loading body{overflow:hidden}
         <article class="icard"><div class="icard-img"><img decoding="async" src="img/build/sw-detect-v.jpg" alt="The team's live person-detection software with analytics panel" loading="lazy"></div><div class="icard-b"><div class="icard-h"><img decoding="async" class="divic" src="img/div-sw.png" alt=""><div><div class="lbl">Electrical Engineering</div><h3>Software &amp; AI</h3></div></div><p>Live person detection, flight software, computer vision and mission algorithms. Autonomy is in development.</p></div></article>
       </div>
     </div></div>
-  </section>
-
-  <!-- ===================== MISSION · SCROLL STORY ===================== -->
-  <section class="ms" id="mission" aria-label="Mission: how the drone checks a building">
-    <div class="ms-stick">
-      <div class="ms-grid" id="msGrid"></div>
-      <svg class="ms-svg" id="msSvg" aria-hidden="true"></svg>
-      <div class="ms-ov" id="msOv" aria-hidden="true"></div>
-      <div class="ms-fade"></div>
-      <div class="ms-txt">
-        <div class="ms-step on"><div class="ms-k">01 · Enter</div><h2 class="ms-h">Goes in <span>first</span></h2><p>The drone is launched at the doorway and enters the building before anyone else.</p><div class="ms-chips"><span>Front door</span><span>Launch</span></div></div>
-        <div class="ms-step"><div class="ms-k">02 · Map</div><h2 class="ms-h">Senses every <span>wall</span></h2><p>Distance sensors measure the walls around it. The optical-flow sensor tracks the floor, so it holds position without GPS.</p><div class="ms-chips"><span>Distance sensors</span><span>Optical flow</span></div></div>
-        <div class="ms-step"><div class="ms-k">03 · Detect</div><h2 class="ms-h">Finds <span>people</span></h2><p>The on-board camera checks each room for people, one room at a time.</p><div class="ms-chips"><span>On-board camera</span><span>AI detection</span></div></div>
-        <div class="ms-step last"><div class="ms-k">04 · Report</div><h2 class="ms-h">So that humans are never the <span>first</span> to enter.</h2><p>The team sees what is inside before anyone steps in.</p><div class="ms-chips"><span>Path recorded</span><span>Rooms checked</span></div></div>
-      </div>
-      <div class="ms-prog" id="msProg"><div class="on"><span>Enter</span><i></i></div><div><span>Map</span><i></i></div><div><span>Detect</span><i></i></div><div><span>Report</span><i></i></div></div>
-      <div class="ms-scale" id="msScale"><span>1 m</span><i></i></div>
-      <div class="ms-foot">Concept of operations · Autonomous flight is in development</div>
-      <div class="ms-bar"><i id="msBar"></i></div>
-    </div>
   </section>
 
   <!-- ===================== THE DRONE · 3D VIEWER ===================== -->
@@ -1592,7 +1592,7 @@ const navLinks=[...document.querySelectorAll(".hnav a")],hnav=document.getElemen
 burger.addEventListener("click",()=>{const o=!hnav.classList.contains("open");hnav.classList.toggle("open",o);burger.setAttribute("aria-expanded",o)});
 navLinks.forEach(a=>a.addEventListener("click",()=>{hnav.classList.remove("open");burger.setAttribute("aria-expanded","false")}));
 document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g){e.preventDefault();const t=document.getElementById(g.dataset.go);if(t)t.scrollIntoView({behavior:"smooth"})}});
-const SECS=["home","about","build","mission","model","demo","highlights","lab","team","film","posters","contact"].map(id=>document.getElementById(id)).filter(Boolean);
+const SECS=["home","mission","about","build","model","demo","highlights","lab","team","film","posters","contact"].map(id=>document.getElementById(id)).filter(Boolean);
 const NAVMAP={build:"about",lab:"highlights",home:null};
 function setActive(id){current=id;const key=id in NAVMAP?NAVMAP[id]:id;navLinks.forEach(a=>a.setAttribute("aria-current",a.getAttribute("href")==="#"+key?"true":"false"))}
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)setActive(e.target.id)})},{rootMargin:"-45% 0px -50% 0px"});
@@ -2478,14 +2478,14 @@ const defs=el("defs",{},W0);
 defs.innerHTML='<radialGradient id="msRv"><stop offset="0" stop-color="#fff"/><stop offset=".65" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>';
 const mask=el("mask",{id:"msMask",maskUnits:"userSpaceOnUse",x:-600,y:-600,width:2600,height:2200},defs);
 el("rect",{x:-600,y:-600,width:2600,height:2200,fill:"#000"},mask);
-const RV=[];for(let s=0;s<=TOT;s+=45){const p=at(s);RV.push({s,c:el("circle",{cx:p[0],cy:p[1],r:s>900?300:235,fill:"url(#msRv)",style:"display:none"},mask)})}
+const RV=[];for(let s=0;s<=TOT;s+=45){const p=at(s);RV.push({s,c:el("circle",{cx:p[0],cy:p[1],r:s>900?380:320,fill:"url(#msRv)",style:"display:none"},mask)})}
 function plan(g,wall,lw,furn,glow){
   el("rect",{x:0,y:0,width:1400,height:900,fill:"rgba(35,145,235,.045)"},g);
   FURN.forEach(([x,y,w,h])=>el("rect",{x,y,width:w,height:h,rx:6,fill:"none",stroke:furn,"stroke-width":1.2,...NSS},g));
   if(glow)WALLS.forEach(([a,b,c,d])=>el("line",{x1:a,y1:b,x2:c,y2:d,stroke:"#00BCEB","stroke-width":8,opacity:.18,"stroke-linecap":"square",...NSS},g));
   WALLS.forEach(([a,b,c,d])=>el("line",{x1:a,y1:b,x2:c,y2:d,stroke:wall,"stroke-width":lw,"stroke-linecap":"square",...NSS},g));
   DOORS.forEach(([x,y,w,s,o])=>el("path",{d:o==="h"?`M${x} ${y} l0 ${-s*w} A${w} ${w} 0 0 ${s>0?0:1} ${x+w} ${y}`:`M${x} ${y} l${-s*w} 0 A${w} ${w} 0 0 ${s>0?1:0} ${x} ${y+w}`,fill:"none",stroke:furn,"stroke-width":1,...NSS},g))}
-plan(el("g",{opacity:.12},W0),"#AAB8C5",2,"#304259",false);
+plan(el("g",{opacity:.2},W0),"#AAB8C5",2,"#304259",false);
 plan(el("g",{mask:"url(#msMask)"},W0),"#E6EDF5",3,"#3F6A92",true);
 el("polyline",{points:PATH.map(p=>p.join(",")).join(" "),fill:"none",stroke:"#2391EB","stroke-width":1,opacity:.12,"stroke-dasharray":"2 7",...NSS},W0);
 const trail=el("polyline",{points:"",fill:"none",stroke:"#2391EB","stroke-width":2.2,"stroke-dasharray":"2 7","stroke-linecap":"round",...NSS},W0);
@@ -2512,19 +2512,19 @@ const steps=[...sec.querySelectorAll(".ms-step")],dots=[...document.getElementBy
 
 /* ---------- scroll → scene ---------- */
 const sm=x=>x<=0?0:x>=1?1:x*x*(3-2*x),rp=(p,a,b)=>sm((p-a)/(b-a)),bump=(p,a,b,c,d)=>rp(p,a,b)*(1-rp(p,c,d)),lerp=(a,b,t)=>a+(b-a)*t;
-const KF=[[0,40,3.4],[.14,160,3.4],[.40,735,4.2],[.45,770,4.2],[.58,TOT,3],[.78,TOT,3],[.93,TOT,0],[1,TOT,0]];
+const KF=[[0,40,1.7],[.14,160,1.7],[.40,735,1.9],[.45,770,1.9],[.58,TOT,1.6],[.78,TOT,1.6],[.93,TOT,0],[1,TOT,0]];
 let W=1,H=1,MOB=false,last=-1,ws=[];
 function measure(){W=sec.clientWidth;H=innerHeight;MOB=W<760;last=-1;RL.concat(TAGS).forEach(o=>{o.w=o.e.offsetWidth;o.h=o.e.offsetHeight})}
 function render(p){
   let i=0;while(i<KF.length-2&&p>KF[i+1][0])i++;const k0=KF[i],k1=KF[i+1],t=sm((p-k0[0])/(k1[0]-k0[0]||1));
   const s=lerp(k0[1],k1[1],t);
-  const fs=MOB?Math.min(W/390,1.4)*.55:Math.min(H/900,1.3),scO=MOB?Math.min(W*.9/1450,H*.48/1000):Math.min(W*.5/1450,H*.74/1000);
+  const fs=MOB?Math.min(W/390,1.4)*.62:Math.min(H/900,1.3),scO=MOB?Math.min(W*.9/1450,H*.48/1000):Math.min(W*.5/1450,H*.74/1000);
   const sA=k0[2]?k0[2]*fs:scO,sB=k1[2]?k1[2]*fs:scO,sc=Math.exp(lerp(Math.log(sA),Math.log(sB),t));
   const d=at(s),w3=rp(p,.48,.6),w4=rp(p,.8,.93),Cd=MOB?[1232,212]:[1215,215],Co=[700,450];
   const cam=[lerp(lerp(d[0],Cd[0],w3),Co[0],w4),lerp(lerp(d[1],Cd[1],w3),Co[1],w4)];
-  const Af=MOB?[W*.5,H*.34]:[W*.66,H*.56],Ao=MOB?[W*.5,H*.32]:[W*.65,H*.52],A=[lerp(Af[0],Ao[0],w4),lerp(Af[1],Ao[1],w4)];
-  const tx=A[0]-cam[0]*sc,ty=A[1]-cam[1]*sc,X=x=>tx+x*sc,Y=y=>ty+y*sc,pos=(e,x,y)=>e.style.transform="translate("+x.toFixed(1)+"px,"+y.toFixed(1)+"px)";
-  W0.setAttribute("transform","translate("+tx.toFixed(2)+","+ty.toFixed(2)+") scale("+sc.toFixed(4)+")");
+  const Af=MOB?[W*.5,H*.32]:[W*.66,H*.46],Ao=MOB?[W*.5,H*.32]:[W*.65,H*.52],A=[lerp(Af[0],Ao[0],w4),lerp(Af[1],Ao[1],w4)];
+  const tx=A[0]-cam[0]*sc,ty=A[1]+cam[1]*sc,X=x=>tx+x*sc,Y=y=>ty-y*sc,pos=(e,x,y)=>e.style.transform="translate("+x.toFixed(1)+"px,"+y.toFixed(1)+"px)";
+  W0.setAttribute("transform","translate("+tx.toFixed(2)+","+ty.toFixed(2)+") scale("+sc.toFixed(4)+","+(-sc).toFixed(4)+")");
   const g=40*sc;grid.style.backgroundSize=g+"px "+g+"px";grid.style.backgroundPosition=tx.toFixed(1)+"px "+ty.toFixed(1)+"px";
   /* reveal + trail */
   RV.forEach(o=>o.c.style.display=o.s<=s+20?"":"none");
@@ -2536,14 +2536,17 @@ function render(p){
   RL.forEach(o=>{const[n,x,y,sv]=o.r,on=((sv&&s>=sv)||w4>.5)&&!(sv&&p>.86);o.e.style.opacity=on?1:0;pos(o.e,X(x)-o.w/2,Y(y)-o.h/2)});
   const rr=Math.max(15*sc*.85,22);RING.style.width=RING.style.height=2*rr+"px";RING.style.margin=-rr+"px 0 0 "+(-rr)+"px";pos(RING,X(d[0]),Y(d[1]));RING.style.opacity=1-w4;
   pos(DLBL,X(d[0])+12,Y(d[1])-6);DLBL.style.opacity=w4;
-  pos(PLBL,X(px-b),Y(py-b)-22);PLBL.style.opacity=pe;
-  pos(LAUNCH,X(730)-6,Y(990)-6);LAUNCH.style.opacity=w4;
+  pos(PLBL,X(px-b),Y(py+b)-22);PLBL.style.opacity=pe;
+  pos(LAUNCH,X(730)-6,Y(1000)-6);LAUNCH.style.opacity=w4;
   TAGS.forEach(o=>{pos(o.e,X(o.x)-o.w/2,Y(o.y)-o.h/2);o.e.style.opacity=rp(p,.86,.93)});
   scaleI.style.width=(100*sc).toFixed(1)+"px";bar.style.width=(p*100).toFixed(2)+"%";
   const st=p<.22?0:p<.5?1:p<.82?2:3;
   if(st!==last){last=st;steps.forEach((e,k)=>e.classList.toggle("on",k===st));dots.forEach((e,k)=>e.className=k===st?"on":k<st?"done":"")}}
-let raf=0,near=false;
-function tick(){raf=0;const r=sec.getBoundingClientRect(),span=r.height-innerHeight;render(Math.max(0,Math.min(1,-r.top/(span||1))))}
+let raf=0,near=false,cur=-1,lt=0;const RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function target(){const r=sec.getBoundingClientRect(),span=r.height-innerHeight;return Math.max(0,Math.min(1,-r.top/(span||1)))}
+function tick(t){raf=0;const g=target(),dt=Math.min(.05,lt?(t-lt)/1000:.016);lt=t;
+  if(cur<0||RM||Math.abs(g-cur)>.5)cur=g;else cur+=(g-cur)*(1-Math.exp(-dt*7));
+  render(cur);if(Math.abs(g-cur)>.0004)req();else{cur=g;lt=0}}
 const req=()=>{if(near&&!raf)raf=requestAnimationFrame(tick)};
 addEventListener("scroll",req,{passive:true});addEventListener("resize",()=>{measure();req()});
 new IntersectionObserver(es=>{near=es[0].isIntersecting;if(near){measure();req()}},{rootMargin:"200px 0px"}).observe(sec);
