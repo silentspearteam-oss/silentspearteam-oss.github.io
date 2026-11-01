@@ -71,6 +71,7 @@
 .dv-svg path{fill:none;stroke:#8FD8F5;stroke-width:1;opacity:.6}
 .dv-svg circle{fill:var(--dv-cyan,#00BCEB);stroke:#05080D;stroke-width:1.5}
 .dv-lbs{position:absolute;inset:0;pointer-events:none}
+.dv-svg,.dv-lb{will-change:transform}
 .dv-lb{position:absolute;left:0;top:0;pointer-events:auto;cursor:pointer;white-space:nowrap;font-family:var(--f-ui);font-weight:600;font-size:14px;letter-spacing:.03em;color:var(--dv-ink);background:rgba(16,26,40,.9);border:1px solid #304259;border-radius:7px;padding:4px 9px 4px 7px;display:flex;align-items:center;gap:7px;box-shadow:0 4px 14px -6px rgba(0,0,0,.6);transition:opacity .25s,background .2s,color .2s;will-change:transform}
 .dv-lb em{font-style:normal;font-family:var(--f-num);font-size:10px;color:#00BCEB;letter-spacing:.06em}
 .dv-lb.on{background:var(--dv-blue);border-color:var(--dv-blue);color:#fff}.dv-lb.on em{color:#fff}
@@ -1666,12 +1667,12 @@ const MAP=[["#inspiration","stars"],["#build","blueprint"],["#model","radar"],["
 const inst=[];
 MAP.forEach(([sel,name])=>{const sec=document.querySelector(sel);if(!sec)return;const c=document.createElement("canvas");c.className="fxc";c.setAttribute("aria-hidden","true");sec.insertBefore(c,sec.firstChild);
   inst.push({sec,c,x:c.getContext("2d"),sc:SC[name],name,st:null,vis:false,w:0,h:0,t0:0,idle:false})});
-function size(i){const d=lite?1:Math.min(devicePixelRatio||1,1.5),w=i.c.clientWidth||innerWidth,h=i.c.clientHeight||innerHeight;i.w=w;i.h=h;i.c.width=Math.round(w*d);i.c.height=Math.round(h*d);i.x.setTransform(d,0,0,d,0,0);i.st=i.sc.init(w,h);i.t0=performance.now()/1000}
+function size(i){const d=lite?1:Math.min(devicePixelRatio||1,1.5),w=i.c.clientWidth||innerWidth,h=i.c.clientHeight||innerHeight;i.w=w;i.h=h;i.c.width=Math.round(w*d);i.c.height=Math.round(h*d);i.x.setTransform(d,0,0,d,0,0);i.st=i.sc.init(w,h);i.t0=performance.now()/1000;i.once=false}
 function still(i){i.x.clearRect(0,0,i.w,i.h);i.sc.draw(i.x,i.w,i.h,3,i.st,0)}
 let raf=0,last=0;
 function frame(ts){raf=0;if(document.hidden)return;const act=inst.filter(i=>i.vis);if(!act.length)return;
   if(ts-last>=32){const dt=Math.min(.1,(ts-last)/1000);last=ts;
-    for(const i of act){const live=window.DEMO&&DEMO.S&&DEMO.S.running;if(i.name==="hex"&&live){if(!i.idle){i.x.clearRect(0,0,i.w,i.h);i.idle=true}continue}i.idle=false;i.x.clearRect(0,0,i.w,i.h);i.sc.draw(i.x,i.w,i.h,ts/1000-i.t0,i.st,dt)}}
+    for(const i of act){const live=window.DEMO&&DEMO.S&&DEMO.S.running;if(i.name==="hex"&&live){if(!i.idle){i.x.clearRect(0,0,i.w,i.h);i.idle=true}continue}if(i.name==="radar"&&window.__dvLive&&i.once)continue;i.once=true;i.idle=false;i.x.clearRect(0,0,i.w,i.h);i.sc.draw(i.x,i.w,i.h,ts/1000-i.t0,i.st,dt)}}
   raf=requestAnimationFrame(frame)}
 function kick(){if(!red&&!raf&&!document.hidden)raf=requestAnimationFrame(frame)}
 const io=new IntersectionObserver(es=>{for(const e of es){const i=inst.find(v=>v.sec===e.target);if(!i)continue;i.vis=e.isIntersecting;
@@ -2118,10 +2119,10 @@ const SEL="h1,h2,h3,h4,h5,p,li,img,video,iframe,button,a,label,input,textarea,se
 let RC=[];
 function scan(){const sx=scrollX,sy=scrollY,out=[];document.querySelectorAll(SEL+",div,span,strong,b,em,small").forEach(e=>{if(!e.matches(SEL)&&![...e.childNodes].some(n=>n.nodeType===3&&n.textContent.trim()))return;if(e.id==="fxcv"||e.closest("nav,header"))return;const r=e.getBoundingClientRect();if(r.width<4||r.height<4)return;const big=r.width*r.height>VW*VH*.45&&!/^(IMG|VIDEO|IFRAME)$/.test(e.tagName);if(big)return;out.push([r.left+sx,r.top+sy,r.width,r.height])});RC=out}
 function mask(){const sx=scrollX,sy=scrollY,P=16;x.save();x.globalCompositeOperation="destination-out";x.fillStyle="#000";for(const c of RC){const l=c[0]-sx-P,tp=c[1]-sy-P,w=c[2]+2*P,h=c[3]+2*P;if(tp>VH||tp+h<0||l>VW||l+w<0)continue;x.fillRect(l,tp,w,h)}x.restore()}
-setTimeout(scan,300);setInterval(scan,1200);addEventListener("load",scan);addEventListener("resize",()=>setTimeout(scan,100));
+setTimeout(scan,300);let scanTick=0;setInterval(()=>{if(document.hidden||(window.__dvLive&&++scanTick%4))return;scan()},1200);addEventListener("load",scan);addEventListener("resize",()=>setTimeout(scan,100));
 function draw(now,force){
   const t=now/1000*0.15;x.setTransform(DPR,0,0,DPR,0,0);x.clearRect(0,0,VW,VH);let any=false;
-  for(const m of MAPS){const r=m.el.getBoundingClientRect();if(r.bottom<0||r.top>VH||r.width<10)continue;any=true;
+  for(const m of MAPS){if(window.__dvLive&&m.el.id==="model")continue;const r=m.el.getBoundingClientRect();if(r.bottom<0||r.top>VH||r.width<10)continue;any=true;
     const s=Math.min(r.width,1600)/1200,ox=r.left+(r.width-1200*s)/2;
     x.save();x.beginPath();x.rect(Math.max(0,r.left),Math.max(0,r.top),Math.min(r.width,VW),Math.max(0,r.bottom-Math.max(0,r.top)));x.clip();
     x.save();x.translate(ox,m.mid?r.top+(r.height-700*s)/2:r.top);x.scale(s,s);m.fn(t);x.restore();
@@ -2163,6 +2164,7 @@ PARTS.forEach((p,i)=>{const li=document.createElement("li"),b=document.createEle
   b.innerHTML='<span class="n">'+two(i+1)+'</span><span></span><span class="d"></span>';b.children[1].textContent=p.name;b.onclick=()=>select(sel===i?-1:i);li.appendChild(b);list.appendChild(li);
   const l=document.createElement("div");l.className="dv-lb";l.innerHTML="<em>"+two(i+1)+"</em><span></span>";l.lastChild.textContent=p.name;l.onclick=()=>select(sel===i?-1:i);lbs.appendChild(l);LB.push({el:l,w:0,h:0})});
 let sel=-1;
+let SW=0,SH=0;try{new ResizeObserver(()=>{SW=stage.clientWidth;SH=stage.clientHeight;LB.forEach(l=>l.w=0);kick()}).observe(stage)}catch(_){}
 function select(i){sel=i;[...list.querySelectorAll("button")].forEach((b,k)=>b.setAttribute("aria-pressed",k===i));LB.forEach((l,k)=>l.el.classList.toggle("on",k===i));
   if(i<0){$("dvCi").textContent="Component";$("dvCn").textContent="The full stack";$("dvCr").textContent="Eight parts in six layers. Tap a part on the model, or pick one from the list."}
   else{const p=PARTS[i];$("dvCi").textContent="Component "+two(i+1)+" / "+two(N);$("dvCn").textContent=p.name;$("dvCr").textContent=p.role;if(seq.p<.5&&!seq.play)goSeq(1)}
@@ -2262,25 +2264,31 @@ function gAI(){const g=G(),h=.26;board(g,h);g.box(-.03,TH+.012,.04,.075,.012,.07
   g.box(0,TH+.002,-.425,.035,.002,.17,MAT.flex);g.box(0,.052,-.625,.065,.047,.035,MAT.chip);g.cyl(0,.055,-.672,.038,.014,32,MAT.dark,"z");g.cyl(0,.055,-.69,.024,.005,28,MAT.glass,"z");g.cyl(0,.055,-.66,.044,.004,32,MAT.silver,"z",false);return g.a}
 function gFlow(){const g=G(),h=.26;board(g,h);g.box(0,-TH-.016,.03,.05,.016,.05,MAT.chip);g.cyl(0,-TH-.034,.03,.026,.004,24,MAT.glass,"y");
   g.box(0,-TH-.012,-.13,.035,.012,.025,MAT.chip);g.cyl(0,-TH-.026,-.13,.011,.003,14,MAT.glass,"y");return g.a}
-function gFrame(){const b64=window.__SST_FRAME3D__;const raw=Uint8Array.from(atob(b64),c=>c.charCodeAt(0)).buffer,hd=new Uint32Array(raw,0,2),nv=hd[0],ni=hd[1];
-  const q=new Int16Array(raw,8,nv*3),ix=new Uint16Array(raw,8+nv*6,ni),o=new Float32Array(ni*10),m=MAT.white;
-  for(let t=0;t<ni;t+=3){const P=[0,1,2].map(k=>{const v=ix[t+k]*3;return[q[v]/32767,q[v+1]/32767,q[v+2]/32767]});
-    const u=[P[1][0]-P[0][0],P[1][1]-P[0][1],P[1][2]-P[0][2]],w=[P[2][0]-P[0][0],P[2][1]-P[0][1],P[2][2]-P[0][2]];
-    let n=[u[1]*w[2]-u[2]*w[1],u[2]*w[0]-u[0]*w[2],u[0]*w[1]-u[1]*w[0]];const l=Math.hypot(...n)||1;n=n.map(v=>v/l);
-    for(let k=0;k<3;k++){o.set([P[k][0],P[k][1],P[k][2],n[0],n[1],n[2],m[0],m[1],m[2],m[3]],(t+k)*10)}}return o}
+function gFrame(){const bin=atob(window.__SST_FRAME3D__),len=bin.length,u8=new Uint8Array(len);for(let i=0;i<len;i++)u8[i]=bin.charCodeAt(i);
+  const raw=u8.buffer,hd=new Uint32Array(raw,0,2),nv=hd[0],ni=hd[1];
+  const q=new Int16Array(raw,8,nv*3),ix=new Uint16Array(raw,8+nv*6,ni),o=new Float32Array(ni*10),m=MAT.white,k1=1/32767;
+  for(let t=0;t<ni;t+=3){const a=ix[t]*3,b=ix[t+1]*3,c=ix[t+2]*3;
+    const ax=q[a]*k1,ay=q[a+1]*k1,az=q[a+2]*k1,bx=q[b]*k1,by=q[b+1]*k1,bz=q[b+2]*k1,cx=q[c]*k1,cy=q[c+1]*k1,cz=q[c+2]*k1;
+    const ux=bx-ax,uy=by-ay,uz=bz-az,wx=cx-ax,wy=cy-ay,wz=cz-az;
+    let nx=uy*wz-uz*wy,ny=uz*wx-ux*wz,nz=ux*wy-uy*wx;const l=Math.hypot(nx,ny,nz)||1;nx/=l;ny/=l;nz/=l;
+    let j=t*10;
+    o[j]=ax;o[j+1]=ay;o[j+2]=az;o[j+3]=nx;o[j+4]=ny;o[j+5]=nz;o[j+6]=m[0];o[j+7]=m[1];o[j+8]=m[2];o[j+9]=m[3];j+=10;
+    o[j]=bx;o[j+1]=by;o[j+2]=bz;o[j+3]=nx;o[j+4]=ny;o[j+5]=nz;o[j+6]=m[0];o[j+7]=m[1];o[j+8]=m[2];o[j+9]=m[3];j+=10;
+    o[j]=cx;o[j+1]=cy;o[j+2]=cz;o[j+3]=nx;o[j+4]=ny;o[j+5]=nz;o[j+6]=m[0];o[j+7]=m[1];o[j+8]=m[2];o[j+9]=m[3]}
+  return o}
 /* pick boxes (local): [cx,cy,cz,hx,hy,hz] */
 const PB={ranger:[[0,.03,0,.27,.05,.27]],batt:[[0,.167,0,.34,.17,.66]],frame:[[0,0,0,1,.04,1]],motor:MOT.map(([x,y])=>[x,H+.09,-y,.11,.11,.11]).concat(MOT.map(([x,y])=>[x,H+.21,-y,.45,.02,.45])),
   esc:SLOT.map(([x,z])=>[x,H+.02,z,.2,.03,.2]),fc:[[0,.02,0,.3,.04,.3]],ai:[[0,0,-.2,.26,.07,.5]],flow:[[0,-.015,0,.26,.04,.26]]};
 
 /* ---------- GL ---------- */
 let gl,PRG,SPRG,GPRG,GEO={},PROP,FBO,STEX,ready=false;
-const SR=3.2,SHN=512;
+const SR=3.2,SHN=256;
 const VS=`attribute vec3 p;attribute vec3 n;attribute vec4 c;uniform mat4 M,VP;varying vec3 vw,vn;varying vec4 vc;
-void main(){vec4 w=M*vec4(p,1.);vw=w.xyz;vn=mat3(M)*n;vc=c;gl_Position=VP*w;}`;
+void main(){vec4 w=M*vec4(p,1.);vw=w.xyz;vn=mat3(M)*n;vc=vec4(pow(c.rgb,vec3(2.2)),c.a);gl_Position=VP*w;}`;
 const FS=`precision mediump float;varying vec3 vw,vn;varying vec4 vc;uniform vec3 eye,L,bg;uniform float ghost,hi,xr,t;
 void main(){vec3 N=normalize(vn);if(!gl_FrontFacing)N=-N;vec3 V=normalize(eye-vw);float ndv=max(dot(N,V),0.);
  if(xr>.5){float f=pow(1.-ndv,2.2);float a=(.06+.75*f)*(1.-ghost*.7);vec3 col=mix(vec3(.05,.3,.6),vec3(.3,.85,1.),f+hi*.5);gl_FragColor=vec4(col*a,a);return;}
- vec3 a=pow(vc.rgb,vec3(2.2));float gs=vc.a;
+ vec3 a=vc.rgb;float gs=vc.a;
  float d=max(dot(N,L),0.);vec3 H=normalize(L+V);float sp=pow(max(dot(N,H),0.),mix(14.,110.,gs))*gs*.55;
  vec3 hemi=mix(vec3(.16,.22,.32),vec3(.92,.96,1.),N.y*.5+.5);
  vec3 col=a*(hemi*.62+vec3(1.,.97,.92)*d*.78)+vec3(1.)*sp;
@@ -2292,9 +2300,10 @@ const SFS=`precision mediump float;void main(){gl_FragColor=vec4(1.);}`;
 const GVS=`attribute vec2 q;uniform mat4 VP;uniform float gy;varying vec2 uv;void main(){uv=q*.5+.5;gl_Position=VP*vec4(q.x*${SR.toFixed(1)},gy,q.y*${SR.toFixed(1)},1.);}`;
 const GFS=`#define SR ${SR.toFixed(1)}
 precision mediump float;varying vec2 uv;uniform sampler2D s;uniform float k,soft,fl;uniform vec2 scr;
-void main(){float a=0.,b=0.;for(int i=0;i<16;i++){float an=float(i)*2.3998;float r=sqrt(float(i)+.5)/4.;vec2 o=vec2(cos(an),sin(an))*r;
+void main(){float L0=length(uv-.5);if(L0>=.5)discard;float a=0.,b=0.;float e=1.-smoothstep(.25,.5,L0);
+ if(k*e>.002){for(int i=0;i<9;i++){float an=float(i)*2.3998;float r=sqrt(float(i)+.5)/3.;vec2 o=vec2(cos(an),sin(an))*r;
  a+=texture2D(s,uv+o*soft).r;b+=texture2D(s,uv+o*soft*.35).r;}
- a/=16.;b/=16.;float e=1.-smoothstep(.25,.5,length(uv-.5));float sh=(a*.55+b*.45)*k*e;vec2 w=(uv-.5)*2.*SR+scr;vec2 f=abs(fract(w/.4)-.5);float g=(1.-smoothstep(.0,.035,min(f.x,f.y)))*.16*fl*(1.-smoothstep(.1,.5,length(uv-.5)));
+ a/=9.;b/=9.;}float sh=(a*.55+b*.45)*k*e;vec2 w=(uv-.5)*2.*SR+scr;vec2 f=abs(fract(w/.4)-.5);float g=(1.-smoothstep(.0,.035,min(f.x,f.y)))*.16*fl*(1.-smoothstep(.1,.5,length(uv-.5)));
  gl_FragColor=vec4(vec3(0.,.74,.92)*g,clamp(sh+g,0.,1.));}`;
 
 const DVS=`attribute vec3 p;attribute vec3 n;attribute vec2 t;uniform mat4 M,VP;varying vec3 vw,vn;varying vec2 vt;void main(){vec4 w=M*vec4(p,1.);vw=w.xyz;vn=mat3(M)*n;vt=t;gl_Position=VP*w;}`;
@@ -2322,7 +2331,7 @@ function init(){if(ready||gl===null)return;
 /* ---------- state ---------- */
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 const VIEWS={hero:[-.62,.42],top:[-.001,1.45],side:[0,.04],bottom:[-.62,-1.05]};
-const st={yaw:-.62,pitch:.42,ty:-.62,tp:.42,vy:0,zoom:1,cz:0,drag:false,moved:0,lx:0,ly:0,idle:0,spin:0,last:0,alive:false,tx:0,tyy:0,tz:0,cd:0,raf:0};
+const st={yaw:-.62,pitch:.42,ty:-.62,tp:.42,vy:0,zoom:1,cz:0,drag:false,moved:0,lx:0,ly:0,idle:0,spin:0,last:0,alive:false,tx:0,tyy:0,tz:0,cd:0,raf:0,rs:1,ceil:1,cap:false,full:true,drawn:0,ema:0,n:0,up:-1e9};
 const seq={p:0,to:0,play:false,spd:1};
 let W=1,Hh=1,VP=null,EYE=[0,0,5];
 const sm=x=>x<=0?0:x>=1?1:x*x*(3-2*x);
@@ -2358,10 +2367,10 @@ cv.addEventListener("pointerup",up);cv.addEventListener("pointercancel",()=>{st.
 cv.addEventListener("wheel",e=>{if(!e.ctrlKey&&!e.metaKey)return;e.preventDefault();st.zoom=Math.max(.45,Math.min(1.6,st.zoom*Math.exp(e.deltaY*.002)));kick()},{passive:false});
 
 /* ---------- labels ---------- */
-function labels(){const on=$("dvLab").checked,w=stage.clientWidth,h=stage.clientHeight,cx=w/2,compact=w<640;let html="";
+function labels(){const on=$("dvLab").checked,w=SW||stage.clientWidth,h=SH||stage.clientHeight,cx=w/2,compact=w<640,VG=mul(VP,GM),segs=[];
   const items=[];PARTS.forEach((p,i)=>{const l=LB[i];const show=on&&(sel===i||(sel<0&&(st.f||0)<.3));l.el.classList.toggle("off",!show);if(!show)return;
     let an=p.an;if(p.id==="motor"||p.id==="frame"||p.id==="esc"){let bd=1e9;MOT.forEach(([mx,my])=>{const c=p.id==="motor"?[mx,.13,-my]:p.id==="esc"?[Math.sign(mx)*.48,.06,-Math.sign(my)*.68]:[mx*.6,0,-my*.6];const dd=Math.hypot(c[0]-EYE[0],c[1]+partY(p)-EYE[1],c[2]-EYE[2]);if(dd<bd){bd=dd;an=c}})}
-    const v=xf(mul(VP,GM),[an[0],an[1]+partY(p),an[2]]);if(v[3]<=0){l.el.classList.add("off");return}
+    const v=xf(VG,[an[0],an[1]+partY(p),an[2]]);if(v[3]<=0){l.el.classList.add("off");return}
     const x=(v[0]/v[3]*.5+.5)*w,y=(.5-v[1]/v[3]*.5)*h;if(!l.w){l.w=l.el.offsetWidth;l.h=l.el.offsetHeight}items.push({i,x,y,l,side:x>=cx?1:-1})});
   for(const side of[-1,1]){const g=items.filter(o=>o.side===side).sort((a,b)=>a.y-b.y);const gap=compact?26:34,top=50,bot=h-(compact?70:84);
     g.forEach((o,k)=>{o.ly=Math.max(top,Math.min(bot,o.y));if(k&&o.ly<g[k-1].ly+gap)o.ly=g[k-1].ly+gap});
@@ -2370,22 +2379,37 @@ function labels(){const on=$("dvLab").checked,w=stage.clientWidth,h=stage.client
       if(compact)lx=side>0?Math.min(w-lw-8,o.x+28):Math.max(8,o.x-28-lw);
       else lx=side>0?Math.max(o.x+40,w-lw-64):Math.min(o.x-40-lw,16);
       lx=Math.max(8,Math.min(w-lw-8,lx));
-      const ex=side>0?lx:lx+lw,ey=o.ly;o.l.el.style.transform="translate("+lx.toFixed(1)+"px,"+(ey-lh/2).toFixed(1)+"px)";
+      const ex=side>0?lx:lx+lw,ey=o.ly;{const tr="translate("+lx.toFixed(1)+"px,"+(ey-lh/2).toFixed(1)+"px)";if(o.l.tr!==tr){o.l.tr=tr;o.l.el.style.transform=tr}}
       const mx=side>0?Math.max(o.x+12,ex-22):Math.min(o.x-12,ex+22);
-      html+='<path d="M'+o.x.toFixed(1)+" "+o.y.toFixed(1)+"L"+mx.toFixed(1)+" "+ey.toFixed(1)+"L"+ex.toFixed(1)+" "+ey.toFixed(1)+'"/><circle cx="'+o.x.toFixed(1)+'" cy="'+o.y.toFixed(1)+'" r="3.5"/>'})}
-  svg.innerHTML=html}
+      segs.push(["M"+o.x.toFixed(1)+" "+o.y.toFixed(1)+"L"+mx.toFixed(1)+" "+ey.toFixed(1)+"L"+ex.toFixed(1)+" "+ey.toFixed(1),o.x.toFixed(1),o.y.toFixed(1)])})}
+  svgSet(segs)}
+/* leader lines: reuse the same SVG nodes every frame instead of re-parsing markup */
+const SVGNS="http://www.w3.org/2000/svg",SPA=[],SCI=[];
+function svgSet(segs){while(SPA.length<segs.length){const p=document.createElementNS(SVGNS,"path"),c=document.createElementNS(SVGNS,"circle");c.setAttribute("r","3.5");svg.appendChild(p);svg.appendChild(c);SPA.push(p);SCI.push(c)}
+  for(let k=0;k<SPA.length;k++){const g=segs[k];if(g){SPA[k].setAttribute("d",g[0]);SCI[k].setAttribute("cx",g[1]);SCI[k].setAttribute("cy",g[2]);if(SPA[k].style.display){SPA[k].style.display="";SCI[k].style.display=""}}
+    else if(!SPA[k].style.display){SPA[k].style.display="none";SCI[k].style.display="none"}}}
 
 /* ---------- render ---------- */
 const BG=[.05,.08,.13];
 function bindMesh(P,g){gl.bindBuffer(gl.ARRAY_BUFFER,g.b);const s=40;gl.enableVertexAttribArray(P.a.p);gl.vertexAttribPointer(P.a.p,3,gl.FLOAT,false,s,0);
   if(P.a.n!==undefined){gl.enableVertexAttribArray(P.a.n);gl.vertexAttribPointer(P.a.n,3,gl.FLOAT,false,s,12);gl.enableVertexAttribArray(P.a.c);gl.vertexAttribPointer(P.a.c,4,gl.FLOAT,false,s,24)}}
 let GM=T(0,0,0);
-function eachMesh(fn){PARTS.forEach((p,i)=>{const y=partY(p);fn(GEO[p.id],mul(GM,T(0,y,0)),i);
-  if(p.id==="motor"){const lift=pe(p)*.18;MOT.forEach(([mx,my],k)=>fn(PROP,mul(GM,mul(T(mx,y+H+.205+lift,-my),RY(st.spin*(k%2?1:-1)+k))),i))}})}
+const MESH=[];
+function buildMesh(){MESH.length=0;PARTS.forEach((p,i)=>{const y=partY(p);MESH.push([GEO[p.id],mul(GM,T(0,y,0)),i]);
+  if(p.id==="motor"){const lift=pe(p)*.18;MOT.forEach(([mx,my],k)=>MESH.push([PROP,mul(GM,mul(T(mx,y+H+.205+lift,-my),RY(st.spin*(k%2?1:-1)+k))),i]))}})}
+function eachMesh(fn){for(let k=0;k<MESH.length;k++){const m=MESH[k];fn(m[0],m[1],m[2])}}
 function rotA(a,th){const c=Math.cos(th),s=Math.sin(th),t=1-c,[x,y,z]=a;return new Float32Array([t*x*x+c,t*x*y+s*z,t*x*z-s*y,0,t*x*y-s*z,t*y*y+c,t*y*z+s*x,0,t*x*z+s*y,t*y*z-s*x,t*z*z+c,0,0,0,0,1])}
 const Sd=(()=>{const v=[-.22,1,.16],l=Math.hypot(...v);return v.map(x=>x/l)})();const Ld=(()=>{const v=[-.45,.9,.32],l=Math.hypot(...v);return v.map(x=>x/l)})();
-function frame(t){st.raf=0;if(!st.alive||!ready)return;const dt=Math.min(.05,(t-(st.last||t))/1000);st.last=t;
-  const dpr=Math.min(devicePixelRatio||1,innerWidth<760?1.5:2),w=Math.round(stage.clientWidth*dpr),h=Math.round(stage.clientHeight*dpr);if(w!==W||h!==Hh){W=cv.width=w;Hh=cv.height=h}
+function frame(t){st.raf=0;if(!st.alive||!ready)return;
+  /* only on weak devices: when nothing but the idle hover/orbit is moving, draw at ~30 fps */
+  if(st.cap&&!st.full&&t-st.drawn<30){st.raf=requestAnimationFrame(frame);return}
+  const dt=Math.min(.05,(t-(st.last||t))/1000);st.last=t;
+  /* adaptive resolution: if full-speed frames run slow, lower the render size step by step; raise it back only if it stays smooth */
+  if(st.full&&st.drawn&&!st.cap){const d=t-st.drawn;if(d<120){st.ema=st.ema?st.ema*.9+d*.1:d;
+    if(++st.n>60){if(st.ema>26){st.n=0;st.ema=0;if(t-st.up<8000)st.ceil=Math.min(st.ceil,Math.round((st.rs-.1)*10)/10);if(st.rs>.71)st.rs=Math.max(.7,Math.round((st.rs-.1)*10)/10);else st.cap=true}
+      else if(st.ema<17.5&&st.n>240&&st.rs<st.ceil){st.n=0;st.ema=0;st.rs=Math.min(st.ceil,Math.round((st.rs+.1)*10)/10);st.up=t}}}else{st.n=0;st.ema=0}}
+  st.drawn=t;
+  const dpr=Math.min(devicePixelRatio||1,innerWidth<760?1.5:2)*st.rs,w=Math.max(2,Math.round((SW||stage.clientWidth)*dpr)),h=Math.max(2,Math.round((SH||stage.clientHeight)*dpr));if(w!==W||h!==Hh){W=cv.width=w;Hh=cv.height=h}
   /* sequence */
   if(seq.play){const dir=seq.to>seq.p?1:-1;seq.p+=dir*dt*seq.spd/2.6;if((dir>0&&seq.p>=seq.to)||(dir<0&&seq.p<=seq.to)){seq.p=seq.to;seq.play=false;setPlayIcon();if(seq.to===0&&sel<0)st.hold=false}}
   rng.value=Math.round(seq.p*1000);rng.style.setProperty("--p",(seq.p*100).toFixed(1)+"%");$("dvSeqT").textContent=seq.play?(seq.to?"Exploding…":"Assembling…"):seq.p>.99||seq.p<.01?"":Math.round(seq.p*100)+"%";
@@ -2409,6 +2433,7 @@ function frame(t){st.raf=0;if(!st.alive||!ready)return;const dt=Math.min(.05,(t-
    st.scr=st.scr||[0,0];const sp=(.9+v*.6)*f*dt;st.scr[0]+=dx*sp;st.scr[1]+=dz*sp;
    GM=mul(T(dx*s-dz*sw,bob,dz*s+dx*sw),mul(rotA([dz,0,-dx],tilt),mul(rotA([dx,0,dz],roll),RY(st.face*f))))}
   if(!reduce)st.spin+=dt*(st.f>.05||seq.play||seq.p>0?11:2.2);
+  buildMesh();
   /* ground height follows lowest part, hovering a little above it */
   let low=1e9;PARTS.forEach(p=>low=Math.min(low,partY(p)+(PB[p.id][0][1]-PB[p.id][0][4])));const gy=low-.45;
   const xr=$("dvXr").checked;
@@ -2434,16 +2459,18 @@ function frame(t){st.raf=0;if(!st.alive||!ready)return;const dt=Math.min(.05,(t-
   labels();
   $("dvAz").textContent=String(Math.round(((-st.yaw*180/PI)%360+360)%360)).padStart(3,"0")+"°";
   const busy=seq.play||st.drag||Math.abs(st.vy)>1e-4||Math.abs(st.ty-st.yaw)>1e-3||Math.abs(st.tp-st.pitch)>1e-3||Math.abs(want-st.cd)>1e-3||Math.abs(tgt[1]-st.tyy)>1e-3||($("dvOrb").checked&&!reduce&&sel<0)||sel>=0||!reduce;
-  if(busy)kick()}
-function kick(){if(st.alive&&ready&&!st.raf)st.raf=requestAnimationFrame(frame)}
+  st.full=seq.play||st.drag||Math.abs(st.vy)>1e-4||Math.abs(st.ty-st.yaw)>1e-3||Math.abs(st.tp-st.pitch)>1e-3||Math.abs(want-st.cd)>1e-3||Math.abs(tgt[0]-st.tx)>1e-3||Math.abs(tgt[1]-st.tyy)>1e-3||Math.abs(tgt[2]-st.tz)>1e-3||!!(st.fly0&&t-st.fly0<3400);
+  if(busy)kick0()}
+function kick0(){if(st.alive&&ready&&!st.raf)st.raf=requestAnimationFrame(frame)}
+function kick(){st.full=true;kick0()}
 
 /* ---------- lifecycle: build early (before the visitor arrives), draw only while visible ---------- */
 const early=()=>{if(!ready)init()};
 if("requestIdleCallback"in window)addEventListener("load",()=>requestIdleCallback(early,{timeout:4000}));else addEventListener("load",()=>setTimeout(early,1500));
 new IntersectionObserver(es=>{if(es[0].isIntersecting)early()},{rootMargin:"1500px 0px"}).observe(stage);
 let inView=false;
-function resume(){cancelAnimationFrame(st.raf);st.raf=0;st.alive=inView&&!document.hidden;if(st.alive){st.last=0;kick()}}
-new IntersectionObserver(es=>{inView=es[0].isIntersecting;st.alive=inView&&!document.hidden;if(st.alive){st.last=0;kick();if(!st.seen){st.seen=true;st.fly0=performance.now();setTimeout(()=>$("dvHint").style.opacity=0,7000)}}},{threshold:.2}).observe(stage);
+function resume(){cancelAnimationFrame(st.raf);st.raf=0;st.alive=inView&&!document.hidden;window.__dvLive=st.alive;if(st.alive){st.last=0;kick()}}
+new IntersectionObserver(es=>{inView=es[0].isIntersecting;st.alive=inView&&!document.hidden;window.__dvLive=st.alive;if(st.alive){st.last=0;kick();if(!st.seen){st.seen=true;st.fly0=performance.now();setTimeout(()=>$("dvHint").style.opacity=0,7000)}}},{threshold:.2}).observe(stage);
 document.addEventListener("visibilitychange",resume);addEventListener("pageshow",resume);addEventListener("focus",resume);
 cv.addEventListener("webglcontextlost",e=>{e.preventDefault();ready=false;cancelAnimationFrame(st.raf);st.raf=0});
 cv.addEventListener("webglcontextrestored",()=>{ready=false;LTEX=null;W=Hh=1;init();resume()});
