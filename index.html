@@ -2504,9 +2504,10 @@ function head(s){const a=at(Math.max(0,s-45)),b=at(Math.min(TOT,s+45));return Ma
 svg.style.display="none";document.getElementById("msGrid").style.display="none";
 const cvs=document.createElement("canvas");cvs.className="ms-svg";cvs.setAttribute("aria-hidden","true");svg.parentNode.insertBefore(cvs,svg);
 const cx=cvs.getContext("2d"),bc=document.createElement("canvas"),bx=bc.getContext("2d");
-let CW=1,CH=1,DPR=1;
+let CW=1,CH=1,DPR=1,RW=0,RH=0;
 function sizeCv(){const stk=sec.querySelector(".ms-stick")||sec;CW=stk.clientWidth||innerWidth;CH=stk.clientHeight||innerHeight;DPR=Math.min(devicePixelRatio||1,2);
   const w=Math.round(CW*DPR),h=Math.round(CH*DPR);if(cvs.width!==w||cvs.height!==h){cvs.width=bc.width=w;cvs.height=bc.height=h}}
+try{new ResizeObserver(es=>{const r=es[es.length-1].contentRect;RW=r.width;RH=r.height;measure();req()}).observe(cvs)}catch(_){}
 const DOORP=DOORS.map(([x,y,w,s,o])=>new Path2D(o==="h"?`M${x} ${y} l0 ${-s*w} A${w} ${w} 0 0 ${s>0?0:1} ${x+w} ${y}`:`M${x} ${y} l${-s*w} 0 A${w} ${w} 0 0 ${s>0?1:0} ${x} ${y+w}`));
 function rrect(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
 function planDraw(c,sc,wall,lw,furn,glow){
@@ -2529,15 +2530,15 @@ const GUARDS=[[75,109],[540,106],[70,584],[545,566]].map(([u,v])=>[u/712*15-7.5,
 const DIMG=new Image(),DS=document.createElement("canvas");DS.width=DS.height=128;let dimgOk=false;
 DIMG.onload=()=>{const q=DS.getContext("2d");q.imageSmoothingQuality="high";q.drawImage(DIMG,0,0,128,128);dimgOk=true;last=-1;req()};DIMG.src=window.__SST_MSDRONE__||"";
 function paint(tx,ty,sc,n,tr,d,hd,bo,co,pe){
-  const c=cx,k=DPR*sc;c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,cvs.width,cvs.height);
+  const c=cx,sx=RW?cvs.width/RW:DPR,sy=RH?cvs.height/RH:DPR,k=sx*sc,kk=sy*sc;c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,cvs.width,cvs.height);
   /* grid */
-  c.setTransform(DPR,0,0,DPR,0,0);{const g=40*sc;c.globalAlpha=.42;c.fillStyle="#17304A";
+  c.setTransform(sx,0,0,sy,0,0);{const g=40*sc;c.globalAlpha=.42;c.fillStyle="#17304A";
     for(let x=((tx%g)+g)%g;x<CW;x+=g)c.fillRect(x,0,1,CH);for(let y=((ty%g)+g)%g;y<CH;y+=g)c.fillRect(0,y,CW,1);c.globalAlpha=1}
   /* dim full plan, then bright plan masked by the fog */
-  c.setTransform(k,0,0,-k,DPR*tx,DPR*ty);c.globalAlpha=.2;planDraw(c,sc,"#AAB8C5",2,"#304259",false);c.globalAlpha=1;
-  fog(n);bx.setTransform(1,0,0,1,0,0);bx.clearRect(0,0,bc.width,bc.height);bx.setTransform(k,0,0,-k,DPR*tx,DPR*ty);
+  c.setTransform(k,0,0,-kk,sx*tx,sy*ty);c.globalAlpha=.2;planDraw(c,sc,"#AAB8C5",2,"#304259",false);c.globalAlpha=1;
+  fog(n);bx.setTransform(1,0,0,1,0,0);bx.clearRect(0,0,bc.width,bc.height);bx.setTransform(k,0,0,-kk,sx*tx,sy*ty);
   planDraw(bx,sc,"#E6EDF5",3,"#3F6A92",true);bx.globalCompositeOperation="destination-in";bx.drawImage(fc,FX,FY,FWd,FHt);bx.globalCompositeOperation="source-over";
-  c.setTransform(1,0,0,1,0,0);c.drawImage(bc,0,0);c.setTransform(k,0,0,-k,DPR*tx,DPR*ty);
+  c.setTransform(1,0,0,1,0,0);c.drawImage(bc,0,0);c.setTransform(k,0,0,-kk,sx*tx,sy*ty);
   /* route + trail */
   c.lineWidth=1/sc;c.setLineDash([2/sc,7/sc]);c.globalAlpha=.12;c.strokeStyle="#2391EB";c.beginPath();PATH.forEach((q,i)=>i?c.lineTo(q[0],q[1]):c.moveTo(q[0],q[1]));c.stroke();
   c.globalAlpha=1;c.lineWidth=2.2/sc;c.lineCap="round";c.beginPath();tr.forEach((q,i)=>i?c.lineTo(q[0],q[1]):c.moveTo(q[0],q[1]));c.stroke();c.setLineDash([]);c.lineCap="butt";
