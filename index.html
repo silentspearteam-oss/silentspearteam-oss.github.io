@@ -994,6 +994,101 @@ html.loading,html.loading body{overflow:hidden}
 /* ---------- animated background motifs (one light canvas, see script) ---------- */
 #fxcv{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
 .numbers,.contact2{position:relative}
+
+/* ---------- FLIGHT LAB (fl-*) · uses the site's tokens; no new colours ---------- */
+.fl{--fl-line:#223247;--fl-card:rgba(16,26,40,.82);border-top:1px solid var(--border)}
+.fl *{box-sizing:border-box}
+.fl-hd{display:grid;grid-template-columns:1fr auto;gap:14px 32px;align-items:end;margin-bottom:24px}
+.fl-eb{font-family:var(--f-num);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);display:flex;align-items:center;gap:10px}
+.fl-eb:before{content:"";width:28px;height:2px;background:var(--blue)}
+.fl-hd h2{margin:8px 0 6px;font-family:var(--f-ui);font-weight:700;font-size:clamp(30px,4.6vw,52px);line-height:1;letter-spacing:.01em;text-wrap:balance}
+.fl-hd .fl-b2{color:var(--blue)}
+.fl-hd p{margin:0;color:var(--silver);font-size:16px;line-height:1.5;max-width:52ch}
+.fl-seg{display:inline-grid;grid-template-columns:1fr 1fr;border:1px solid var(--fl-line);border-radius:12px;background:var(--fl-card);padding:4px;gap:4px}
+.fl-seg button{appearance:none;border:0;background:transparent;border-radius:9px;min-height:44px;padding:0 22px;font-family:var(--f-ui);font-weight:700;font-size:16px;letter-spacing:.1em;text-transform:uppercase;color:var(--silver);cursor:pointer;transition:background .2s,color .2s}
+.fl-seg button[aria-pressed="true"]{background:var(--blue);color:#fff}
+.fl button:focus-visible,.fl-tg:focus-within,.fl-pad:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.fl-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:16px;align-items:start}
+.fl-col{display:flex;flex-direction:column;gap:16px;min-width:0}
+.fl-pan{background:var(--fl-card);border:1px solid var(--fl-line);border-radius:16px;padding:16px;box-shadow:0 10px 30px -18px rgba(0,0,0,.6)}
+.fl-h{font-family:var(--f-num);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--silver);margin:0 0 10px;display:flex;justify-content:space-between;gap:8px}
+.fl-stage{position:relative;border-radius:18px;height:clamp(440px,62vh,560px);overflow:hidden;border:1px solid var(--fl-line);background:radial-gradient(70% 60% at 50% 48%,#132741 0%,#0A1220 60%,#060A11 100%);contain:layout paint}
+.fl-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.fl-2d{position:absolute;inset:8% 22% 22%;width:56%;height:70%}
+.fl-hud{position:absolute;top:14px;left:16px;right:16px;display:flex;justify-content:space-between;gap:10px;font-family:var(--f-num);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver);z-index:3;pointer-events:none}
+.fl-hud b{color:var(--text);font-weight:500}
+.fl-mk{position:absolute;left:0;top:0;z-index:2;pointer-events:none;will-change:transform;display:flex;align-items:center;gap:6px;font-family:var(--f-ui);font-weight:600;font-size:13px;letter-spacing:.03em;background:rgba(16,26,40,.9);border:1px solid var(--border);border-radius:7px;padding:2px 8px 2px 6px;white-space:nowrap;opacity:0;transition:opacity .25s}
+.fl-mk.on{opacity:1}
+.fl-mk em{font-style:normal;font-family:var(--f-num);font-size:10px;color:var(--cyan)}
+.fl-mk b{font-family:var(--f-num);font-weight:500;font-size:11px;min-width:3ch;text-align:right}
+.fl-mk[data-d]::after{content:"";width:10px;height:10px;border:1.5px solid var(--cyan);border-left-color:transparent;border-radius:50%}
+.fl-mk[data-d="ccw"]::after{transform:scaleX(-1)}
+.fl-load{position:absolute;inset:0;margin:0;display:grid;place-items:center;font-family:var(--f-num);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--silver);pointer-events:none;transition:opacity .4s}
+.fl-ro{position:absolute;left:12px;right:12px;bottom:12px;display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--fl-line);border-radius:12px;background:rgba(16,26,40,.9);overflow:hidden;z-index:3}
+.fl-ro div{padding:8px 12px;border-left:1px solid var(--fl-line);display:flex;flex-direction:column;gap:1px;min-width:0}
+.fl-ro div:first-child{border-left:0}
+.fl-ro b{font-family:var(--f-ui);font-size:22px;line-height:1.05;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.fl-ro small{font-family:var(--f-num);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver)}
+.fl-hint{position:absolute;left:50%;bottom:78px;transform:translateX(-50%);font-family:var(--f-num);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver);background:rgba(16,26,40,.8);border:1px solid var(--fl-line);border-radius:20px;padding:5px 12px;white-space:nowrap;z-index:3;pointer-events:none;transition:opacity .3s}
+.fl-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);margin:0}
+.fl-deck{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr) minmax(0,1fr);gap:16px;align-items:center;padding:18px}
+.fl-stk{display:flex;flex-direction:column;align-items:center;gap:10px;min-width:0}
+.fl-stk .fl-h{margin:0}
+.fl-pad{position:relative;width:min(100%,190px);aspect-ratio:1;border-radius:22px;border:1px solid var(--border);background:linear-gradient(var(--fl-line),var(--fl-line)) 50% 0/1px 100% no-repeat,linear-gradient(var(--fl-line),var(--fl-line)) 0 50%/100% 1px no-repeat,radial-gradient(closest-side,rgba(0,188,235,.08),transparent 80%),#0C1522;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;-webkit-tap-highlight-color:transparent}
+.fl-pad::before{content:"";position:absolute;inset:14%;border:1px dashed rgba(0,188,235,.28);border-radius:50%}
+.fl-kn{position:absolute;left:50%;top:50%;width:58px;height:58px;margin:-29px 0 0 -29px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#2A3F5C,#121C2B 70%);border:2px solid var(--cyan);box-shadow:0 0 14px var(--glow),inset 0 0 10px rgba(0,0,0,.6);pointer-events:none;will-change:transform}
+.fl-kn::after{content:"";position:absolute;inset:40%;border-radius:50%;background:var(--cyan);opacity:.85}
+.fl-ax{display:flex;justify-content:space-between;width:min(100%,190px);font-family:var(--f-num);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--silver);gap:6px}
+.fl-ctr{display:flex;flex-direction:column;gap:14px;min-width:0}
+.fl-keys{margin:0;font-family:var(--f-num);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--label);text-align:center;line-height:1.9}
+.fl kbd{font-family:var(--f-num);font-size:10px;border:1px solid var(--border);border-bottom-width:2px;border-radius:5px;padding:0 5px;color:var(--silver);background:#0C1522;margin-right:2px}
+.fl-btn{appearance:none;border:1px solid var(--fl-line);background:var(--panel);color:var(--text);border-radius:9px;padding:9px 10px;font-family:var(--f-ui);font-weight:600;font-size:15px;letter-spacing:.03em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;min-height:44px;transition:background .2s,border-color .2s;text-transform:none}
+.fl-btn:hover{border-color:var(--blue)}
+.fl-btn[aria-pressed="true"],.fl-btn.fl-pri{background:var(--blue);border-color:var(--blue);color:#fff}
+.fl-btn.fl-dng{border-color:#6a3d2c;color:#F2A98C}
+.fl-btn.fl-dng[aria-pressed="true"]{background:#6a3d2c;color:#fff}
+.fl-auto{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.fl-auto .fl-btn{min-height:56px;flex-direction:column;gap:2px;font-size:14px}
+.fl-auto svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.fl-auto .fl-demo{grid-column:span 4;flex-direction:row;gap:10px;min-height:48px;border-color:var(--cyan);color:var(--cyan);background:rgba(0,188,235,.06);letter-spacing:.1em;text-transform:uppercase}
+.fl-auto .fl-demo[aria-pressed="true"]{background:var(--cyan);color:#05070B}
+.fl-mx{display:grid;gap:10px}
+.fl-mr{display:grid;grid-template-columns:34px 1fr 40px;align-items:center;gap:10px;font-family:var(--f-num);font-size:11px}
+.fl-n{color:var(--silver);letter-spacing:.06em}
+.fl-n i{display:block;font-style:normal;font-size:9px;color:var(--label);letter-spacing:.1em}
+.fl-t{height:10px;border-radius:6px;background:var(--track);overflow:hidden;position:relative}
+.fl-f{position:absolute;inset:0;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--blue2),var(--cyan));border-radius:6px}
+.fl-v{text-align:right;font-variant-numeric:tabular-nums}
+.fl-why{margin:12px 0 0;padding:10px 12px;border:1px solid var(--fl-line);border-left:3px solid var(--cyan);border-radius:10px;background:rgba(0,188,235,.05);color:var(--silver);font-size:14px;line-height:1.45;min-height:64px}
+.fl-why b{color:var(--text);font-weight:500}
+.fl-why.fl-small{min-height:0;font-size:13px;margin-top:8px}
+.fl-tg{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 0;font-size:15px;cursor:pointer;user-select:none;min-height:44px}
+.fl-tg input{position:absolute;opacity:0;pointer-events:none}
+.fl-tg i{width:36px;height:20px;border-radius:20px;background:#304259;position:relative;flex:none;transition:background .2s}
+.fl-tg i:after{content:"";position:absolute;left:2px;top:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .2s}
+.fl-tg input:checked+i{background:var(--blue)}
+.fl-tg input:checked+i:after{transform:translateX(16px)}
+.fl-mxh{display:none;width:100%;justify-content:space-between}
+.fl-note{margin:14px 0 0;text-align:center;color:var(--silver);font-size:13.5px}
+.fl-note b{font-weight:500;color:var(--text)}
+@media (max-width:1020px){.fl-grid{grid-template-columns:minmax(0,1fr)}.fl-hd{grid-template-columns:1fr}}
+@media (max-width:640px){
+  .fl.sec{padding-block:56px}
+  .fl-deck{grid-template-columns:1fr 1fr;padding:14px}
+  .fl-ctr{grid-column:1/-1;order:-1}
+  .fl-ro div{padding:6px}.fl-ro b{font-size:16px}.fl-ro small{font-size:8px;letter-spacing:.06em}
+  .fl-hint{display:none}.fl-stage{height:320px}.fl-mk{display:none}
+  .fl-seg{width:100%}
+  .fl-auto{grid-template-columns:repeat(2,1fr)}.fl-auto .fl-demo{grid-column:span 2}
+  .fl-mxh{display:flex}.fl-mxt{display:none}
+}
+@media (max-height:520px) and (orientation:landscape){.fl-stage{height:300px}.fl-hint{display:none}}
+@media (pointer:coarse){.fl-keys{display:none}}
+@media (prefers-reduced-motion:reduce){.fl *{transition:none!important}}
+
+/* SSPerf: while Flight Lab is on screen, every other looping CSS animation is paused */
+html.sp-paused body *{animation-play-state:paused!important}
+html.sp-paused #flightlab,html.sp-paused #flightlab *{animation-play-state:running!important}
 </style>
 </head>
 <body>
@@ -1013,6 +1108,7 @@ html.loading,html.loading body{overflow:hidden}
       <a href="#mission">Mission</a>
       <a href="#about">About</a>
       <a href="#model">The Drone</a>
+      <a href="#flightlab">Flight Lab</a>
       <a href="#demo">Live Demo</a>
       <a href="#highlights">Highlights</a>
       <a href="#team">Team</a>
@@ -1227,6 +1323,105 @@ html.loading,html.loading body{overflow:hidden}
         <div class="track has-img"><button class="track-img zoomable" data-img="img/skills/frame-poster.jpg" aria-label="View photo full size"><img decoding="async" src="img/skills/frame-poster-v.jpg" alt="Drone prototype with prop guards" loading="lazy"></button><span class="num">02</span><h3>Custom nano drone architecture</h3><p>We design, build, and integrate the custom Nano Drone, including the airframe, propulsion, power, electronics, sensors, and flight-control system.</p></div>
       </div>
     </div>
+    </div></div>
+  </section>
+
+  <!-- ===================== FLIGHT LAB ===================== -->
+  <section class="sec fl" id="flightlab" aria-label="Flight Lab: fly the KR8.063 Nanodrone">
+    <div class="gut"><div class="in">
+      <header class="fl-hd">
+        <div>
+          <div class="fl-eb" data-i="eyebrow">Flight Lab · fly it yourself</div>
+          <h2><span data-i="titleA">Fly the</span> <span class="fl-b2">KR8.063</span> <span data-i="titleB">Nanodrone</span></h2>
+          <p data-i="sub">See how four motors turn stick moves into flight. Take the sticks, or press a button and watch.</p>
+        </div>
+        <div class="fl-seg" role="group" aria-label="Control mode">
+          <button type="button" id="flPilot" aria-pressed="true" data-i="pilot">Pilot</button>
+          <button type="button" id="flAuto" aria-pressed="false" data-i="auto">Auto</button>
+        </div>
+      </header>
+
+      <div class="fl-grid">
+        <div class="fl-col">
+          <div class="fl-stage" id="flStage">
+            <canvas id="flCv" aria-label="3D model of the KR8.063 Nanodrone in flight"></canvas>
+            <svg class="fl-2d" id="fl2d" viewBox="0 0 300 300" aria-hidden="true" hidden>
+              <g id="fl2dG"><g stroke="#E6EDF5" stroke-width="14" stroke-linecap="round"><line x1="150" y1="150" x2="70" y2="70"/><line x1="150" y1="150" x2="230" y2="70"/><line x1="150" y1="150" x2="230" y2="230"/><line x1="150" y1="150" x2="70" y2="230"/></g>
+                <rect x="124" y="112" width="52" height="76" rx="12" fill="#C7CDD3"/><rect x="132" y="120" width="36" height="30" rx="3" fill="#15181C"/><path d="M150 100l8 12h-16z" fill="#00BCEB"/>
+                <g id="fl2dM"></g></g>
+            </svg>
+            <div class="fl-hud"><span>KR8.063 · Flight Lab</span><span><span data-i="mode">Mode</span> <b id="flMode">Pilot</b></span></div>
+            <div class="fl-mk" id="flMk1" data-d="cw"><em>M1</em><b>0%</b></div>
+            <div class="fl-mk" id="flMk2" data-d="ccw"><em>M2</em><b>0%</b></div>
+            <div class="fl-mk" id="flMk3" data-d="cw"><em>M3</em><b>0%</b></div>
+            <div class="fl-mk" id="flMk4" data-d="ccw"><em>M4</em><b>0%</b></div>
+            <p class="fl-load" id="flLoad" data-i="loading">Loading 3D model…</p>
+            <div class="fl-hint" id="flHint" data-i="hint">Raise the left stick to take off</div>
+            <div class="fl-ro" aria-label="Flight readout">
+              <div><b id="flT">0%</b><small data-i="thrust">Thrust</small></div>
+              <div><b id="flR">0°</b><small data-i="roll">Roll</small></div>
+              <div><b id="flP">0°</b><small data-i="pitch">Pitch</small></div>
+              <div><b id="flY">0°</b><small data-i="yaw">Yaw</small></div>
+              <div><b id="flA">0.0 m</b><small data-i="alt">Altitude</small></div>
+            </div>
+          </div>
+          <p class="fl-sr" id="flLive" aria-live="polite" role="status"></p>
+
+          <div class="fl-pan fl-deck" id="flDkPilot">
+            <div class="fl-stk">
+              <p class="fl-h" data-i="leftStick">Left stick</p>
+              <div class="fl-pad fl-hold" id="flPadL" tabindex="0" role="application" aria-label="Left stick. Up and down is throttle, left and right is yaw. Throttle stays where you leave it."><div class="fl-kn" id="flKnL"></div></div>
+              <div class="fl-ax"><span data-i="axYaw">Yaw ◂ ▸</span><span data-i="axThr">Throttle ▴ ▾</span></div>
+            </div>
+            <div class="fl-ctr">
+              <button type="button" class="fl-btn fl-dng" id="flLand" data-i="landNow">Land</button>
+              <p class="fl-keys"><kbd>W</kbd><kbd>S</kbd> <span data-i="kThr">throttle</span> · <kbd>A</kbd><kbd>D</kbd> <span data-i="kYaw">yaw</span><br><kbd>↑</kbd><kbd>↓</kbd> <span data-i="kPit">pitch</span> · <kbd>←</kbd><kbd>→</kbd> <span data-i="kRol">roll</span><br><span data-i="kPad">Gamepad works when connected</span></p>
+            </div>
+            <div class="fl-stk">
+              <p class="fl-h" data-i="rightStick">Right stick</p>
+              <div class="fl-pad" id="flPadR" tabindex="0" role="application" aria-label="Right stick. Up and down is pitch, left and right is roll."><div class="fl-kn" id="flKnR"></div></div>
+              <div class="fl-ax"><span data-i="axRol">Roll ◂ ▸</span><span data-i="axPit">Pitch ▴ ▾</span></div>
+            </div>
+          </div>
+
+          <div class="fl-pan" id="flDkAuto" hidden>
+            <p class="fl-h"><span data-i="autoFlight">Auto flight</span><span data-i="cancelHint">Press again to cancel</span></p>
+            <div class="fl-auto">
+              <button type="button" class="fl-btn fl-pri" data-a="takeoff"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V5M6 11l6-6 6 6"/></svg><span data-i="bTakeoff">Take off</span></button>
+              <button type="button" class="fl-btn" data-a="hover"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg><span data-i="bHover">Hover</span></button>
+              <button type="button" class="fl-btn" data-a="rotate"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-3-6.2M20 4v5h-5"/></svg><span data-i="bRotate">Rotate</span></button>
+              <button type="button" class="fl-btn fl-dng" data-a="land"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v15M6 13l6 6 6-6"/></svg><span data-i="bLand">Land</span></button>
+              <button type="button" class="fl-btn" data-a="fwd"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15l7-7 7 7"/></svg><span data-i="bFwd">Forward</span></button>
+              <button type="button" class="fl-btn" data-a="back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg><span data-i="bBack">Back</span></button>
+              <button type="button" class="fl-btn" data-a="left"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span data-i="bLeft">Left</span></button>
+              <button type="button" class="fl-btn" data-a="right"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg><span data-i="bRight">Right</span></button>
+              <button type="button" class="fl-btn fl-demo" id="flDemo" data-a="demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z"/></svg><span data-i="bDemo">Demo flight</span></button>
+            </div>
+          </div>
+        </div>
+
+        <aside class="fl-col" aria-label="Motor mixer and settings">
+          <div class="fl-pan">
+            <button type="button" class="fl-btn fl-mxh" id="flMxTog" aria-expanded="false" aria-controls="flMxBody"><span data-i="mixer">Motor mixer</span><span id="flMxCar">Show ▾</span></button>
+            <div id="flMxBody">
+              <p class="fl-h fl-mxt"><span data-i="mixer">Motor mixer</span><span data-i="xcfg">X config</span></p>
+              <div class="fl-mx">
+                <div class="fl-mr"><span class="fl-n">M1<i>CW</i></span><div class="fl-t"><div class="fl-f" id="flB1"></div></div><span class="fl-v" id="flV1">0%</span></div>
+                <div class="fl-mr"><span class="fl-n">M2<i>CCW</i></span><div class="fl-t"><div class="fl-f" id="flB2"></div></div><span class="fl-v" id="flV2">0%</span></div>
+                <div class="fl-mr"><span class="fl-n">M3<i>CW</i></span><div class="fl-t"><div class="fl-f" id="flB3"></div></div><span class="fl-v" id="flV3">0%</span></div>
+                <div class="fl-mr"><span class="fl-n">M4<i>CCW</i></span><div class="fl-t"><div class="fl-f" id="flB4"></div></div><span class="fl-v" id="flV4">0%</span></div>
+              </div>
+              <p class="fl-why" id="flWhy">Motors are off. Raise the throttle and all four speed up together to climb.</p>
+            </div>
+          </div>
+          <div class="fl-pan">
+            <p class="fl-h" data-i="settings">Settings</p>
+            <label class="fl-tg"><span data-i="assist">Self-level assist</span><input type="checkbox" id="flAssist" checked><i></i></label>
+            <p class="fl-why fl-small" data-i="assistNote">On: the drone levels itself when you release the right stick. Off: it keeps its tilt and drifts until you correct it.</p>
+          </div>
+        </aside>
+      </div>
+      <p class="fl-note"><b data-i="noteB">Educational simplification.</b> <span data-i="noteT">Not the Nanodrone's onboard flight controller.</span></p>
     </div></div>
   </section>
 
@@ -1562,6 +1757,39 @@ html.loading,html.loading body{overflow:hidden}
 <div hidden><span id="sysDot"></span><span id="sysTxt"></span></div>
 
 <script>
+/* ======================= SSPerf · one switch to quiet the rest of the page =======================
+   SSPerf.pause("key") / SSPerf.resume("key"). While any key is held:
+   - requestAnimationFrame from the rest of the page is parked (every canvas / WebGL loop stops by itself),
+   - looping CSS animations are paused (html.sp-paused),
+   - autoplaying videos (not camera streams) are paused.
+   resume() of the last key replays the parked frames and restores the videos, so nothing is lost.
+   SSPerf.raf / SSPerf.caf are the native versions, for code that must keep running (Flight Lab).
+   Nothing is paused while the loading screen is still up. */
+(function(){
+  var nraf=window.requestAnimationFrame.bind(window),ncaf=window.cancelAnimationFrame.bind(window);
+  var holds={},on=false,q=new Map(),alias={},nid=0,vids=[],de=document.documentElement;
+  function held(){for(var k in holds)return true;return false}
+  function want(){return held()&&!de.classList.contains("loading")}
+  window.requestAnimationFrame=function(cb){if(!on)return nraf(cb);var id=--nid;q.set(id,cb);return id};
+  window.cancelAnimationFrame=function(id){if(id<0){if(q.delete(id))return;if(alias[id]){ncaf(alias[id]);delete alias[id]}}else ncaf(id)};
+  function sync(){
+    var w=want();if(w===on)return;on=w;
+    de.classList.toggle("sp-paused",w);
+    if(w){vids=[];document.querySelectorAll("video").forEach(function(v){if(!v.paused&&!v.srcObject){vids.push(v);try{v.pause()}catch(e){}}})}
+    else{
+      q.forEach(function(cb,id){alias[id]=nraf(cb)});q.clear();
+      vids.forEach(function(v){try{var p=v.play();if(p&&p.catch)p.catch(function(){})}catch(e){}});vids=[]}
+  }
+  try{new MutationObserver(sync).observe(de,{attributes:true,attributeFilter:["class"]})}catch(e){}
+  window.SSPerf={
+    raf:nraf,caf:ncaf,
+    pause:function(k){holds[k]=1;sync()},
+    resume:function(k){delete holds[k];sync()},
+    isPaused:function(){return on}
+  };
+})();
+</script>
+<script>
 /* ======================= PRELOADER ======================= */
 (function(){
 const pre=document.getElementById("preloader");if(!pre)return;
@@ -1593,7 +1821,7 @@ const navLinks=[...document.querySelectorAll(".hnav a")],hnav=document.getElemen
 burger.addEventListener("click",()=>{const o=!hnav.classList.contains("open");hnav.classList.toggle("open",o);burger.setAttribute("aria-expanded",o)});
 navLinks.forEach(a=>a.addEventListener("click",()=>{hnav.classList.remove("open");burger.setAttribute("aria-expanded","false")}));
 document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g){e.preventDefault();const t=document.getElementById(g.dataset.go);if(t)t.scrollIntoView({behavior:"smooth"})}});
-const SECS=["home","mission","about","build","model","demo","highlights","lab","team","film","posters","contact"].map(id=>document.getElementById(id)).filter(Boolean);
+const SECS=["home","mission","about","build","model","flightlab","demo","highlights","lab","team","film","posters","contact"].map(id=>document.getElementById(id)).filter(Boolean);
 const NAVMAP={build:"about",lab:"highlights",home:null};
 function setActive(id){current=id;const key=id in NAVMAP?NAVMAP[id]:id;navLinks.forEach(a=>a.setAttribute("aria-current",a.getAttribute("href")==="#"+key?"true":"false"))}
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)setActive(e.target.id)})},{rootMargin:"-45% 0px -50% 0px"});
@@ -2310,6 +2538,7 @@ const DVS=`attribute vec3 p;attribute vec3 n;attribute vec2 t;uniform mat4 M,VP;
 const DFS=`precision mediump float;varying vec3 vw,vn;varying vec2 vt;uniform sampler2D s;uniform vec3 L,bg;uniform float ghost;
 void main(){vec4 c=texture2D(s,vt);if(c.a<.01)discard;vec3 N=normalize(vn);float d=max(dot(N,L),0.);vec3 hemi=mix(vec3(.16,.22,.32),vec3(.92,.96,1.),N.y*.5+.5);
  vec3 col=pow(c.rgb,vec3(2.2))*(hemi*.62+vec3(1.,.97,.92)*d*.78);col=pow(col,vec3(1./2.2));col=mix(col,bg,ghost*.72);gl_FragColor=vec4(col*c.a,c.a);}`;
+window.SS3D={VS,FS,DVS,DFS,H,mul,persp,look,gRanger,gBatt,gMotor,gESC,gFC,gAI,gFlow,gProp,gFrame,gDecal};
 let DPRG,DEC,LTEX;
 function init(){if(ready||gl===null)return;
   try{gl=cv.getContext("webgl",{antialias:true,alpha:true,premultipliedAlpha:true,powerPreference:"high-performance"})}catch(e){gl=null}
@@ -2603,6 +2832,294 @@ addEventListener("scroll",req,{passive:true});addEventListener("resize",()=>{mea
 new IntersectionObserver(es=>{near=es[0].isIntersecting;if(near){measure();req()}else window.__msLive=false},{rootMargin:"200px 0px"}).observe(sec);
 document.addEventListener("visibilitychange",()=>{if(!document.hidden){measure();req()}});addEventListener("pageshow",()=>{measure();req()});
 measure();render(0);
+})();
+</script>
+<script>
+/* ======================= FLIGHT LAB =======================
+   Fly the KR8.063 on screen. Reuses the geometry, shaders, CAD frame and logo decals of "The Drone" (window.SS3D),
+   so no second 3D library and no second model download.
+   Lazy start, draws only while visible and only while something moves, pauses the rest of the page via SSPerf. */
+(function(){
+"use strict";
+var root=document.getElementById("flightlab");if(!root)return;
+var $=function(i){return document.getElementById(i)};
+var RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+var NR=window.SSPerf?SSPerf.raf:requestAnimationFrame.bind(window),NC=window.SSPerf?SSPerf.caf:cancelAnimationFrame.bind(window);
+
+/* ---------- text (English; swap with FlightLab.setLang({...}) for Arabic) ---------- */
+var EN={eyebrow:"Flight Lab · fly it yourself",titleA:"Fly the",titleB:"Nanodrone",sub:"See how four motors turn stick moves into flight. Take the sticks, or press a button and watch.",pilot:"Pilot",auto:"Auto",mode:"Mode",
+loading:"Loading 3D model…",hint:"Raise the left stick to take off",thrust:"Thrust",roll:"Roll",pitch:"Pitch",yaw:"Yaw",alt:"Altitude",leftStick:"Left stick",rightStick:"Right stick",
+axYaw:"Yaw ◂ ▸",axThr:"Throttle ▴ ▾",axRol:"Roll ◂ ▸",axPit:"Pitch ▴ ▾",landNow:"Land",kThr:"throttle",kYaw:"yaw",kPit:"pitch",kRol:"roll",kPad:"Gamepad works when connected",
+autoFlight:"Auto flight",cancelHint:"Press again to cancel",bTakeoff:"Take off",bHover:"Hover",bRotate:"Rotate",bLand:"Land",bFwd:"Forward",bBack:"Back",bLeft:"Left",bRight:"Right",bDemo:"Demo flight",
+mixer:"Motor mixer",xcfg:"X config",show:"Show ▾",hide:"Hide ▴",settings:"Settings",assist:"Self-level assist",assistNote:"On: the drone levels itself when you release the right stick. Off: it keeps its tilt and drifts until you correct it.",
+noteB:"Educational simplification.",noteT:"Not the Nanodrone's onboard flight controller.",
+wOff:"Motors are off. Raise the throttle and all four speed up together to climb.",wClimb:"<b>Climb:</b> all four motors speed up together. Equal speeds keep it level.",
+wRollR:"<b>Roll:</b> left-side motors speed up and right-side motors slow down, so the drone leans right.",wRollL:"<b>Roll:</b> right-side motors speed up and left-side motors slow down, so the drone leans left.",
+wPitF:"<b>Pitch:</b> rear motors speed up and front motors slow down, so the nose dips and it moves forward.",wPitB:"<b>Pitch:</b> front motors speed up and rear motors slow down, so the nose lifts and it moves back.",
+wYaw:"<b>Yaw:</b> the clockwise pair and the counter-clockwise pair trade speed, so the body turns without leaning.",
+sUp:"Airborne",sDown:"Landed",sAuto:"Auto mode",sPilot:"Pilot mode",sPad:"Gamepad connected",sLite:"Lower quality to keep the view smooth",sStatic:"Static 3D view, controls still work"};
+var L=EN;function t(k){return L[k]!==undefined?L[k]:EN[k]}
+function applyLang(){root.querySelectorAll("[data-i]").forEach(function(e){e.textContent=t(e.dataset.i)});$("flMode").textContent=t(mode);$("flMxCar").textContent=t($("flMxBody").hidden?"show":"hide")}
+
+/* ---------- state ---------- */
+var S={base:0,thr:0,yaw:0,pit:0,rol:0,alt:0,hd:0,rP:0,rR:0},P=[0,0],Mt=[0,0,0,0],cur={pit:0,rol:0,yaw:0};
+var mode="pilot",assist=true,A=null,active=false,started=false,destroyed=false,raf=0,last=0,drawT=0;
+var kb={w:0,s:0,a:0,d:0,u:0,dn:0,l:0,r:0},kbOn=false,gpOn=false,gpTimer=0,hold={L:false,R:false};
+var gl=null,ready=false,use2d=false,tier=0,RS=1,ems=0,fN=0,fAcc=0,fEval=0,staticDone=false,fixedFrame=true;
+var lowEnd=(navigator.deviceMemory||8)<=2||(navigator.hardwareConcurrency||8)<=2||(Math.min(screen.width,screen.height)<=360&&(navigator.hardwareConcurrency||8)<=4);
+var listeners=[];
+function on(tg,ty,fn,op){tg.addEventListener(ty,fn,op);listeners.push([tg,ty,fn,op])}
+var cache={};function setT(id,v){if(cache[id]!==v){cache[id]=v;$(id).textContent=v}}
+var sayT=0,sayLast="";function say(m){var n=performance.now();if(m===sayLast||n-sayT<1200)return;sayLast=m;sayT=n;$("flLive").textContent=m}
+
+/* ---------- input shaping: small deadzone + expo so it feels smooth ---------- */
+function sh(v){var a=Math.abs(v);if(a<.05)return 0;a=(a-.05)/.95;a=.65*a+.35*a*a*a;return v<0?-a:a}
+function cl(v,a,b){return v<a?a:v>b?b:v}
+
+/* ---------- on-screen sticks (Pointer Events, multi-touch) ---------- */
+var padL=$("flPadL"),padR=$("flPadR"),knL=$("flKnL"),knR=$("flKnR"),rawL=[0,0],rawR=[0,0];
+function knob(kn,pad,x,y){var r=pad.clientWidth/2-29;kn.style.transform="translate("+(x*r).toFixed(1)+"px,"+(-y*r).toFixed(1)+"px)"}
+function mkPad(el,kn,side){
+  var id=null;
+  function pos(e,o){var r=el.getBoundingClientRect();o[0]=cl(((e.clientX-r.left)/r.width)*2-1,-1,1);o[1]=cl(-(((e.clientY-r.top)/r.height)*2-1),-1,1)}
+  var o=side==="L"?rawL:rawR;
+  function apply(){
+    if(side==="L"){S.yaw=sh(o[0]);S.thr=cl((o[1]+1)/2,0,1)}else{S.rol=sh(o[0]);S.pit=sh(o[1])}
+    knob(kn,el,o[0],o[1]);userInput();wake()}
+  on(el,"pointerdown",function(e){if(id!==null)return;id=e.pointerId;try{el.setPointerCapture(id)}catch(_){}hold[side]=true;kbOn=true;pos(e,o);apply();e.preventDefault()});
+  on(el,"pointermove",function(e){if(e.pointerId!==id)return;pos(e,o);apply()});
+  var up=function(e){if(e.pointerId!==id)return;id=null;hold[side]=false;
+    if(side==="L"){o[0]=0;S.yaw=0;o[1]=S.thr*2-1}else{o[0]=o[1]=0;S.rol=S.pit=0}
+    knob(kn,el,o[0],o[1]);wake()};
+  on(el,"pointerup",up);on(el,"pointercancel",up);on(el,"lostpointercapture",up);
+  on(el,"contextmenu",function(e){e.preventDefault()})}
+mkPad(padL,knL,"L");mkPad(padR,knR,"R");
+function setThrottle(v){S.thr=cl(v,0,1);if(!hold.L){rawL[1]=S.thr*2-1;knob(knL,padL,rawL[0],rawL[1])}}
+
+/* ---------- keyboard (only after you click or focus Flight Lab, so the page still scrolls) ---------- */
+var KM={w:"w",s:"s",a:"a",d:"d",arrowup:"u",arrowdown:"dn",arrowleft:"l",arrowright:"r"};
+on(document,"pointerdown",function(e){kbOn=root.contains(e.target)});
+on(root,"focusin",function(){kbOn=true});
+on(document,"keydown",function(e){
+  if(!active||!kbOn||mode!=="pilot"&&e.key!=="Escape"||e.ctrlKey||e.metaKey||e.altKey)return;
+  if(e.key==="Escape"){cancelAuto();return}
+  var k=KM[e.key.toLowerCase()];if(!k)return;kb[k]=1;if(e.key.indexOf("Arrow")===0)e.preventDefault();userInput();wake()});
+on(document,"keyup",function(e){var k=KM[e.key.toLowerCase()];if(k)kb[k]=0});
+on(window,"blur",function(){for(var k in kb)kb[k]=0});
+
+/* ---------- gamepad (Mode 2: left = throttle + yaw, right = pitch + roll) ---------- */
+var gpv=[0,0,0,0];
+function pollPad(){gpv[0]=gpv[1]=gpv[2]=gpv[3]=0;if(!gpOn||!navigator.getGamepads)return false;var g=navigator.getGamepads(),p=null,i;
+  for(i=0;i<g.length;i++)if(g[i]&&g[i].connected&&g[i].axes.length>=4){p=g[i];break}
+  if(!p)return false;gpv[0]=sh(p.axes[0]);gpv[1]=-p.axes[1];gpv[2]=sh(p.axes[2]);gpv[3]=-sh(p.axes[3]);
+  return Math.abs(gpv[0])+Math.abs(gpv[1]>.08||gpv[1]<-.08?gpv[1]:0)+Math.abs(gpv[2])+Math.abs(gpv[3])>.05}
+on(window,"gamepadconnected",function(){gpOn=true;say(t("sPad"));armPadTimer()});
+on(window,"gamepaddisconnected",function(){var g=navigator.getGamepads?navigator.getGamepads():[],n=false;for(var i=0;i<g.length;i++)if(g[i]&&g[i].connected)n=true;gpOn=n;if(!n)clearInterval(gpTimer),gpTimer=0});
+function armPadTimer(){if(gpTimer||!active||!gpOn)return;gpTimer=setInterval(function(){if(!raf&&pollPad()){userInput();wake()}},120)}
+
+/* ---------- Auto mode: eased scripted moves; any manual input or Esc cancels ---------- */
+var DEMO=[[0,{alt:1}],[2.4,{pit:.6}],[3.8,{pit:0}],[4.4,{rol:.6}],[5.6,{rol:0}],[6.2,{yaw:.9}],[9.9,{yaw:0}],[10.4,{pit:-.6}],[11.8,{pit:0}],[12.6,{alt:0}]];
+var MOVES={takeoff:[[0,{alt:1}]],land:[[0,{alt:0}]],hover:[[0,{hold:1}]],fwd:[[0,{pit:.6}],[1.5,{pit:0}]],back:[[0,{pit:-.6}],[1.5,{pit:0}]],left:[[0,{rol:-.6}],[1.5,{rol:0}]],right:[[0,{rol:.6}],[1.5,{rol:0}]],rotate:[[0,{yaw:.9}],[3.7,{yaw:0}]],demo:DEMO};
+var autoBtns=root.querySelectorAll("[data-a]"),AT={alt:-1,pit:0,rol:0,yaw:0};
+function cancelAuto(){A=null;AT.pit=AT.rol=AT.yaw=0;AT.alt=-1;for(var i=0;i<autoBtns.length;i++)autoBtns[i].setAttribute("aria-pressed","false")}
+function runAuto(name,btn){
+  if(A&&A.n===name){cancelAuto();AT.alt=S.alt>.03?S.alt:0;wake();return}
+  cancelAuto();A={n:name,s:MOVES[name],i:0,t:0};btn.setAttribute("aria-pressed","true");if(name==="hover")AT.alt=S.alt;wake()}
+autoBtns.forEach(function(b){on(b,"click",function(){runAuto(b.dataset.a,b)})});
+if(RM)$("flDemo").hidden=true;
+function userInput(){if(A||AT.alt>=0)cancelAuto()}
+
+/* ---------- flight model (smoothed, clamped; an educational simplification) ---------- */
+var iT=0,iY=0,iP=0,iR=0;
+function step(dt){
+  var ky=kb.d-kb.a,kp=kb.u-kb.dn,kr=kb.r-kb.l,kt=kb.w-kb.s,gp=pollPad(),k=1-Math.exp(-dt*7);
+  if(kt)setThrottle(S.thr+kt*dt*.55);
+  if(gp&&gpv[1]){var g1=Math.abs(gpv[1])>.08?gpv[1]:0;if(g1)setThrottle(S.thr+g1*dt*.55)}
+  if(mode==="pilot"){
+    var ty=cl(S.yaw+ky+gpv[0],-1,1),tp=cl(S.pit+kp+gpv[3],-1,1),tr=cl(S.rol+kr+gpv[2],-1,1);
+    cur.yaw+=(ty-cur.yaw)*k;cur.pit+=(tp-cur.pit)*k;cur.rol+=(tr-cur.rol)*k;iT=S.thr
+  }else{
+    if(A){A.t+=dt;while(A.i<A.s.length&&A.t>=A.s[A.i][0]){var o=A.s[A.i][1];if(o.alt!==undefined)AT.alt=o.alt;if(o.hold)AT.alt=S.alt>.03?S.alt:0;if(o.pit!==undefined)AT.pit=o.pit;if(o.rol!==undefined)AT.rol=o.rol;if(o.yaw!==undefined)AT.yaw=o.yaw;A.i++}
+      if(A.i>=A.s.length&&A.t>A.s[A.s.length-1][0]+.6&&Math.abs(S.alt-AT.alt)<.06){var nm=A.n;cancelAuto();AT.alt=S.alt>.03?S.alt:0;if(nm==="land")AT.alt=0}}
+    var kk=1-Math.exp(-dt*4);cur.pit+=(AT.pit-cur.pit)*kk;cur.rol+=(AT.rol-cur.rol)*kk;cur.yaw+=(AT.yaw-cur.yaw)*kk;
+    var e=AT.alt<0?0:AT.alt-S.alt;iT=AT.alt<0?(S.alt>.03?.5:0):(AT.alt===0&&S.alt<.04?0:cl(.5+cl(e*.7,-.4,.4),0,1));
+    /* keep the pilot stick in step so switching back is smooth */
+  }
+  iY=cur.yaw;iP=cur.pit;iR=cur.rol;
+  var base=iT>.02||S.alt>.02?.12+cl(iT,0,1)*.7:0;if(S.alt<=0&&iT<.04)base=0;
+  var climb=(iT-.5)*1.6;
+  if(S.alt<=0&&iT<.5)climb=0;
+  else if(climb>0)climb*=cl((2-S.alt)/.35,0,1);
+  else if(S.alt<.14)climb*=Math.max(.2,S.alt/.14);
+  S.alt=cl(S.alt+climb*dt,0,2);
+  var air=S.alt>.02,ka=Math.min(1,dt*6);
+  if(assist||!air){S.rP+=((air?iP*22:0)-S.rP)*ka;S.rR+=((air?iR*22:0)-S.rR)*ka}
+  else{S.rP=cl(S.rP+iP*70*dt,-35,35);S.rR=cl(S.rR+iR*70*dt,-35,35)}
+  S.hd=(S.hd+(air?iY*110*dt:0)+360)%360;
+  var a=-S.hd*Math.PI/180,vf=S.rP*.07,vr=S.rR*.07;
+  P[0]+=(-Math.sin(a)*vf+Math.cos(a)*vr)*dt;P[1]+=(-Math.cos(a)*vf-Math.sin(a)*vr)*dt;
+  /* motor mixer, X configuration: M1 front-left CW, M2 front-right CCW, M3 rear-right CW, M4 rear-left CCW */
+  var kM=1-Math.exp(-dt*14),m0=base+iR*.14-iP*.14-iY*.09,m1=base-iR*.14-iP*.14+iY*.09,m2=base-iR*.14+iP*.14-iY*.09,m3=base+iR*.14+iP*.14+iY*.09;
+  Mt[0]+=((base?cl(m0,.08,1):0)-Mt[0])*kM;Mt[1]+=((base?cl(m1,.08,1):0)-Mt[1])*kM;Mt[2]+=((base?cl(m2,.08,1):0)-Mt[2])*kM;Mt[3]+=((base?cl(m3,.08,1):0)-Mt[3])*kM;
+  S.base=base}
+function busy(){
+  return S.alt>.001||S.base>0||Mt[0]>.004||Math.abs(S.rP)>.05||Math.abs(S.rR)>.05||!!A||AT.alt>=0&&Math.abs(AT.alt-S.alt)>.02||hold.L||hold.R||
+   Math.abs(cur.yaw)+Math.abs(cur.pit)+Math.abs(cur.rol)>.01||kb.w+kb.s+kb.a+kb.d+kb.u+kb.dn+kb.l+kb.r>0||(gpOn&&pollPad())}
+
+/* ---------- readouts, mixer, one-line explanation ---------- */
+var whyKey="",wasAir=false,mxP=[-1,-1,-1,-1],mks=[$("flMk1"),$("flMk2"),$("flMk3"),$("flMk4")];
+function ui(){
+  setT("flT",Math.round(S.base*100)+"%");setT("flR",Math.round(S.rR)+"°");setT("flP",Math.round(S.rP)+"°");setT("flY",Math.round(S.hd)+"°");setT("flA",S.alt.toFixed(1)+" m");
+  for(var i=0;i<4;i++){var p=Math.round(Mt[i]*100);if(p!==mxP[i]){mxP[i]=p;$("flB"+(i+1)).style.transform="scaleX("+(p/100)+")";setT("flV"+(i+1),p+"%");mks[i].lastChild.textContent=p+"%"}}
+  var k=S.base===0?"wOff":Math.abs(iR)>=Math.abs(iP)&&Math.abs(iR)>=Math.abs(iY)&&Math.abs(iR)>.15?(iR>0?"wRollR":"wRollL"):Math.abs(iP)>=Math.abs(iY)&&Math.abs(iP)>.15?(iP>0?"wPitF":"wPitB"):Math.abs(iY)>.15?"wYaw":"wClimb";
+  if(k!==whyKey){whyKey=k;$("flWhy").innerHTML=t(k)}
+  var air=S.alt>.05;if(air!==wasAir){wasAir=air;say(t(air?"sUp":"sDown"))}
+  var h=!air&&mode==="pilot"&&S.thr<.05;if(h!==ui.h){ui.h=h;$("flHint").style.opacity=h?1:0}}
+
+/* ---------- 3D (WebGL, the site's own geometry) ---------- */
+var cv=$("flCv"),stage=$("flStage"),S3=window.SS3D,W=1,Hh=1,SW=1,SH=1;
+var PRG,FP,DPRG,GEO={},PROPG,GRID,FAN,DEC,LTEX,res=[];
+var VP=new Float32Array(16),EYE=[0,0,0],GM=new Float32Array(16),T1=new Float32Array(16),T2=new Float32Array(16),T3=new Float32Array(16),T4=new Float32Array(16),MM=new Float32Array(16),M0=new Float32Array(16),ID=new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]);
+function mT(o,x,y,z){o.fill(0);o[0]=o[5]=o[10]=o[15]=1;o[12]=x;o[13]=y;o[14]=z}
+function mRY(o,a){var c=Math.cos(a),s=Math.sin(a);o.fill(0);o[0]=c;o[2]=-s;o[5]=1;o[8]=s;o[10]=c;o[15]=1}
+function mRX(o,a){var c=Math.cos(a),s=Math.sin(a);o.fill(0);o[0]=1;o[5]=c;o[6]=s;o[9]=-s;o[10]=c;o[15]=1}
+function mRZ(o,a){var c=Math.cos(a),s=Math.sin(a);o.fill(0);o[0]=c;o[1]=s;o[4]=-s;o[5]=c;o[10]=1;o[15]=1}
+function mS(o,s){o.fill(0);o[0]=o[5]=o[10]=s;o[15]=1}
+function mm(o,a,b){for(var c=0;c<4;c++)for(var r=0;r<4;r++){var s=0;for(var k=0;k<4;k++)s+=a[k*4+r]*b[c*4+k];M0[c*4+r]=s}for(var i=0;i<16;i++)o[i]=M0[i]}
+var GY=-.34,STEP=1.4,HALF=14,PART=[["ranger",.42],["batt",.045],["motor",0],["esc",0],["frame",0],["fc",-.09],["ai",-.16],["flow",-.25]];
+var MP=[[-.85,-.85],[.85,-.85],[.85,.85],[-.85,.85]],CWd=[-1,1,-1,1],pAng=[0,40,80,120],Ld=[-.45,.9,.32],BGc=[.05,.08,.13],PY=0,tmpX=0,tmpY=0,pm=new Float32Array(16);
+(function(){var l=Math.hypot(Ld[0],Ld[1],Ld[2]);Ld[0]/=l;Ld[1]/=l;Ld[2]/=l})();
+var FVS="attribute vec3 p;attribute float a;uniform mat4 M,VP;uniform vec2 off;varying float va;varying vec2 wp;void main(){vec4 w=M*vec4(p,1.);w.xz-=off;va=a;wp=w.xz;gl_Position=VP*w;}";
+var FFS="precision mediump float;uniform vec4 col;varying float va;varying vec2 wp;void main(){float f=clamp(1.-(length(wp)-3.)/10.,0.,1.);float al=col.a*va*f;gl_FragColor=vec4(col.rgb*al,al);}";
+function sh_(ty,s){var o=gl.createShader(ty);gl.shaderSource(o,s);gl.compileShader(o);res.push(["s",o]);return o}
+function prog(v,f){var p=gl.createProgram();gl.attachShader(p,sh_(gl.VERTEX_SHADER,v));gl.attachShader(p,sh_(gl.FRAGMENT_SHADER,f));gl.linkProgram(p);p.u={};p.a={};
+  var i,n,nu=gl.getProgramParameter(p,gl.ACTIVE_UNIFORMS),na=gl.getProgramParameter(p,gl.ACTIVE_ATTRIBUTES);
+  for(i=0;i<nu;i++){n=gl.getActiveUniform(p,i).name;p.u[n]=gl.getUniformLocation(p,n)}for(i=0;i<na;i++){n=gl.getActiveAttrib(p,i).name;p.a[n]=gl.getAttribLocation(p,n)}res.push(["p",p]);return p}
+function buf(d,st){var b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,d instanceof Float32Array?d:new Float32Array(d),gl.STATIC_DRAW);res.push(["b",b]);return{b:b,n:d.length/(st||10)}}
+function glBuild(){
+  PRG=prog(S3.VS,S3.FS);DPRG=prog(S3.DVS,S3.DFS);FP=prog(FVS,FFS);
+  GEO={ranger:buf(S3.gRanger()),batt:buf(S3.gBatt()),motor:buf(S3.gMotor()),frame:buf(S3.gFrame()),esc:buf(S3.gESC()),fc:buf(S3.gFC()),ai:buf(S3.gAI()),flow:buf(S3.gFlow())};PROPG=buf(S3.gProp());
+  PY=S3.H+.205;var gv=[],k,wq=.008,Q=function(a,b,c,d,e,f,g,h){gv.push(a,GY,b,1,c,GY,d,1,e,GY,f,1,a,GY,b,1,e,GY,f,1,g,GY,h,1)};
+  for(k=-HALF;k<=HALF+.01;k+=STEP){Q(k-wq,-HALF,k+wq,-HALF,k+wq,HALF,k-wq,HALF);Q(-HALF,k-wq,HALF,k-wq,HALF,k+wq,-HALF,k+wq)}
+  GRID=buf(gv,4);var fv=[0,0,0,1],q;for(q=0;q<=32;q++){var an=q/32*Math.PI*2;fv.push(Math.cos(an),0,Math.sin(an),0)}FAN=buf(fv,4);
+  DEC=buf(new Float32Array(S3.gDecal()),8);
+  if(window.__SST_LOGOS__){var im=new Image();im.onload=function(){if(destroyed||!gl)return;LTEX=gl.createTexture();res.push(["t",LTEX]);gl.bindTexture(gl.TEXTURE_2D,LTEX);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,im);gl.generateMipmap(gl.TEXTURE_2D);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);wake()};im.src="data:image/png;base64,"+window.__SST_LOGOS__}
+  ready=true;mks.forEach(function(m){m.classList.add("on")})}
+function fit(){
+  SW=stage.clientWidth;SH=stage.clientHeight;var d=Math.min(devicePixelRatio||1,lowEnd?1:1.5)*RS,w=Math.max(2,Math.round(SW*d)),h=Math.max(2,Math.round(SH*d));
+  if(use2d)return;
+  if(w!==W||h!==Hh){W=cv.width=w;Hh=cv.height=h}
+  var asp=W/Hh,ed=asp<1.3?9:7,cyw=-.42,cp=.34,tg=[0,.85,0];
+  EYE=[Math.sin(cyw)*Math.cos(cp)*ed,tg[1]+Math.sin(cp)*ed,Math.cos(cyw)*Math.cos(cp)*ed];
+  VP.set(S3.mul(S3.persp(.6,asp,.1,80),S3.look(EYE,tg)))}
+function dis(){for(var i=0;i<8;i++)gl.disableVertexAttribArray(i)}
+function bindMesh(P,g){gl.bindBuffer(gl.ARRAY_BUFFER,g.b);gl.enableVertexAttribArray(P.a.p);gl.vertexAttribPointer(P.a.p,3,gl.FLOAT,false,40,0);gl.enableVertexAttribArray(P.a.n);gl.vertexAttribPointer(P.a.n,3,gl.FLOAT,false,40,12);gl.enableVertexAttribArray(P.a.c);gl.vertexAttribPointer(P.a.c,4,gl.FLOAT,false,40,24)}
+function proj(m,x,y,z){var wx=m[0]*x+m[4]*y+m[8]*z+m[12],wy=m[1]*x+m[5]*y+m[9]*z+m[13],wz=m[2]*x+m[6]*y+m[10]*z+m[14];
+  var cx=VP[0]*wx+VP[4]*wy+VP[8]*wz+VP[12],cy=VP[1]*wx+VP[5]*wy+VP[9]*wz+VP[13],cw=VP[3]*wx+VP[7]*wy+VP[11]*wz+VP[15];tmpX=(cx/cw+1)/2*SW;tmpY=(1-(cy/cw+1)/2)*SH}
+function draw3d(dt){
+  if(!ready)return;var i,g;
+  gl.viewport(0,0,W,Hh);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+  mRY(T1,-S.hd*Math.PI/180);mRX(T2,-S.rP*Math.PI/180);mm(T3,T1,T2);mRZ(T4,-S.rR*Math.PI/180);mm(T3,T3,T4);mT(T1,0,S.alt,0);mm(GM,T1,T3);
+  gl.enable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);
+  dis();gl.useProgram(FP);gl.uniformMatrix4fv(FP.u.VP,false,VP);gl.uniformMatrix4fv(FP.u.M,false,ID);gl.uniform4f(FP.u.col,0,.74,.92,.5);gl.uniform2f(FP.u.off,((P[0]%STEP)+STEP)%STEP,((P[1]%STEP)+STEP)%STEP);
+  gl.bindBuffer(gl.ARRAY_BUFFER,GRID.b);gl.enableVertexAttribArray(FP.a.p);gl.vertexAttribPointer(FP.a.p,3,gl.FLOAT,false,16,0);gl.enableVertexAttribArray(FP.a.a);gl.vertexAttribPointer(FP.a.a,1,gl.FLOAT,false,16,12);
+  gl.depthMask(false);gl.drawArrays(gl.TRIANGLES,0,GRID.n);
+  gl.uniform2f(FP.u.off,0,0);mT(T1,0,GY+.004,0);mS(T2,1.25-S.alt*.28);mm(MM,T1,T2);gl.uniformMatrix4fv(FP.u.M,false,MM);gl.uniform4f(FP.u.col,0,0,0,.62-S.alt*.22);
+  gl.bindBuffer(gl.ARRAY_BUFFER,FAN.b);gl.vertexAttribPointer(FP.a.p,3,gl.FLOAT,false,16,0);gl.vertexAttribPointer(FP.a.a,1,gl.FLOAT,false,16,12);gl.drawArrays(gl.TRIANGLE_FAN,0,FAN.n);
+  gl.depthMask(true);gl.disable(gl.BLEND);dis();
+  gl.useProgram(PRG);gl.uniformMatrix4fv(PRG.u.VP,false,VP);gl.uniform3fv(PRG.u.eye,EYE);gl.uniform3fv(PRG.u.L,Ld);gl.uniform3fv(PRG.u.bg,BGc);gl.uniform1f(PRG.u.t,0);gl.uniform1f(PRG.u.xr,0);gl.uniform1f(PRG.u.ghost,0);gl.uniform1f(PRG.u.hi,0);
+  for(i=0;i<8;i++){g=GEO[PART[i][0]];bindMesh(PRG,g);mT(T1,0,PART[i][1],0);mm(MM,GM,T1);gl.uniformMatrix4fv(PRG.u.M,false,MM);gl.drawArrays(gl.TRIANGLES,0,g.n)}
+  bindMesh(PRG,PROPG);
+  for(i=0;i<4;i++){pAng[i]+=CWd[i]*Math.min(Mt[i]*1500*dt,70)*Math.PI/180;mT(T1,MP[i][0],PY,MP[i][1]);mRY(T2,pAng[i]);mm(T3,T1,T2);mm(MM,GM,T3);gl.uniformMatrix4fv(PRG.u.M,false,MM);gl.drawArrays(gl.TRIANGLES,0,PROPG.n)}
+  if(LTEX){dis();gl.useProgram(DPRG);gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false);gl.enable(gl.POLYGON_OFFSET_FILL);gl.polygonOffset(-2,-2);
+    gl.bindBuffer(gl.ARRAY_BUFFER,DEC.b);gl.enableVertexAttribArray(DPRG.a.p);gl.vertexAttribPointer(DPRG.a.p,3,gl.FLOAT,false,32,0);gl.enableVertexAttribArray(DPRG.a.n);gl.vertexAttribPointer(DPRG.a.n,3,gl.FLOAT,false,32,12);gl.enableVertexAttribArray(DPRG.a.t);gl.vertexAttribPointer(DPRG.a.t,2,gl.FLOAT,false,32,24);
+    mT(T1,0,.045,0);mm(MM,GM,T1);gl.uniformMatrix4fv(DPRG.u.VP,false,VP);gl.uniformMatrix4fv(DPRG.u.M,false,MM);gl.uniform3fv(DPRG.u.L,Ld);gl.uniform3fv(DPRG.u.bg,BGc);gl.uniform1f(DPRG.u.ghost,0);
+    gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,LTEX);gl.uniform1i(DPRG.u.s,0);gl.drawArrays(gl.TRIANGLES,0,DEC.n);
+    gl.disable(gl.POLYGON_OFFSET_FILL);gl.depthMask(true);gl.disable(gl.BLEND)}
+  dis();gl.enable(gl.BLEND);gl.depthMask(false);gl.useProgram(FP);gl.uniform2f(FP.u.off,0,0);gl.uniformMatrix4fv(FP.u.VP,false,VP);gl.enableVertexAttribArray(FP.a.p);gl.enableVertexAttribArray(FP.a.a);
+  gl.bindBuffer(gl.ARRAY_BUFFER,FAN.b);gl.vertexAttribPointer(FP.a.p,3,gl.FLOAT,false,16,0);gl.vertexAttribPointer(FP.a.a,1,gl.FLOAT,false,16,12);
+  for(i=0;i<4;i++){var al=Math.min(1,Mt[i]/.45)*.5;if(al<.02)continue;gl.uniform4f(FP.u.col,.55,.9,1,al);mT(T1,MP[i][0],PY+.004,MP[i][1]);mS(T2,.5);mm(T3,T1,T2);mm(MM,GM,T3);gl.uniformMatrix4fv(FP.u.M,false,MM);gl.drawArrays(gl.TRIANGLE_FAN,0,FAN.n)}
+  gl.depthMask(true);gl.disable(gl.BLEND);dis();
+  for(i=0;i<4;i++){proj(GM,MP[i][0],PY+.5,MP[i][1]);mks[i].style.transform="translate("+tmpX.toFixed(1)+"px,"+tmpY.toFixed(1)+"px) translate(-50%,-100%)"}}
+
+/* ---------- 2D top view (no WebGL, or the model failed to load) ---------- */
+var d2={g:$("fl2dG"),m:[]},NS="http://www.w3.org/2000/svg";
+function build2d(){var m=$("fl2dM"),pos=[[70,70],[230,70],[230,230],[70,230]],i;for(i=0;i<4;i++){
+  var c=document.createElementNS(NS,"circle");c.setAttribute("cx",pos[i][0]);c.setAttribute("cy",pos[i][1]);c.setAttribute("r",38);c.setAttribute("fill","#00BCEB");c.setAttribute("opacity",0);m.appendChild(c);
+  var l=document.createElementNS(NS,"line");l.setAttribute("x1",pos[i][0]-34);l.setAttribute("x2",pos[i][0]+34);l.setAttribute("y1",pos[i][1]);l.setAttribute("y2",pos[i][1]);l.setAttribute("stroke","#AAB8C5");l.setAttribute("stroke-width",5);l.setAttribute("stroke-linecap","round");m.appendChild(l);
+  d2.m.push([c,l,pos[i]])}}
+function draw2d(dt){for(var i=0;i<4;i++){var q=d2.m[i];pAng[i]+=CWd[i]*Math.min(Mt[i]*1500*dt,70);q[0].setAttribute("opacity",(Mt[i]*.3).toFixed(2));q[1].setAttribute("transform","rotate("+(pAng[i]%360).toFixed(0)+" "+q[2][0]+" "+q[2][1]+")")}
+  d2.g.setAttribute("transform","translate(150 150) rotate("+S.hd.toFixed(1)+") scale("+(1+S.alt*.1).toFixed(3)+") translate(-150 -150)")}
+function go2d(){use2d=true;$("fl2d").hidden=false;cv.hidden=true;$("flLoad").style.opacity=0;if(!d2.m.length)build2d();wake()}
+
+/* ---------- loop: draws only while something changes ---------- */
+function wake(){if(!active||raf||destroyed||document.hidden||!started)return;last=0;raf=NR(loop)}
+function stopLoop(){if(raf){NC(raf);raf=0}}
+function loop(now){
+  raf=0;if(!active||destroyed)return;
+  var raw=last?now-last:16.7;last=now;var dt=Math.min(.05,raw/1000);
+  step(dt);
+  var mv=busy();
+  if(tier===2&&mv&&now-drawT<31){raf=NR(loop);return}
+  drawT=now;ui();
+  if(use2d)draw2d(dt);else if(ready&&tier<3)draw3d(dt);else if(ready&&tier===3&&!staticDone){draw3d(0);staticDone=true}
+  if(mv&&!use2d&&ready&&tier<3&&raw<250&&fEval<3){fN++;fAcc+=raw;if(fAcc>=1000&&fN>=20){var f=fN*1000/fAcc;fN=0;fAcc=0;fEval++;
+    if(f<(tier>=2?24:40)){tier++;if(tier===1){RS=.75;fit();say(t("sLite"))}else if(tier===3){say(t("sStatic"));staticDone=false}}}}
+  if(mv)raf=NR(loop);else last=0}
+
+/* ---------- lifecycle: lazy start, visible-only, reversible pause of the page ---------- */
+function setActive(a){
+  if(a===active||destroyed)return;active=a;
+  if(a){if(window.SSPerf)SSPerf.pause("flightlab");armPadTimer();wake()}
+  else{stopLoop();clearInterval(gpTimer);gpTimer=0;for(var k in kb)kb[k]=0;if(window.SSPerf)SSPerf.resume("flightlab")}}
+function init(){
+  if(started||destroyed)return;started=true;
+  var fail=function(){go2d()};
+  if(!S3||!window.__SST_FRAME3D__){fail();return}
+  try{gl=cv.getContext("webgl",{antialias:!lowEnd,alpha:true,premultipliedAlpha:true})}catch(e){gl=null}
+  if(!gl){fail();return}
+  if(lowEnd)RS=.85;
+  (window.requestIdleCallback||function(f){return setTimeout(f,60)})(function(){
+    if(destroyed)return;
+    try{glBuild();fit();$("flLoad").style.opacity=0;wake()}catch(e){try{gl=null}catch(_){}fail()}},{timeout:400});
+  on(cv,"webglcontextlost",function(e){e.preventDefault();ready=false;stopLoop()});
+  on(cv,"webglcontextrestored",function(){res.length=0;LTEX=null;try{glBuild();fit();wake()}catch(e){go2d()}})}
+function hookUi(){
+  on($("flPilot"),"click",function(){setMode("pilot")});on($("flAuto"),"click",function(){setMode("auto")});
+  on($("flLand"),"click",function(){setThrottle(0);wake()});
+  on($("flAssist"),"change",function(e){assist=e.target.checked});
+  on($("flMxTog"),"click",function(){var b=$("flMxBody");b.hidden=!b.hidden;$("flMxTog").setAttribute("aria-expanded",!b.hidden);$("flMxCar").textContent=t(b.hidden?"show":"hide")});
+  var mq=matchMedia("(max-width:640px)"),mxSet=function(){var b=$("flMxBody");if(!mq.matches)b.hidden=false;else if(!mxSet.d){b.hidden=true;mxSet.d=1}$("flMxCar").textContent=t(b.hidden?"show":"hide")};
+  mxSet();if(mq.addEventListener)on(mq,"change",mxSet);
+  try{var ro=new ResizeObserver(function(){fit();staticDone=false;wake();if(!raf&&active&&ready&&!use2d&&tier<3)draw3d(0)});ro.observe(stage);listeners.push([{removeEventListener:function(){ro.disconnect()}},"x",null])}catch(e){}
+  on(document,"visibilitychange",function(){if(document.hidden)stopLoop();else wake()})}
+function setMode(m){
+  if(m===mode)return;cancelAuto();mode=m;
+  $("flPilot").setAttribute("aria-pressed",m==="pilot");$("flAuto").setAttribute("aria-pressed",m==="auto");$("flDkPilot").hidden=m!=="pilot";$("flDkAuto").hidden=m!=="auto";
+  $("flMode").textContent=t(m);
+  if(m==="auto"){AT.alt=S.alt>.03?S.alt:0;hold.L=hold.R=false;S.yaw=S.pit=S.rol=0;rawR[0]=rawR[1]=0;knob(knR,padR,0,0)}
+  else{setThrottle(S.alt>.03?.5:0);AT.alt=-1}
+  $("flHint").style.display=m==="pilot"?"":"none";say(t(m==="pilot"?"sPilot":"sAuto"));wake()}
+$("flHint").style.opacity=1;
+hookUi();
+/* knobs need a laid-out pad: place the throttle knob at the bottom once visible */
+(function(){var r=function(){knob(knL,padL,0,-1);knob(knR,padR,0,0)};r();on(window,"load",r)})();
+
+var ioNear=null,ioVis=null;
+if("IntersectionObserver" in window){
+  ioNear=new IntersectionObserver(function(es){if(es[0].isIntersecting){init();ioNear.disconnect()}},{rootMargin:"500px 0px"});ioNear.observe(root);
+  ioVis=new IntersectionObserver(function(es){setActive(es[0].isIntersecting)},{rootMargin:"0px"});ioVis.observe(root);
+}else{init();setActive(true)}
+
+window.FlightLab={
+  setLang:function(o,dir){L=o||EN;if(dir)root.dir=dir;applyLang();whyKey=""},
+  destroy:function(){
+    if(destroyed)return;destroyed=true;stopLoop();clearInterval(gpTimer);if(ioNear)ioNear.disconnect();if(ioVis)ioVis.disconnect();
+    listeners.forEach(function(l){try{l[0].removeEventListener(l[1],l[2],l[3])}catch(e){}});listeners.length=0;
+    if(gl){res.forEach(function(r){try{if(r[0]==="b")gl.deleteBuffer(r[1]);else if(r[0]==="p")gl.deleteProgram(r[1]);else if(r[0]==="s")gl.deleteShader(r[1]);else if(r[0]==="t")gl.deleteTexture(r[1])}catch(e){}});
+      var x=gl.getExtension("WEBGL_lose_context");if(x)x.loseContext()}
+    GEO={};gl=null;ready=false;if(window.SSPerf)SSPerf.resume("flightlab")}
+};
 })();
 </script>
 </body>
