@@ -1140,7 +1140,7 @@ html.xp-on .xp-hub{position:fixed;inset:0;z-index:60;flex-direction:column;gap:c
 .xp-ft{display:flex;flex-direction:column;gap:4px}.xp-ft b{font:700 clamp(20px,2.6vh,26px)/1.1 var(--f-ui);letter-spacing:.02em}.xp-ft span{color:var(--silver);font-size:15px}
 /* top bar inside an experience */
 html.xp-run .xp-bar{position:fixed;z-index:70;top:0;left:0;right:0;height:var(--xb);padding:env(safe-area-inset-top) max(14px,env(safe-area-inset-right)) 0 max(14px,env(safe-area-inset-left));box-sizing:content-box;align-items:center;gap:14px;background:#070B12;border-bottom:1px solid var(--border)}
-.xp-bar a,.xp-bar button{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;font:700 15px/1 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.xp-bar>a,.xp-bar>button{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;font:700 15px/1 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .xp-back{background:var(--blue);color:#fff;border:0}
 .xp-phone{background:transparent;color:var(--cyan);border:1px solid var(--cyan)}
 .xp-bar svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
@@ -1242,6 +1242,28 @@ html:not(.xp-on) .xp-phone{display:none}
 }
 html:not(.xp-run) #model,html:not(.xp-run) #flightlab,html:not(.xp-run) #demo{display:none!important}
 .hnav a[href="#try"]{color:var(--cyan)}
+/* v-final: grid bg, centred titles, Flight Lab mode switch, aligned cards */
+.try{background-color:#05080D;background-image:linear-gradient(rgba(23,48,74,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(23,48,74,.5) 1px,transparent 1px);background-size:120px 120px;background-position:center top}
+.xp-tx em{min-height:calc(1.45em*2)}
+html.xp-run .xp-ttl{position:absolute;left:50%;top:env(safe-area-inset-top);transform:translateX(-50%);line-height:var(--xb);flex:none;pointer-events:none}
+html.xp-run .xp-phone{margin-left:auto}html.xp-run .xp-bar .fl-seg{margin-left:auto;margin-right:10px;flex:none}html.xp-run .fl-seg+.xp-phone{margin-left:0}
+@media (max-width:520px){html.xp-run .xp-ttl{display:none}}
+html.xp-run .xp-bar .fl-seg{width:auto}@media (max-width:520px){html.xp-run .xp-bar .fl-seg button{padding:0 14px;min-height:40px;font-size:14px}html.xp-run .xp-bar .fl-seg{margin-right:0}}
+@media (min-width:761px){
+ html.xp-run #flightlab .fl-col:last-child>.fl-pan:first-child{flex:1;display:flex;flex-direction:column}
+ html.xp-run #flightlab #flMxBody{flex:1;display:flex;flex-direction:column;justify-content:space-between}
+ html.xp-run #flightlab .fl-mx{flex:1;grid-auto-rows:1fr}
+ html.xp-run #model .dv-right>div:last-child{flex:1;display:flex;flex-direction:column;min-height:0}
+ html.xp-run #model .dv-list{flex:1;gap:4px}
+ html.xp-run #model .dv-list li{flex:1;display:flex;max-height:84px}
+ html.xp-run #model .dv-list li>button{flex:1;height:auto}
+}
+.xp-tip{display:none}
+@media (min-width:1101px){
+ html.xp-run #model .xp-tip{display:flex;flex-direction:column;gap:6px;margin-top:auto;padding:12px;border:1px solid var(--dv-line);border-left:3px solid #00BCEB;border-radius:10px;background:rgba(0,188,235,.05);color:var(--dv-mut);font-size:13.5px;line-height:1.45}
+ html.xp-run #model .xp-tip b{font:600 11px/1 var(--f-num,monospace);letter-spacing:.16em;text-transform:uppercase;color:#00BCEB}
+}
+}
 </style>
 </head>
 <body>
@@ -1258,9 +1280,9 @@ html:not(.xp-run) #model,html:not(.xp-run) #flightlab,html:not(.xp-run) #demo{di
   <div class="hdr-in">
     <a class="hdr-ss" href="#home" aria-label="Silent Spear Team, back to top"><img decoding="async" src="img/ss-lock-w.png" alt="Silent Spear Team"></a>
     <nav class="hnav" id="hnav" aria-label="Sections">
-      <a href="#try">Experiences</a>
-      <a href="#mission">Mission</a>
       <a href="#about">About</a>
+      <a href="#mission">Mission</a>
+      <a href="#try">Experiences</a>
       <a href="#highlights">Highlights</a>
       <a href="#team">Team</a>
       <a href="#film">Film</a>
@@ -1362,17 +1384,22 @@ html:not(.xp-run) #model,html:not(.xp-run) #flightlab,html:not(.xp-run) #demo{di
     </div>
   </div></div>
 
-  <!-- ===================== TRY IT YOURSELF ===================== -->
-  <section class="sec try" id="try" aria-label="Interactive experiences">
+  <!-- ===================== ABOUT ===================== -->
+  <section class="sec net" id="about">
+    <canvas class="netbg" id="netbg" aria-hidden="true"></canvas>
     <div class="gut"><div class="in">
-      <div class="pagehead"><div class="kicker">Interactive experiences</div><h1 class="h1">Try the KR8.063 yourself</h1><p>Three hands-on experiences. Tap a card to open it full screen, then use Back to return here.</p></div>
-      <div class="xp-tiles">
-<a class="xp-tile" href="#try-demo"><picture><source media="(orientation:portrait)" srcset="img/xp-detect-w.jpg"><img src="img/xp-detect.jpg" alt=""></picture><span class="xp-n">01</span>
-        <span class="xp-tx"><b>Live detection</b><em>Point the camera at people. The AI draws a box around each one.</em><u>Start <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></u></span></a>
-<a class="xp-tile" href="#try-model"><picture><source media="(orientation:portrait)" srcset="img/xp-model-w.jpg"><img src="img/xp-model.jpg" alt=""></picture><span class="xp-n">02</span>
-        <span class="xp-tx"><b>3D drone</b><em>Spin it, take it apart and tap any part to see what it does.</em><u>Start <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></u></span></a>
-<a class="xp-tile" href="#try-flight"><picture><source media="(orientation:portrait)" srcset="img/xp-flight-w.jpg"><img src="img/xp-flight.jpg" alt=""></picture><span class="xp-n">03</span>
-        <span class="xp-tx"><b>Flight Lab</b><em>Fly the Nanodrone with two sticks and watch the four motors respond.</em><u>Start <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></u></span></a>
+      <div class="abgrid"><div class="abl"><div class="sechead"><div class="kicker">About us</div><h2>From the classroom to real engineering</h2></div>
+        <p class="lead">We are Emirati engineering students at the Higher Colleges of Technology, turning what we learn into practical engineering experience.</p></div>
+        <div class="prose">
+          <p>Our goal is to contribute to the UAE's progress in research, innovation and emerging technology. The KR8.063 Nanodrone project builds the skills and technical capability that the nation's technological future depends on.</p>
+          <p>We develop and test on the <span class="nt">Crazyflie 2.x</span> research platform while we design and build our own custom nano drone.</p>
+        </div>
+      </div>
+      <div class="cards4 glasscards">
+        <article class="card"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><h3>Modular development</h3><p>Platforms, sensors and technologies are tested, combined and expanded step by step as the research progresses.</p></article>
+        <article class="card"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg><h3>Research-driven design</h3><p>Engineering decisions rest on technical studies, academic literature and continuous evaluation.</p></article>
+        <article class="card"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="18" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M12 7.5v4M12 11.5L6.5 16M12 11.5l5.5 4.5"/></svg><h3>Multidisciplinary engineering</h3><p>Mechanical, hardware, software and AI teams build one integrated indoor nanodrone platform together.</p></article>
+        <article class="card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><h3>Open-source innovation</h3><p>Open-source tools speed up prototyping, so the team can focus on system integration, algorithms and autonomy.</p></article>
       </div>
     </div></div>
   </section>
@@ -1397,22 +1424,17 @@ html:not(.xp-run) #model,html:not(.xp-run) #flightlab,html:not(.xp-run) #demo{di
     </div>
   </section>
 
-  <!-- ===================== ABOUT ===================== -->
-  <section class="sec net" id="about">
-    <canvas class="netbg" id="netbg" aria-hidden="true"></canvas>
+  <!-- ===================== TRY IT YOURSELF ===================== -->
+  <section class="sec try" id="try" aria-label="Interactive experiences">
     <div class="gut"><div class="in">
-      <div class="abgrid"><div class="abl"><div class="sechead"><div class="kicker">About us</div><h2>From the classroom to real engineering</h2></div>
-        <p class="lead">We are Emirati engineering students at the Higher Colleges of Technology, turning what we learn into practical engineering experience.</p></div>
-        <div class="prose">
-          <p>Our goal is to contribute to the UAE's progress in research, innovation and emerging technology. The KR8.063 Nanodrone project builds the skills and technical capability that the nation's technological future depends on.</p>
-          <p>We develop and test on the <span class="nt">Crazyflie 2.x</span> research platform while we design and build our own custom nano drone.</p>
-        </div>
-      </div>
-      <div class="cards4 glasscards">
-        <article class="card"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><h3>Modular development</h3><p>Platforms, sensors and technologies are tested, combined and expanded step by step as the research progresses.</p></article>
-        <article class="card"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg><h3>Research-driven design</h3><p>Engineering decisions rest on technical studies, academic literature and continuous evaluation.</p></article>
-        <article class="card"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="18" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M12 7.5v4M12 11.5L6.5 16M12 11.5l5.5 4.5"/></svg><h3>Multidisciplinary engineering</h3><p>Mechanical, hardware, software and AI teams build one integrated indoor nanodrone platform together.</p></article>
-        <article class="card"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><h3>Open-source innovation</h3><p>Open-source tools speed up prototyping, so the team can focus on system integration, algorithms and autonomy.</p></article>
+      <div class="pagehead"><div class="kicker">Interactive experiences</div><h1 class="h1">Try the KR8.063 yourself</h1><p>Three hands-on experiences. Tap a card to open it full screen, then use Back to return here.</p></div>
+      <div class="xp-tiles">
+<a class="xp-tile" href="#try-demo"><picture><source media="(orientation:portrait)" srcset="img/xp-detect-w.jpg"><img src="img/xp-detect.jpg" alt=""></picture><span class="xp-n">01</span>
+        <span class="xp-tx"><b>Live detection</b><em>Point the camera at people. The AI draws a box around each one.</em><u>Start <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></u></span></a>
+<a class="xp-tile" href="#try-model"><picture><source media="(orientation:portrait)" srcset="img/xp-model-w.jpg"><img src="img/xp-model.jpg" alt=""></picture><span class="xp-n">02</span>
+        <span class="xp-tx"><b>3D drone</b><em>Spin it, take it apart and tap any part to see what it does.</em><u>Start <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></u></span></a>
+<a class="xp-tile" href="#try-flight"><picture><source media="(orientation:portrait)" srcset="img/xp-flight-w.jpg"><img src="img/xp-flight.jpg" alt=""></picture><span class="xp-n">03</span>
+        <span class="xp-tx"><b>Flight Lab</b><em>Fly the Nanodrone with two sticks and watch the four motors respond.</em><u>Start <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></u></span></a>
       </div>
     </div></div>
   </section>
@@ -1486,6 +1508,7 @@ html:not(.xp-run) #model,html:not(.xp-run) #flightlab,html:not(.xp-run) #demo{di
               <label class="dv-tg">Orbit<input type="checkbox" id="dvOrb" checked><i></i></label>
             </div>
           </div>
+          <p class="xp-tip"><b>Tip</b><span>Drag the model to rotate it. Use + and − to zoom, and tap any part to see what it does.</span></p>
         </aside>
 
         <div class="dv-stage" id="dvStage">
@@ -2032,7 +2055,7 @@ const navLinks=[...document.querySelectorAll(".hnav a")],hnav=document.getElemen
 burger.addEventListener("click",()=>{const o=!hnav.classList.contains("open");hnav.classList.toggle("open",o);burger.setAttribute("aria-expanded",o)});
 navLinks.forEach(a=>a.addEventListener("click",()=>{hnav.classList.remove("open");burger.setAttribute("aria-expanded","false")}));
 document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g){e.preventDefault();const t=document.getElementById(g.dataset.go);if(t)t.scrollIntoView({behavior:"smooth"})}});
-const SECS=["home","try","mission","about","build","highlights","lab","team","film","posters","contact"].map(id=>document.getElementById(id)).filter(Boolean);
+const SECS=["home","about","mission","try","build","highlights","lab","team","film","posters","contact"].map(id=>document.getElementById(id)).filter(Boolean);
 const NAVMAP={build:"about",lab:"highlights",home:null};
 function setActive(id){current=id;const key=id in NAVMAP?NAVMAP[id]:id;navLinks.forEach(a=>a.setAttribute("aria-current",a.getAttribute("href")==="#"+key?"true":"false"))}
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)setActive(e.target.id)})},{rootMargin:"-45% 0px -50% 0px"});
@@ -3348,6 +3371,8 @@ window.FlightLab={
     de.setAttribute("data-xp",EXPO?m:m);de.classList.toggle("xp-run",!!m);
     if(prev==="demo"&&m!=="demo"){var s=$("bStop");if(s&&!s.disabled)s.click()}
     $("xpTtl").textContent=T[m]||"";
+    var seg=document.querySelector(".fl-seg"),hd=document.querySelector("#flightlab .fl-hd");
+    if(seg&&hd){if(m==="flight")$("xpBar").insertBefore(seg,$("xpPhone"));else if(seg.parentNode!==hd)hd.appendChild(seg)}
     closeQr();hideWarn();
     if(EXPO)window.scrollTo(0,0);
     else if(prev&&!m&&saved>=0){var y=saved,sb=de.style.scrollBehavior;de.style.scrollBehavior="auto";window.scrollTo(0,y);setTimeout(function(){window.scrollTo(0,y);de.style.scrollBehavior=sb},60)}
