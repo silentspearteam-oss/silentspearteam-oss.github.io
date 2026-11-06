@@ -1283,7 +1283,7 @@ html.xp-run .xp-back{padding:0 26px 0 20px}
 html.xp-run .xp-bar svg{width:24px;height:24px}
 html.xp-run .xp-ttl{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;line-height:1;top:env(safe-area-inset-top);height:var(--xb);text-align:center;width:max-content;max-width:46vw}
 html.xp-run .xp-ttl b{font:700 28px/1 var(--f-ui);letter-spacing:.06em;text-transform:uppercase}
-html.xp-run .xp-ttl small{font:500 14px/1.1 var(--f-ui);letter-spacing:.04em;color:var(--cyan)}
+html.xp-run .xp-ttl small{white-space:nowrap;font:500 14px/1.1 var(--f-ui);letter-spacing:.04em;color:var(--cyan)}
 html.xp-run .xp-bar .fl-seg button{font-size:17px;min-height:48px}
 .dv-h{font-size:13px}.dv-tg,.dv-cr,.dv-list button{font-size:17px}
 @media (max-width:1100px){html.xp-run .xp-ttl small{display:none}html.xp-run .xp-ttl{max-width:30vw}}
@@ -1309,6 +1309,11 @@ html.xp-run .xp-bar .fl-seg button{font-size:17px;min-height:48px}
 .xp-intro h1{margin-top:14px;color:#BFD9EE;font-size:clamp(34px,5.6vh,60px)}
 @media (orientation:landscape){.xp-hub{--txh:176px}.xp-hub .xp-tx{padding:14px 22px 18px}}
 .xp-foot .xp-ft b{font-size:24px}.xp-foot .xp-ft span{font-size:19px}
+.ov-share{display:flex;align-items:center;gap:12px;margin:14px 0 0;padding:10px 14px;border-left:3px solid var(--cyan);background:rgba(0,188,235,.08);font-size:14px;line-height:1.4;color:var(--silver)}
+.ov-share svg{flex:none;width:24px;height:24px;fill:none;stroke:var(--cyan);stroke-width:1.8;stroke-linejoin:round}
+.ov-share i{display:block;font-style:normal;font-family:var(--f-num);font-size:12px;color:var(--cyan);margin-top:2px}
+html.xp-run .ov-share{font-size:16px}
+html.xp-run .xp-ttl small{white-space:nowrap}
 </style>
 </head>
 <body>
@@ -1736,7 +1741,7 @@ html.xp-run .xp-bar .fl-seg button{font-size:17px;min-height:48px}
             <div class="ov" id="ovIntro">
               <div class="ovc">
                 <div class="eye">KR8.063 · Detection concept</div>
-                <h3>See how the drone spots people</h3>
+                <h3>See how AI spots people</h3>
                 <p>Point your camera at the people around you. A person-detection model draws a box around each person it finds, live.</p>
                 <ul>
                   <li><span><b>Private:</b> runs entirely on your device. No video is uploaded or stored.</span></li>
@@ -1744,6 +1749,7 @@ html.xp-run .xp-bar .fl-seg button{font-size:17px;min-height:48px}
                   <li><span>Your browser will ask for camera permission. Tap Allow.</span></li>
                 </ul>
                 <button class="btn pri" id="bStart">Start camera</button>
+                <p class="ov-share"><svg viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg><span>Snap a mission photo and share it to your story <i>@hct_uae · #KR8063Nanodrone · #SilentSpearTeam</i></span></p>
               </div>
             </div>
             <div class="ov" id="ovBusy" hidden><div class="ovc c"><div class="spin" aria-hidden="true"></div><h3 id="busyT">Requesting camera</h3><p id="busyP">Allow camera access when your browser asks.</p></div></div>
@@ -2197,7 +2203,7 @@ document.querySelectorAll("[data-copy]").forEach(btn=>btn.addEventListener("clic
 
 /* ======================= FILM =======================
    Set FILM_SRC to the film: a YouTube link, or a video file name in the same folder (e.g. "film.mp4"). */
-const FILM_SRC="";
+const FILM_SRC="https://youtu.be/Q_FMs5AfElQ";
 window.FILM={mount(){const box=document.getElementById("filmBox");if(box.dataset.on)return;box.dataset.on=1;const s=FILM_SRC.trim();
   const yt=s.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/);
   if(yt){const f=document.createElement("iframe");f.src="https://www.youtube-nocookie.com/embed/"+yt[1]+"?rel=0&modestbranding=1&playsinline=1";f.allow="autoplay; encrypted-media; picture-in-picture; fullscreen";f.allowFullscreen=true;f.title="KR8.063 Nanodrone film";box.appendChild(f)}
@@ -3406,7 +3412,7 @@ window.FlightLab={
 /* Experience router: expo hub (#xp...) and "Try it yourself" cards on the normal site (#try-...) */
 (function(){
   var de=document.documentElement,EXPO=de.classList.contains("xp-on");
-  var T={model:"3D drone",flight:"Flight Lab",demo:"Live detection"},SUB={model:"Interactive model of the design",flight:"Simulation · not the drone’s real flight controller",demo:"Demo on this screen’s camera · not the drone’s onboard system"};
+  var T={model:"3D drone",flight:"Flight Lab",demo:"Live detection"},SUB={model:"Interactive model of the design",flight:"Simulation · not the real flight controller",demo:"Demo on this screen’s camera · not the drone itself"};
   var Q={hub:"Silent Spear Team site",model:"3D drone",flight:"Flight Lab",demo:"Live detection"};
   var $=function(i){return document.getElementById(i)};
   var cur=null,saved=0,from=false,idleT=0,warnT=0,IDLE=60e3,WARN=12e3;
