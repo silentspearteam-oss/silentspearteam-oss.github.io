@@ -179,7 +179,7 @@ m=document.createElement("meta");m.name="apple-mobile-web-app-title";m.content="
 .ms-chips span:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
 .ms-prog{position:absolute;right:max(3vw,20px);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:22px;font-family:var(--f-num);font-size:11px;letter-spacing:.14em;color:#6E7D90;text-transform:uppercase}
 .ms-prog div{display:flex;align-items:center;gap:10px;justify-content:flex-end;transition:color .3s}
-.ms-prog i{width:8px;height:8px;border-radius:50%;border:1.5px solid #304259;transition:all .3s}
+.ms-prog i{width:8px;height:8px;border-radius:50%;border:1.5px solid #304259;transition:transform .3s,opacity .3s}
 .ms-prog .on{color:#fff}.ms-prog .on i{background:var(--cyan);border-color:var(--cyan);box-shadow:0 0 10px var(--cyan)}
 .ms-prog .done i{background:var(--blue);border-color:var(--blue)}
 .ms-foot{position:absolute;left:max(6.5vw,24px);bottom:26px;font-family:var(--f-num);font-size:11px;letter-spacing:.14em;color:#6E7D90;text-transform:uppercase}
@@ -288,6 +288,7 @@ section.view{padding-block:var(--s5) 0}
 .zchip{background:rgba(0,0,0,.6);padding:2px var(--s2)}
 .controls{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:var(--s2)}
 @media (max-width:600px){.controls{grid-template-columns:1fr 1fr}.btn{padding:0 var(--s2);font-size:13px;letter-spacing:.08em}}
+.btn:active{transform:scale(.97)}
 .btn{white-space:nowrap;font-family:var(--f-ui);font-weight:700;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--text);background:var(--panel2);border:1px solid var(--border);padding:0 var(--s4);min-height:44px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:var(--s2)}
 .btn:hover{border-color:var(--blue)}
 .btn.pri{background:var(--blue);border-color:var(--blue);color:#fff}
@@ -1333,6 +1334,7 @@ html.xp-run .xp-ttl small{white-space:nowrap}
       <a href="#about">About</a>
       <a href="#mission">Mission</a>
       <a href="#try">Experiences</a>
+      <a href="#flightlab">Flight Lab</a>
       <a href="#highlights">Highlights</a>
       <a href="#team">Team</a>
       <a href="#film">Film</a>
@@ -1477,7 +1479,7 @@ html.xp-run .xp-ttl small{white-space:nowrap}
   <!-- ===================== TRY IT YOURSELF ===================== -->
   <section class="sec try" id="try" aria-label="Interactive experiences">
     <div class="gut"><div class="in">
-      <div class="pagehead"><div class="kicker">Interactive experiences</div><h1 class="h1">Try the KR8.063 yourself</h1><p>Three hands-on experiences. Tap a card to open it full screen, then use Back to return here.</p></div>
+      <div class="pagehead"><div class="kicker">Interactive experiences</div><h2 class="h1">Try the KR8.063 yourself</h2><p>Three hands-on experiences. Tap a card to open it full screen, then use Back to return here.</p></div>
       <div class="xp-tiles">
 <a class="xp-tile" href="#try-demo"><picture><source media="(orientation:portrait)"><img alt=""></picture><span class="xp-n">01</span><span class="xp-kind">Demo</span>
         <span class="xp-tx"><b>Live detection</b><em>See how AI spots people, using this screen’s camera.</em><u>Start <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></u></span></a>
@@ -1713,7 +1715,7 @@ html.xp-run .xp-ttl small{white-space:nowrap}
   <section class="sec" id="demo">
     <div class="gut"><div class="in">
 
-    <div class="pagehead"><div class="kicker">Live demo</div><h1 class="h1">Person detection</h1><p>Try the detection concept with your own camera. Everything runs on your device.</p></div>
+    <div class="pagehead"><div class="kicker">Live demo</div><h2 class="h1">Person detection</h2><p>Try the detection concept with your own camera. Everything runs on your device.</p></div>
     <div class="banner"><b>Live demo of the detection concept</b><span>General pre-trained model · Not the drone's onboard system</span></div>
     <div class="snapcard">
       <div class="snap-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.6"/></svg></div>
@@ -1815,7 +1817,7 @@ html.xp-run .xp-ttl small{white-space:nowrap}
   <section class="sec" id="highlights">
     <div class="gut"><div class="in">
 
-    <div class="pagehead"><div class="kicker">Highlights</div><h1 class="h1">Visits &amp; showcases</h1><p>Moments from presenting the KR8.063 Nanodrone to leaders, partners and guests.</p></div>
+    <div class="pagehead"><div class="kicker">Highlights</div><h2 class="h1">Visits &amp; showcases</h2><p>Moments from presenting the KR8.063 Nanodrone to leaders, partners and guests.</p></div>
 
     <article class="feat">
       <button class="feat-img zoomable" data-img="img/nahyan.jpg" aria-label="View photo full size"><img decoding="async" src="img/nahyan-v.jpg" alt="H.E. Sheikh Nahyan bin Mubarak Al Nahyan and H.E. Dr. Zaki Anwar Nusseibeh at the Silent Spear Team stand" loading="lazy"></button>
@@ -1907,7 +1909,7 @@ html.xp-run .xp-ttl small{white-space:nowrap}
   <section class="sec" id="team">
     <div class="gut"><div class="in">
 
-    <div class="pagehead"><div class="kicker">Our team</div><h1 class="h1">Silent Spear Team</h1><p>Ten mechanical and electrical engineering students from the Higher Colleges of Technology, working across mechanical design, electronics, embedded systems, software, AI and system integration.</p></div>
+    <div class="pagehead"><div class="kicker">Our team</div><h2 class="h1">Silent Spear Team</h2><p>Ten mechanical and electrical engineering students from the Higher Colleges of Technology, working across mechanical design, electronics, embedded systems, software, AI and system integration.</p></div>
 
     <figure class="teamshot"><button class="zoomable" data-img="img/team-group.jpg" aria-label="View team photo full size"><img decoding="async" src="img/team-group-v.jpg" alt="Silent Spear Team members together" loading="lazy"></button></figure>
     <div class="tgroup">
@@ -1959,7 +1961,7 @@ html.xp-run .xp-ttl small{white-space:nowrap}
   <section class="sec" id="film">
     <div class="gut"><div class="in">
 
-    <div class="pagehead"><div class="kicker">Film</div><h1 class="h1">KR8.063 Nanodrone</h1><p>The project film by Silent Spear Team.</p></div>
+    <div class="pagehead"><div class="kicker">Film</div><h2 class="h1">KR8.063 Nanodrone</h2><p>The project film by Silent Spear Team.</p></div>
     <div class="frame film">
       <div class="filmbox" id="filmBox"></div>
       <span class="br a"></span><span class="br b"></span><span class="br c"></span><span class="br d"></span>
@@ -1971,7 +1973,7 @@ html.xp-run .xp-ttl small{white-space:nowrap}
   <section class="sec alt" id="posters">
     <div class="gut"><div class="in">
 
-    <div class="pagehead"><div class="kicker">Poster library</div><h1 class="h1">Learning about UAVs</h1><p>Educational posters by Silent Spear Team that support learning, research and public engagement in UAV technologies. Tap a poster to view it full size.</p></div>
+    <div class="pagehead"><div class="kicker">Poster library</div><h2 class="h1">Learning about UAVs</h2><p>Educational posters by Silent Spear Team that support learning, research and public engagement in UAV technologies. Tap a poster to view it full size.</p></div>
     <div class="pgrid" id="pgrid"></div>
     </div></div>
   </section>
