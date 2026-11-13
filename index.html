@@ -24,6 +24,7 @@ m=document.createElement("meta");m.name="apple-mobile-web-app-title";m.content="
 </script>
 <link rel="canonical" href="https://silentspearteam-oss.github.io/">
 <link rel="preload" as="image" href="img/drone-hd.webp" imagesrcset="img/drone.webp 1513w, img/drone-hd.webp 2200w" imagesizes="100vw" fetchpriority="high">
+
 <meta name="description" content="Silent Spear Team at the Higher Colleges of Technology (HCT) builds the KR8.063 Nanodrone, an indoor reconnaissance nano drone, with Kre8+. فريق سايلنت سبير، كليات التقنية العليا.">
 <meta name="keywords" content="Silent Spear Team, Silent Spear HCT, Silent Spear, KR8.063 Nanodrone, nanodrone, nano drone, indoor drone, UAV, HCT, Higher Colleges of Technology, Kre8+, Kre8 plus, Kre8+ HCT, Kre8+ drone, Kre8+ Silent Spear, person detection, capstone, كليات التقنية العليا, سايلنت سبير, نانو درون, درون">
 <meta property="og:type" content="website">
@@ -2469,7 +2470,6 @@ async function loadModel(){setModelState("loading");
     setModelState("ready");return S.model}
   catch(e){console.error(e);setModelState("error");throw e}}
 
-window.addEventListener('load',function(){if('IntersectionObserver' in window){var _pt=document.getElementById('mission');if(_pt){var _po=new IntersectionObserver(function(e){if(e[0].isIntersecting){_po.disconnect();ensureModel().catch(function(){})}},{rootMargin:'300px'});_po.observe(_pt)}}});
 async function openCam(){const c={audio:false,video:{facingMode:{ideal:S.facing},width:{ideal:640},height:{ideal:480},frameRate:{ideal:30}}};
   const st=await navigator.mediaDevices.getUserMedia(c);S.stream=st;video.srcObject=st;
   await new Promise(r=>{if(video.readyState>=1)r();else video.onloadedmetadata=()=>r()});await video.play().catch(()=>{});
@@ -2564,7 +2564,7 @@ function prefetch(){
 (function(){
   const c=navigator.connection;if(c&&(c.saveData||/(^|-)2g$/.test(c.effectiveType||"")))return;
   let go=false;const kick=()=>{if(go||S.model)return;go=true;prefetch()};
-  const demo=document.getElementById("demo");
+  const demo=document.getElementById("mission");
   if(demo&&"IntersectionObserver" in window){const io=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){io.disconnect();kick()}},{rootMargin:"900px 0px"});io.observe(demo)}
   const idle=window.requestIdleCallback||(f=>setTimeout(f,1));
 })();
