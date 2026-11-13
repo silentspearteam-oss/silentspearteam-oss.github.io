@@ -2469,7 +2469,7 @@ async function loadModel(){setModelState("loading");
     setModelState("ready");return S.model}
   catch(e){console.error(e);setModelState("error");throw e}}
 
-if('IntersectionObserver' in window){var _pt=document.getElementById('mission');if(_pt){var _po=new IntersectionObserver(function(e){if(e[0].isIntersecting){_po.disconnect();ensureModel().catch(function(){})}},{rootMargin:'300px'});_po.observe(_pt)}}
+window.addEventListener('load',function(){if('IntersectionObserver' in window){var _pt=document.getElementById('mission');if(_pt){var _po=new IntersectionObserver(function(e){if(e[0].isIntersecting){_po.disconnect();ensureModel().catch(function(){})}},{rootMargin:'300px'});_po.observe(_pt)}}});
 async function openCam(){const c={audio:false,video:{facingMode:{ideal:S.facing},width:{ideal:640},height:{ideal:480},frameRate:{ideal:30}}};
   const st=await navigator.mediaDevices.getUserMedia(c);S.stream=st;video.srcObject=st;
   await new Promise(r=>{if(video.readyState>=1)r();else video.onloadedmetadata=()=>r()});await video.play().catch(()=>{});
