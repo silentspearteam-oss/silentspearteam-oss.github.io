@@ -1512,16 +1512,6 @@ html.sst-intro.sst-out .hero2 .partners{transition-delay:.95s}
 @keyframes siFail{to{opacity:0;visibility:hidden}}
 @keyframes siShow{to{opacity:1;transform:none}}
 
-/* ===== Exploded view on scroll (see seq.js) ===== */
-.xseq{margin:0 auto var(--s6);max-width:min(960px,100%,calc((100vh - 240px)*1.5))}
-.xseq-v{position:relative;aspect-ratio:3/2;-webkit-mask-image:radial-gradient(ellipse 52% 56% at 50% 50%,#000 68%,transparent 100%);mask-image:radial-gradient(ellipse 52% 56% at 50% 50%,#000 68%,transparent 100%)}
-.xseq-v img,.xseq-v canvas{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
-.xseq-v canvas{opacity:0}
-.xseq.on .xseq-v canvas{opacity:1}
-.xseq-cap{display:flex;align-items:center;justify-content:center;gap:var(--s4);flex-wrap:wrap;margin-top:calc(var(--s3) * -1);position:relative}
-.xseq-cap span{font-family:var(--f-ui);font-weight:600;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--silver)}
-html[lang=ar] .xseq-cap span{letter-spacing:0;font-size:15px}
-
 </style>
 <script>(function(){try{var d=document.documentElement,f=/[?&]intro\b/.test(location.search);if(d.classList.contains("xp-on"))return;if(!f){if(location.hash&&location.hash!=="#home")return;if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;if(sessionStorage.getItem("sst-intro"))return}sessionStorage.setItem("sst-intro","1");d.classList.add("sst-intro")}catch(e){}})();</script>
 </head>
@@ -1723,7 +1713,6 @@ html[lang=ar] .xseq-cap span{letter-spacing:0;font-size:15px}
   <section class="sec" id="build">
     <div class="gut"><div class="in">
       <div class="sechead"><div class="kicker">What we build</div><h2>Three divisions, one platform</h2></div>
-      <div class="xseq" id="xseq"><div class="xseq-v"><img decoding="async" loading="lazy" src="img/seq/l27.webp" srcset="img/seq/s27.webp 600w, img/seq/l27.webp 960w" sizes="(max-width:700px) 100vw, 960px" width="960" height="640" alt="Exploded view of the KR8.063 Nanodrone 3D model, showing its eight components"><canvas aria-hidden="true"></canvas></div><div class="xseq-cap"><span>Exploded view · 3D model</span><a class="btn" href="#try-model">Explore in 3D</a></div></div>
       <div class="icards">
         <article class="icard"><div class="icard-img"><img decoding="async" src="img/build/mech-frames-v.webp" alt="Prototype drones and 3D-printed airframes in different materials" loading="lazy" width="1100" height="688"></div><div class="icard-b"><div class="icard-h"><img decoding="async" class="divic" src="img/div-mech.png" alt="" width="240" height="219"><div><div class="lbl">Mechanical Engineering</div><h3>Mechanical Design</h3></div></div><p>Airframe studies, 3D-printed in different materials and designs. Structural analysis, mounting, weight and centre-of-gravity optimisation.</p></div></article>
         <article class="icard"><div class="icard-img"><img decoding="async" src="img/build/hw-assembly-v.webp" alt="Assembling the Crazyflie motors and propellers by hand" loading="lazy" width="806" height="504"></div><div class="icard-b"><div class="icard-h"><img decoding="async" class="divic" src="img/div-hw.png" alt="" width="240" height="240"><div><div class="lbl">Electrical Engineering</div><h3>Hardware &amp; Electronics</h3></div></div><p>Sensors, motors, power and flight-control integration. Wiring, embedded hardware and validation.</p></div></article>
@@ -3924,42 +3913,6 @@ skip.addEventListener("click",function(e){e.stopPropagation();finish()});
 skip.addEventListener("pointerdown",function(e){e.stopPropagation()});
 
 try{raf=requestAnimationFrame(frame)}catch(_){cleanup()}
-})();
-
-</script>
-<script id="sst-seq-js">
-/* Exploded view that opens as the visitor scrolls past it. Pre-rendered frames from the site's own 3D viewer:
-   no WebGL and no scroll lock here, only one small image drawn when the frame changes. */
-(function(){
-"use strict";
-var el=document.getElementById("xseq");if(!el)return;
-var cv=el.querySelector("canvas"),im=el.querySelector("img"),ctx=cv.getContext&&cv.getContext("2d");
-var c=navigator.connection,lite=c&&(c.saveData||/(^|-)2g$/.test(c.effectiveType||""));
-if(!ctx||!("IntersectionObserver" in window)||lite||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
-var N=28,big=el.clientWidth*Math.min(window.devicePixelRatio||1,2)>660,set=big?"l":"s";
-cv.width=big?960:600;cv.height=big?640:400;
-function url(i){return "img/seq/"+set+(i<10?"0":"")+i+".webp"}
-im.removeAttribute("srcset");im.src=url(0);
-var fr=new Array(N),started=false,cur=-1,want=0,tick=false,on=false;
-function draw(){
-  var i=want;while(i>0&&!fr[i])i--;
-  if(!fr[i]||i===cur)return;
-  ctx.drawImage(fr[i],0,0,cv.width,cv.height);cur=i;el.classList.add("on");
-}
-function load(){
-  if(started)return;started=true;
-  for(var i=0;i<N;i++)(function(i){var g=new Image();g.decoding="async";g.onload=function(){fr[i]=g;if(i<=want)draw()};g.src=url(i)})(i);
-}
-function calc(){
-  tick=false;
-  var r=el.getBoundingClientRect(),vh=window.innerHeight,a=vh*.92,b=Math.max(0,(vh-r.height)/2);
-  var p=(a-r.top)/Math.max(1,a-b);p=p<0?0:p>1?1:p;
-  want=Math.round(p*(N-1));draw();
-}
-function req(){if(!tick&&on){tick=true;requestAnimationFrame(calc)}}
-new IntersectionObserver(function(es,io){if(es[0].isIntersecting){io.disconnect();load()}},{rootMargin:"1200px 0px"}).observe(el);
-new IntersectionObserver(function(es){on=es[0].isIntersecting;if(on)req()},{rootMargin:"80px 0px"}).observe(el);
-window.addEventListener("scroll",req,{passive:true});window.addEventListener("resize",req);
 })();
 
 </script>
