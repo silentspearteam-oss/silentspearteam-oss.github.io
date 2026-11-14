@@ -1481,11 +1481,54 @@ html[lang=ar] #try .xp-tx u svg{transform:scaleX(-1)}
   .c-ss{width:min(100%,220px)}
 }
 
+/* ===== Opening sequence (html.sst-intro only; see intro.js) ===== */
+#sstIntro{display:none}
+html.sst-intro #sstIntro{display:block;position:fixed;inset:0;z-index:95;background:#05080D;touch-action:none;-webkit-user-select:none;user-select:none;cursor:pointer;animation:siFail .6s 11s forwards}
+html.sst-intro #sstIntro.live{background:transparent}
+#sstIntro canvas{display:block;width:100%;height:100%}
+#sstIntro.out{pointer-events:none}
+.si-q,.si-h{position:absolute;left:0;right:0;margin:0;padding:0 24px;text-align:center;font-family:var(--f-ui);text-transform:uppercase;opacity:0;transition:opacity .9s ease}
+.si-q{bottom:calc(20% + 30px);font-weight:600;font-size:clamp(15px,2.3vw,22px);letter-spacing:.32em;color:#E6EDF5;text-shadow:0 2px 18px #05080D}
+.si-h{bottom:20%;font-weight:500;font-size:12px;letter-spacing:.22em;color:#8FA0B3}
+#sstIntro.live .si-q{opacity:1;transition-delay:.45s}
+#sstIntro.live .si-h{opacity:1;transition-delay:1.3s}
+#sstIntro.out .si-q,#sstIntro.out .si-h,#sstIntro.out .si-skip{opacity:0;transition:opacity .25s ease;transition-delay:0s}
+.si-skip{position:absolute;inset-inline-end:max(14px,env(safe-area-inset-right));bottom:max(14px,env(safe-area-inset-bottom));min-height:44px;padding:0 18px;border:1px solid rgba(143,160,179,.35);border-radius:0;background:rgba(5,8,13,.55);color:#C9D3DF;font:600 12px/1 var(--f-ui);letter-spacing:.2em;text-transform:uppercase;cursor:pointer;opacity:0;transition:opacity .6s ease}
+#sstIntro.live .si-skip{opacity:1;transition-delay:.8s}
+.si-skip:hover,.si-skip:focus-visible{border-color:var(--cyan);color:#fff}
+#sstIntro[lang=ar] .si-q,#sstIntro[lang=ar] .si-h,#sstIntro[lang=ar] .si-skip{letter-spacing:0;font-family:"IBM Plex Sans Arabic",var(--f-ui)}
+#sstIntro[lang=ar] .si-q{font-size:clamp(20px,3vw,28px)}
+#sstIntro[lang=ar] .si-h,#sstIntro[lang=ar] .si-skip{font-size:14px}
+html.sst-intro:not(.sst-out),html.sst-intro:not(.sst-out) body{overflow:hidden}
+html.sst-intro .hero2-main>*,html.sst-intro .hero2 .partners{opacity:0;transform:translateY(16px);animation:siShow .6s 11s forwards}
+html.sst-intro.sst-out .hero2-main>*,html.sst-intro.sst-out .hero2 .partners{opacity:1;transform:none;animation:none;transition:opacity .7s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+html.sst-intro.sst-out .hero2-main>:nth-child(1){transition-delay:.25s}
+html.sst-intro.sst-out .hero2-main>:nth-child(2){transition-delay:.33s}
+html.sst-intro.sst-out .hero2-main>:nth-child(3){transition-delay:.41s}
+html.sst-intro.sst-out .hero2-main>:nth-child(4){transition-delay:.49s}
+html.sst-intro.sst-out .hero2-main>:nth-child(5){transition-delay:.75s}
+html.sst-intro.sst-out .hero2-main>:nth-child(6){transition-delay:.95s}
+html.sst-intro.sst-out .hero2 .partners{transition-delay:.95s}
+@keyframes siFail{to{opacity:0;visibility:hidden}}
+@keyframes siShow{to{opacity:1;transform:none}}
+
+/* ===== Exploded view on scroll (see seq.js) ===== */
+.xseq{margin:0 auto var(--s6);max-width:min(960px,100%,calc((100vh - 240px)*1.5))}
+.xseq-v{position:relative;aspect-ratio:3/2;-webkit-mask-image:radial-gradient(ellipse 52% 56% at 50% 50%,#000 68%,transparent 100%);mask-image:radial-gradient(ellipse 52% 56% at 50% 50%,#000 68%,transparent 100%)}
+.xseq-v img,.xseq-v canvas{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
+.xseq-v canvas{opacity:0}
+.xseq.on .xseq-v canvas{opacity:1}
+.xseq-cap{display:flex;align-items:center;justify-content:center;gap:var(--s4);flex-wrap:wrap;margin-top:calc(var(--s3) * -1);position:relative}
+.xseq-cap span{font-family:var(--f-ui);font-weight:600;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--silver)}
+html[lang=ar] .xseq-cap span{letter-spacing:0;font-size:15px}
+
 </style>
+<script>(function(){try{var d=document.documentElement,f=/[?&]intro\b/.test(location.search);if(d.classList.contains("xp-on"))return;if(!f){if(location.hash&&location.hash!=="#home")return;if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;if(sessionStorage.getItem("sst-intro"))return}sessionStorage.setItem("sst-intro","1");d.classList.add("sst-intro")}catch(e){}})();</script>
 </head>
 <body>
 
 
+<div id="sstIntro"><canvas aria-hidden="true"></canvas><p class="si-q"></p><p class="si-h"></p><button class="si-skip" type="button"></button></div>
 <div class="preloader" id="preloader" role="status" aria-live="polite">
   <div class="pl-in">
     <img decoding="async" class="pl-logo" src="img/ss-lock-w.png" alt="Silent Spear Team" width="900" height="258">
@@ -1680,6 +1723,7 @@ html[lang=ar] #try .xp-tx u svg{transform:scaleX(-1)}
   <section class="sec" id="build">
     <div class="gut"><div class="in">
       <div class="sechead"><div class="kicker">What we build</div><h2>Three divisions, one platform</h2></div>
+      <div class="xseq" id="xseq"><div class="xseq-v"><img decoding="async" loading="lazy" src="img/seq/l27.webp" srcset="img/seq/s27.webp 600w, img/seq/l27.webp 960w" sizes="(max-width:700px) 100vw, 960px" width="960" height="640" alt="Exploded view of the KR8.063 Nanodrone 3D model, showing its eight components"><canvas aria-hidden="true"></canvas></div><div class="xseq-cap"><span>Exploded view · 3D model</span><a class="btn" href="#try-model">Explore in 3D</a></div></div>
       <div class="icards">
         <article class="icard"><div class="icard-img"><img decoding="async" src="img/build/mech-frames-v.webp" alt="Prototype drones and 3D-printed airframes in different materials" loading="lazy" width="1100" height="688"></div><div class="icard-b"><div class="icard-h"><img decoding="async" class="divic" src="img/div-mech.png" alt="" width="240" height="219"><div><div class="lbl">Mechanical Engineering</div><h3>Mechanical Design</h3></div></div><p>Airframe studies, 3D-printed in different materials and designs. Structural analysis, mounting, weight and centre-of-gravity optimisation.</p></div></article>
         <article class="icard"><div class="icard-img"><img decoding="async" src="img/build/hw-assembly-v.webp" alt="Assembling the Crazyflie motors and propellers by hand" loading="lazy" width="806" height="504"></div><div class="icard-b"><div class="icard-h"><img decoding="async" class="divic" src="img/div-hw.png" alt="" width="240" height="240"><div><div class="lbl">Electrical Engineering</div><h3>Hardware &amp; Electronics</h3></div></div><p>Sensors, motors, power and flight-control integration. Wiring, embedded hardware and validation.</p></div></article>
@@ -3673,7 +3717,7 @@ var AR={
 "Start":"ابدأ","3D model":"مجسم ثلاثي الأبعاد","3D drone":"الدرون ثلاثي الأبعاد","Spin the 3D model and tap any part.":"دوّر المجسم واضغط على أي قطعة.",
 "Simulation":"محاكاة","Flight Lab":"مختبر الطيران","Fly a simulated Nanodrone with two sticks.":"طيّر درونًا افتراضيًا بعصاتَي تحكم.",
 "Our inspiration":"مصدر إلهامنا","Words that drive us":"كلمات تلهمنا",
-"What we build":"ما نبنيه","Three divisions, one platform":"ثلاثة أقسام، منصة واحدة",
+"What we build":"ما نبنيه","Exploded view · 3D model":"عرض مفكك · مجسّم ثلاثي الأبعاد","Explore in 3D":"استكشف المجسّم","Three divisions, one platform":"ثلاثة أقسام، منصة واحدة",
 "Mechanical Engineering":"الهندسة الميكانيكية","Electrical Engineering":"الهندسة الكهربائية",
 "Mechanical Design":"التصميم الميكانيكي","Hardware & Electronics":"العتاد والإلكترونيات","Software & AI":"البرمجيات والذكاء الاصطناعي",
 "Airframe studies, 3D-printed in different materials and designs. Structural analysis, mounting, weight and centre-of-gravity optimisation.":"دراسات للهيكل مطبوعة بالطباعة ثلاثية الأبعاد بمواد وتصاميم مختلفة. تحليل إنشائي، وتثبيت القطع، وتحسين الوزن ومركز الثقل.",
@@ -3786,6 +3830,136 @@ if("MutationObserver" in window){var t=0;new MutationObserver(function(ms){if(la
 /* start: ?lang=ar in the link, otherwise the visitor's last choice; the exhibition kiosk stays in English */
 var want=null;try{want=(location.search.match(/[?&]lang=(ar|en)\b/)||[])[1]||localStorage.getItem(KEY)}catch(e){}
 if(want==="ar"&&!de.classList.contains("xp-on"))set("ar",false);
+})();
+
+</script>
+<script id="sst-intro-js">
+/* Opening sequence: a dark room and one light. Runs once per session, never in kiosk mode,
+   never with reduced motion, never on deep links. Any tap, click, key or scroll ends it. */
+(function(){
+"use strict";
+var de=document.documentElement,box=document.getElementById("sstIntro");
+if(!box)return;
+if(!de.classList.contains("sst-intro")){box.remove();return}
+var cv=box.querySelector("canvas"),ctx=cv&&cv.getContext&&cv.getContext("2d");
+function cleanup(){de.classList.remove("sst-intro","sst-out");if(box.parentNode)box.remove()}
+if(!ctx){cleanup();return}
+
+var ar=de.lang==="ar";
+if(ar){box.dir="rtl";box.lang="ar"}
+box.querySelector(".si-q").textContent=ar?"من يدخل أولًا؟":"Who goes in first?";
+var touch=matchMedia("(pointer:coarse)").matches;
+box.querySelector(".si-h").textContent=ar?(touch?"اسحب لتحريك الضوء":"حرّك المؤشر لتحريك الضوء"):(touch?"Drag to move the light":"Move to look around");
+var skip=box.querySelector(".si-skip");skip.textContent=ar?"تخطي":"Skip";
+
+var W=0,H=0,S=4,cw=0,ch=0;
+function size(){W=window.innerWidth;H=window.innerHeight;S=Math.max(3,Math.ceil(Math.max(W,H)/360));cw=cv.width=Math.ceil(W/S);ch=cv.height=Math.ceil(H/S)}
+size();window.addEventListener("resize",size);
+
+var IDLE=3000,HOLD=900,CAP=6500,OUT=1100,DARK=.99;
+var t0=0,tOut=0,lastMove=-1e9,manual=false,done=false,raf=0;
+var x=W*.3,y=H*.5,tx=x,ty=y;
+
+function flick(t){return t<120?0:t<200?.9:t<260?.25:t<340?1:t<380?.6:1}
+function ease(k){return k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2}
+
+function draw(px,py,r,dark){
+  ctx.globalCompositeOperation="source-over";ctx.clearRect(0,0,cw,ch);
+  ctx.fillStyle="rgba(5,8,13,"+dark+")";ctx.fillRect(0,0,cw,ch);
+  if(r<=0)return;
+  var gx=px/S,gy=py/S,gr=r/S,g=ctx.createRadialGradient(gx,gy,0,gx,gy,gr);
+  g.addColorStop(0,"rgba(0,0,0,1)");g.addColorStop(.38,"rgba(0,0,0,.9)");g.addColorStop(.72,"rgba(0,0,0,.32)");g.addColorStop(1,"rgba(0,0,0,0)");
+  ctx.globalCompositeOperation="destination-out";ctx.fillStyle=g;ctx.fillRect(0,0,cw,ch);
+  var h=ctx.createRadialGradient(gx,gy,gr*.5,gx,gy,gr*1.12);
+  h.addColorStop(0,"rgba(120,215,255,0)");h.addColorStop(.72,"rgba(120,215,255,.05)");h.addColorStop(1,"rgba(120,215,255,0)");
+  ctx.globalCompositeOperation="source-over";ctx.fillStyle=h;ctx.fillRect(0,0,cw,ch);
+}
+
+function finish(){
+  if(tOut)return;tOut=performance.now();
+  de.classList.add("sst-out");box.classList.add("out");
+  off();
+}
+function end(){
+  if(done)return;done=true;cancelAnimationFrame(raf);window.removeEventListener("resize",size);
+  if(box.parentNode)box.remove();
+  setTimeout(function(){de.classList.remove("sst-intro","sst-out")},1900);
+}
+
+function frame(now){
+  if(done)return;
+  raf=requestAnimationFrame(frame);
+  if(de.classList.contains("loading")){draw(0,0,0,1);return}
+  if(!t0){t0=now;box.classList.add("live")}
+  var t=now-t0,base=Math.min(W,H)*(W<700?.42:.3);
+  if(!tOut){
+    if(!manual){var a=t/1000;tx=W*(.5+.26*Math.sin(a*.85-1.1));ty=H*(.46+.14*Math.sin(a*1.5+.4))}
+    x+=(tx-x)*.14;y+=(ty-y)*.14;
+    draw(x,y,base*flick(t)*(1+.02*Math.sin(t/260)),DARK);
+    if(t>CAP||(t>IDLE&&now-lastMove>HOLD))finish();
+    return;
+  }
+  var k=Math.min(1,(now-tOut)/OUT),e=ease(k),full=Math.hypot(W,H)*1.25;
+  x+=(tx-x)*.14;y+=(ty-y)*.14;
+  draw(x,y,base+(full-base)*e,DARK*(1-e*.55));
+  cv.style.opacity=k<.55?"1":String(1-(k-.55)/.45);
+  if(k>=1)end();
+}
+
+var dn=null;
+function mv(e){tx=e.clientX;ty=e.clientY;manual=true;lastMove=performance.now()}
+function pd(e){dn={x:e.clientX,y:e.clientY,t:performance.now()};if(e.pointerType!=="mouse")mv(e)}
+function pu(e){if(!dn)return;var d=Math.hypot(e.clientX-dn.x,e.clientY-dn.y),q=performance.now()-dn.t;dn=null;if(e.pointerType==="mouse"||(d<12&&q<450))finish()}
+function ky(e){if(e.key==="Tab"||e.key==="Shift"||e.metaKey||e.ctrlKey||e.altKey)return;finish()}
+function vis(){if(document.hidden){finish();end()}}
+function off(){
+  window.removeEventListener("pointermove",mv);box.removeEventListener("pointerdown",pd);box.removeEventListener("pointerup",pu);
+  window.removeEventListener("wheel",finish);window.removeEventListener("keydown",ky);document.removeEventListener("visibilitychange",vis);
+}
+window.addEventListener("pointermove",mv,{passive:true});
+box.addEventListener("pointerdown",pd);box.addEventListener("pointerup",pu);
+window.addEventListener("wheel",finish,{passive:true});window.addEventListener("keydown",ky);
+document.addEventListener("visibilitychange",vis);
+skip.addEventListener("click",function(e){e.stopPropagation();finish()});
+skip.addEventListener("pointerdown",function(e){e.stopPropagation()});
+
+try{raf=requestAnimationFrame(frame)}catch(_){cleanup()}
+})();
+
+</script>
+<script id="sst-seq-js">
+/* Exploded view that opens as the visitor scrolls past it. Pre-rendered frames from the site's own 3D viewer:
+   no WebGL and no scroll lock here, only one small image drawn when the frame changes. */
+(function(){
+"use strict";
+var el=document.getElementById("xseq");if(!el)return;
+var cv=el.querySelector("canvas"),im=el.querySelector("img"),ctx=cv.getContext&&cv.getContext("2d");
+var c=navigator.connection,lite=c&&(c.saveData||/(^|-)2g$/.test(c.effectiveType||""));
+if(!ctx||!("IntersectionObserver" in window)||lite||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+var N=28,big=el.clientWidth*Math.min(window.devicePixelRatio||1,2)>660,set=big?"l":"s";
+cv.width=big?960:600;cv.height=big?640:400;
+function url(i){return "img/seq/"+set+(i<10?"0":"")+i+".webp"}
+im.removeAttribute("srcset");im.src=url(0);
+var fr=new Array(N),started=false,cur=-1,want=0,tick=false,on=false;
+function draw(){
+  var i=want;while(i>0&&!fr[i])i--;
+  if(!fr[i]||i===cur)return;
+  ctx.drawImage(fr[i],0,0,cv.width,cv.height);cur=i;el.classList.add("on");
+}
+function load(){
+  if(started)return;started=true;
+  for(var i=0;i<N;i++)(function(i){var g=new Image();g.decoding="async";g.onload=function(){fr[i]=g;if(i<=want)draw()};g.src=url(i)})(i);
+}
+function calc(){
+  tick=false;
+  var r=el.getBoundingClientRect(),vh=window.innerHeight,a=vh*.92,b=Math.max(0,(vh-r.height)/2);
+  var p=(a-r.top)/Math.max(1,a-b);p=p<0?0:p>1?1:p;
+  want=Math.round(p*(N-1));draw();
+}
+function req(){if(!tick&&on){tick=true;requestAnimationFrame(calc)}}
+new IntersectionObserver(function(es,io){if(es[0].isIntersecting){io.disconnect();load()}},{rootMargin:"1200px 0px"}).observe(el);
+new IntersectionObserver(function(es){on=es[0].isIntersecting;if(on)req()},{rootMargin:"80px 0px"}).observe(el);
+window.addEventListener("scroll",req,{passive:true});window.addEventListener("resize",req);
 })();
 
 </script>
